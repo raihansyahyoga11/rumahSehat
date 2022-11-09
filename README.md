@@ -34,7 +34,6 @@
 | ----------| --- | ---------- | 
 | 2006483031 | Raihansyah Yoga Adhitama | 1 2 3 4 5 |
 | 2006464423 | Dominikus Kern Bunardi  | 12 13 14|
-
 | 2006463843| Hilmi Al Biruni | 15 16 17 |
 | 1906399064 | Ahmad Aminullah Alfiyanto | 6, 7, 8 |
 | 2006482773 | Alfina Azaria | 9, 10, 11 |
