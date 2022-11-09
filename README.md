@@ -27,7 +27,8 @@
 | 2006463843| Hilmi Al Biruni | 15 16 17 |
 | 1906399064 | Ahmad Aminullah Alfiyanto | 6, 7, 8 |
 | 2006482773 | Alfina Azaria | 9, 10, 11 |
-—
+
+---
 **Kontrak Tahap 3 Tugas Akhir**
 
 | NPM | Nama Lengkap | Fitur yang akan diselesaikan  |
