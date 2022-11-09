@@ -3,8 +3,8 @@
 * **Raihansyah Yoga Adhitama** - *2006483031* - *B*
 * **Dominikus Kern Bunardi** - *2006464423* - *B*
 * **Hilmi Al Biruni** - *2006463843* - *B*
-* **Nama 2** - *190xxx* - *kelas*
-* **Nama 2** - *190xxx* - *kelas*
+* **Ahmad Aminullah Alfiyanto** - *1906399064* - *B*
+* **Alfina Azaria** - *2006482773* - *B*
 
 ---
 **Kontrak Tahap 1 Tugas Akhir**
