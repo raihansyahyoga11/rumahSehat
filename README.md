@@ -11,31 +11,31 @@
 
 | NPM | Nama Lengkap | Fitur yang akan diselesaikan  |
 | ----------| --- | ---------- | 
-| 2006483031 | Raihansyah Yoga Adhitama | 1 2 3 4 5 |
-| 2006464423 | Dominikus Kern Bunardi  | 12 13 14|
-| 2006463843| Hilmi Al Biruni | 15 16 17 |
-| 1906399064 | Ahmad Aminullah Alfiyanto | 6, 7, 8 |
-| 2006482773 | Alfina Azaria | 9, 10, 11 |
+| 2006483031 | Raihansyah Yoga Adhitama | 1 2 3 |
+| 2006464423 | Dominikus Kern Bunardi  | 14 |
+| 2006463843| Hilmi Al Biruni | 13 |
+| 1906399064 | Ahmad Aminullah Alfiyanto | 7 |
+| 2006482773 | Alfina Azaria | 5 |
 
 ---
 **Kontrak Tahap 2 Tugas Akhir**
 
 | NPM | Nama Lengkap | Fitur yang akan diselesaikan  |
 | ----------| --- | ---------- | 
-| 2006483031 | Raihansyah Yoga Adhitama | 1 2 3 4 5 |
-| 2006464423 | Dominikus Kern Bunardi  | 12 13 14|
-| 2006463843| Hilmi Al Biruni | 15 16 17 |
-| 1906399064 | Ahmad Aminullah Alfiyanto | 6, 7, 8 |
-| 2006482773 | Alfina Azaria | 9, 10, 11 |
+| 2006483031 | Raihansyah Yoga Adhitama | 10 |
+| 2006464423 | Dominikus Kern Bunardi  | 15 |
+| 2006463843| Hilmi Al Biruni | 16 |
+| 1906399064 | Ahmad Aminullah Alfiyanto | 8 |
+| 2006482773 | Alfina Azaria | 9 |
 
 ---
 **Kontrak Tahap 3 Tugas Akhir**
 
 | NPM | Nama Lengkap | Fitur yang akan diselesaikan  |
 | ----------| --- | ---------- | 
-| 2006483031 | Raihansyah Yoga Adhitama | 1 2 3 4 5 |
-| 2006464423 | Dominikus Kern Bunardi  | 12 13 14|
-| 2006463843| Hilmi Al Biruni | 15 16 17 |
-| 1906399064 | Ahmad Aminullah Alfiyanto | 6, 7, 8 |
-| 2006482773 | Alfina Azaria | 9, 10, 11 |
+| 2006483031 | Raihansyah Yoga Adhitama | 4 |
+| 2006464423 | Dominikus Kern Bunardi  | 12 |
+| 2006463843| Hilmi Al Biruni | 17 |
+| 1906399064 | Ahmad Aminullah Alfiyanto | 6 |
+| 2006482773 | Alfina Azaria | 11 |
 ---
