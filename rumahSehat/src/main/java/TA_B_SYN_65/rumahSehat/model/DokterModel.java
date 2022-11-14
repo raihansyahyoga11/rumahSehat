@@ -16,18 +16,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "pasien")
-public class PasienModel extends UserModel implements Serializable {
+@Table(name = "dokter")
+public class DokterModel extends UserModel implements Serializable {
 
     @NotNull
-    @Column(name = "saldo", nullable = false)
-    private Integer saldo;
+    @Column(name = "tarif", nullable = false)
+    private Integer tarif;
 
-    @NotNull
-    @Size(max = 3)
-    @Column(name = "umur", nullable = false)
-    private Integer umur;
-
-    @OneToMany(mappedBy = "pasien", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "dokter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<AppointmentModel> listAppointment;
 }
