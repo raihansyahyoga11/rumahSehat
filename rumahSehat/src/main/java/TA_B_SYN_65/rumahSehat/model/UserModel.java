@@ -26,30 +26,26 @@ public class UserModel implements Serializable {
 
     @NotNull
     @Size(max = 50)
-    @Column(name = "username", nullable = false, unique = true)
-    private String username;
-
-    @NotNull
-    @Column(name = "is_Sso", nullable = false)
-    private Boolean isSso;
-
-    @NotNull
-    @Size(max = 50)
     @Column(name = "nama", nullable = false)
     private String nama;
-
-    @NotNull
-    @Column(name = "email", nullable = false, unique = true)
-    private String email;
-
-    @NotNull
-    @Lob
-    @Column(name = "password", nullable = false)
-    private String password;
 
     @NotNull
     @Size(max = 50)
     @Column(name = "role", nullable = false)
     private String role;
 
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "username", nullable = false, unique = true)
+    private String username;
+
+    @NotNull
+    @Lob
+    @Column(name = "password", nullable = false)
+    private String password;
+
+
+    @NotNull
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
 }
