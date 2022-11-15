@@ -17,3 +17,5 @@ import java.io.Serializable;
 @Table(name = "admin")
 public class AdminModel extends UserModel implements Serializable {
 }
+
+// Test comment for push
