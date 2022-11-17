@@ -7,7 +7,7 @@
 * **Alfina Azaria** - *2006482773* - *B*
 
 ---
-**Kontrak Tahap 1 Tugas Akhir**
+**Kontrak Tahap 1 Tugas Akhiri**
 
 | NPM | Nama Lengkap | Fitur yang akan diselesaikan  |
 | ----------| --- | ---------- | 
