@@ -27,11 +27,12 @@ import java.util.List;
 public class ResepModel extends UserModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idResep")
     private Long id;
 
     @NotNull
     @Size(max = 50)
-    @Column(name = "nama", nullable = false)
+    @Column(name = "nama_obat", nullable = false)
     private String nama_obat;
 
     @NotNull
@@ -43,16 +44,22 @@ public class ResepModel extends UserModel implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime createdAt;
 
-    @ManyToMany(mappedBy = "listResep")
-    List<ObatModel> listObat;
+    // @ManyToMany(mappedBy = "listResep")
+    // List<ObatModel> listObat;
 
     // ManyToOne Relationship with Appointment
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "kode", referencedColumnName = "kode", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private AppointmentModel appointment;
+    //@ManyToOne(fetch = FetchType.EAGER, optional = false)
+    //@JoinColumn(name = "kode", referencedColumnName = "kode", nullable = false)
+    //@OnDelete(action = OnDeleteAction.CASCADE)
+    //private AppointmentModel appointment;
 
     // confirmer_uuid => Admin ???
+
+    // relasi dengan jumlah model masih gagal
+    // @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    //@JoinColumn(name = "resep", referencedColumnName = "id_resep", nullable = false )
+    //@OnDelete(action = OnDeleteAction.CASCADE)
+    //private JumlahModel jumlah;
 
 
 

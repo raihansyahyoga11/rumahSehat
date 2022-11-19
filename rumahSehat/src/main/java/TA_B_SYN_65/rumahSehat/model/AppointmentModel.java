@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -26,8 +27,10 @@ import java.util.List;
 public class AppointmentModel implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String kode;        // Masih salah
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @Column(updatable = false, nullable = false)
+    private String kode;      // Masih salah
 
     @NotNull
     @Column(name = "is_done", nullable = false)
@@ -38,23 +41,23 @@ public class AppointmentModel implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime waktuAwal;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "uuid_dokter", referencedColumnName = "uuid", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private DokterModel dokter;
+    // @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    //  @JoinColumn(name = "uuid_dokter", referencedColumnName = "uuid", nullable = false)
+    // @OnDelete(action = OnDeleteAction.CASCADE)
+    // private DokterModel dokter;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "uuid_pasien", referencedColumnName = "uuid", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private DokterModel pasien;
+    // @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    // @JoinColumn(name = "uuid_pasien", referencedColumnName = "uuid", nullable = false)
+    //  @OnDelete(action = OnDeleteAction.CASCADE)
+    // private DokterModel pasien;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "kode_tagihan", referencedColumnName = "kode", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private TagihanModel kodeTagihan;
+    // @OneToOne(fetch = FetchType.EAGER)
+    // @JoinColumn(name = "kode_tagihan", referencedColumnName = "kode", nullable = false)
+    // @OnDelete(action = OnDeleteAction.CASCADE)
+    // @JsonIgnore
+    // private TagihanModel kodeTagihan;
 
     // Relasi dengan Resep
-    @OneToMany(mappedBy = "resep", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ResepModel> listResep;
+    //@OneToMany(mappedBy = "appointment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //private List<ResepModel> listResep;
 }

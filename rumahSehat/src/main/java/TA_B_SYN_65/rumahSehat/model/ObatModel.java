@@ -25,11 +25,12 @@ import java.util.List;
 public class ObatModel extends UserModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idObat")
     private String id_obat;
 
     @NotNull
     @Size(max = 50)
-    @Column(name = "nama", nullable = false)
+    @Column(name = "nama_obat", nullable = false)
     private String nama_obat;
 
     @NotNull
@@ -41,7 +42,14 @@ public class ObatModel extends UserModel implements Serializable {
     private Integer harga;
 
     // Relasi dengan ResepModel
-    @ManyToMany
-    @JoinTable(name = "resep_obat", joinColumns = @JoinColumn(name = "code"), inverseJoinColumns = @JoinColumn(name = "id_resep"))
-    List<ResepModel> listResep;
+    // @ManyToMany
+    // @JoinTable(name = "resep_obat", joinColumns = @JoinColumn(name = "code"), inverseJoinColumns = @JoinColumn(name = "id_resep"))
+    // List<ResepModel> listResep;
+
+    //relasi dengan JumlahModel masih gagal
+    //@ManyToOne(fetch = FetchType.EAGER, optional = false)
+    //@JoinColumn(name = "obat", referencedColumnName = "idObat", nullable = false )
+    //@OnDelete(action = OnDeleteAction.CASCADE)
+    //rprivate JumlahModel jumlah;
+
 }

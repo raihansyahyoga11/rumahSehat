@@ -12,12 +12,10 @@ import java.util.List;
 
 @Setter
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "apoteker")
-public class ApotekerModel {
-    // One to many relationship with Resep
-    @OneToMany(mappedBy = "idResep", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ResepModel> listResep;
+public class ApotekerModel extends UserModel implements Serializable {
+    // One to many relationship with Resep masih gagal
+    // @OneToMany(mappedBy = "idApoteker", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    // private List<ResepModel> listResep;
 }

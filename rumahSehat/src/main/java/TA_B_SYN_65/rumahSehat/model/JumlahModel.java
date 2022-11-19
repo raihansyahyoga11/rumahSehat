@@ -21,8 +21,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Entity
 @Table(name = "jumlah")
-public class JumlahModel extends UserModel implements Serializable {
-
+public class JumlahModel{
+    @Id
     @NotNull
     @Size(max = 50)
     @Column(name = "obat", nullable = false)
@@ -32,7 +32,10 @@ public class JumlahModel extends UserModel implements Serializable {
     @Column(name = "resep", nullable = false)
     private Long resep;
 
-    @NotNull
-    @Column(name = "kuantitas", nullable = false)
-    private Integer kuantitas;
+    @Size(max = 200)
+    @Column(name = "kuantitas")
+    Integer kuantitas;
 }
+
+
+

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Beranda</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace = "fragments/fragment :: navbar"></nav>
+<div class="d-flex justify-content-center">
+  <div class="m-4">
+    <div class="card border border-light">
+      <div class="card-header text-white bg-primary mb3">
+        <h2>WELCOME TO RUMAH SEHAT</h2>
+      </div>
+      <div class="card-body">
+        <br>
+        <h5 align ="center">List of features:</h5>
+        <br>
+        <div class="d-flex justify-content-center">
+          <a class = "mx-2 btn btn-primary">Appointment</a>
+          <a class = "mx-2 btn btn-primary">Resep</a>
+          <a class = "mx-2 btn btn-primary">Obat</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+</body>
+</html>

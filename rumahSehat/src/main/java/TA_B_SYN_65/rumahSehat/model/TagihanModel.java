@@ -29,8 +29,9 @@ import java.util.List;
 public class TagihanModel implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String kode;        // Masih salah
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    private String kode;// Masih salah
 
     @NotNull
     @Column(name = "tanggal_terbuat", nullable = false)
@@ -50,11 +51,11 @@ public class TagihanModel implements Serializable {
     @Column(name = "jumlah_tagihan", nullable = false)
     private Integer jumlahTagihan;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "kode_appointment", referencedColumnName = "kode", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private String kodeAppointment;     // Masih bingung
+    // @OneToOne(fetch = FetchType.EAGER)
+    // @JoinColumn(name = "kode_appointment", referencedColumnName = "kode", nullable = false)
+    // @OnDelete(action = OnDeleteAction.CASCADE)
+    // @JsonIgnore
+    // private String kodeAppointment;     // Masih bingung
 
 
 
