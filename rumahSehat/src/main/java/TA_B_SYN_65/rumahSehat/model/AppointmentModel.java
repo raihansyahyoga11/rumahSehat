@@ -27,35 +27,32 @@ import java.util.List;
 public class AppointmentModel implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(updatable = false, nullable = false)
-    private String kode;      // Masih salah
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    private String kode;      // udah bener
 
     @NotNull
     @Column(name = "is_done", nullable = false)
     private Boolean isDone;
 
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "waktu_awal", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime waktuAwal;
 
-    // @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    //  @JoinColumn(name = "uuid_dokter", referencedColumnName = "uuid", nullable = false)
-    // @OnDelete(action = OnDeleteAction.CASCADE)
-    // private DokterModel dokter;
+     @ManyToOne(fetch = FetchType.EAGER, optional = false)
+     @JoinColumn(name = "uuid_dokter", referencedColumnName = "uuid", nullable = false)
+     @OnDelete(action = OnDeleteAction.CASCADE)
+     private DokterModel dokter;
 
-    // @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    // @JoinColumn(name = "uuid_pasien", referencedColumnName = "uuid", nullable = false)
-    //  @OnDelete(action = OnDeleteAction.CASCADE)
-    // private DokterModel pasien;
+     @ManyToOne(fetch = FetchType.EAGER, optional = false)
+     @JoinColumn(name = "uuid_pasien", referencedColumnName = "uuid", nullable = false)
+     @OnDelete(action = OnDeleteAction.CASCADE)
+     private PasienModel pasien;
 
-    // @OneToOne(fetch = FetchType.EAGER)
-    // @JoinColumn(name = "kode_tagihan", referencedColumnName = "kode", nullable = false)
-    // @OnDelete(action = OnDeleteAction.CASCADE)
-    // @JsonIgnore
-    // private TagihanModel kodeTagihan;
+     @OneToOne(cascade = CascadeType.ALL)
+     @JoinColumn(name = "kode_tagihan", referencedColumnName = "kode", nullable = false)
+     private TagihanModel kodeTagihan;
 
     // Relasi dengan Resep
     //@OneToMany(mappedBy = "appointment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

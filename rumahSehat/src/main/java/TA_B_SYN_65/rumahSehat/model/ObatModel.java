@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -24,18 +25,19 @@ import java.util.List;
 @Table(name = "obat")
 public class ObatModel extends UserModel implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idObat")
-    private String id_obat;
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @Column(name = "id_obat", nullable = false)
+    private String id;
 
     @NotNull
     @Size(max = 50)
     @Column(name = "nama_obat", nullable = false)
-    private String nama_obat;
+    private String nama;
 
     @NotNull
     @Column(name = "stok", nullable = false)
-    private Integer stok;
+    private Integer stok = 100;
 
     @NotNull
     @Column(name = "harga", nullable = false)

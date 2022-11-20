@@ -27,22 +27,30 @@ import java.util.List;
 public class ResepModel extends UserModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idResep")
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @NotNull
-    @Size(max = 50)
-    @Column(name = "nama_obat", nullable = false)
-    private String nama_obat;
+//    @NotNull
+//    @Size(max = 50)
+//    @Column(name = "nama_obat", nullable = false)
+//    private String nama_obat;
 
     @NotNull
     @Column(name = "is_done", nullable = false)
     private Boolean isDone;
 
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "created_at", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime createdAt;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "confirmer_uuid", referencedColumnName = "uuid", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private ApotekerModel apoteker;
+
+    @OneToMany(mappedBy = "resep", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<JumlahModel> listJumlah;
 
     // @ManyToMany(mappedBy = "listResep")
     // List<ObatModel> listObat;

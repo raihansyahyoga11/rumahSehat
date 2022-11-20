@@ -17,6 +17,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -31,17 +32,18 @@ public class TagihanModel implements Serializable {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    private String kode;// Masih salah
+    @Column(name = "kode", nullable = false)
+    private String kode;
 
     @NotNull
     @Column(name = "tanggal_terbuat", nullable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private java.time.LocalDate tanggalTerbuat;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime tanggalTerbuat;
 
     @NotNull
     @Column(name = "tanggal_bayar", nullable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private java.time.LocalDate tanggalBayar;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime tanggalBayar;
 
     @NotNull
     @Column(name = "is_paid", nullable = false)
@@ -50,6 +52,9 @@ public class TagihanModel implements Serializable {
     @NotNull
     @Column(name = "jumlah_tagihan", nullable = false)
     private Integer jumlahTagihan;
+
+    @OneToOne(mappedBy = "tagihan")
+    private AppointmentModel appointment;
 
     // @OneToOne(fetch = FetchType.EAGER)
     // @JoinColumn(name = "kode_appointment", referencedColumnName = "kode", nullable = false)

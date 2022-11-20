@@ -16,6 +16,6 @@ import java.util.List;
 @Table(name = "apoteker")
 public class ApotekerModel extends UserModel implements Serializable {
     // One to many relationship with Resep masih gagal
-    // @OneToMany(mappedBy = "idApoteker", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    // private List<ResepModel> listResep;
+     @OneToMany(mappedBy = "apoteker", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+     private List<ResepModel> listResep;
 }

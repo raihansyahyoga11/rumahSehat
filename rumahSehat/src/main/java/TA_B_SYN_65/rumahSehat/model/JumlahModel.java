@@ -22,19 +22,24 @@ import java.io.Serializable;
 @Entity
 @Table(name = "jumlah")
 public class JumlahModel{
+
     @Id
-    @NotNull
     @Size(max = 50)
-    @Column(name = "obat", nullable = false)
-    private String obat;
+    @ManyToOne(fetch = FetchType.EAGER, optional=false)
+    @JoinColumn(name = "id_obat", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private ObatModel obat;
+
+    @Id
+    @ManyToOne(fetch = FetchType.EAGER, optional=false)
+    @JoinColumn(name = "id_resep", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private ResepModel resep;
 
     @NotNull
-    @Column(name = "resep", nullable = false)
-    private Long resep;
-
     @Size(max = 200)
     @Column(name = "kuantitas")
-    Integer kuantitas;
+    private Integer kuantitas;
 }
 
 

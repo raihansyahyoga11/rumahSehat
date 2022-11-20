@@ -23,6 +23,6 @@ public class DokterModel extends UserModel implements Serializable {
     @Column(name = "tarif", nullable = false)
     private Integer tarif;
 
-    // @OneToMany(mappedBy = "dokter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    // private List<AppointmentModel> listAppointment;
+     @OneToMany(mappedBy = "dokter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+     private List<AppointmentModel> listAppointment;
 }
