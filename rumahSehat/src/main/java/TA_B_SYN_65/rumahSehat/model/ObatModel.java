@@ -25,8 +25,6 @@ import java.util.List;
 @Table(name = "obat")
 public class ObatModel implements Serializable {
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "id_obat", nullable = false)
     private String id;
 
@@ -52,5 +50,9 @@ public class ObatModel implements Serializable {
     @OneToMany(mappedBy = "obat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<JumlahModel> listJumlah;
+
+    @OneToMany(mappedBy = "obat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<JumlahModel> listObatResepMapper;
 
 }
