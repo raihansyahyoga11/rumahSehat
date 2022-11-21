@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -24,10 +25,12 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "resep")
-public class ResepModel extends UserModel implements Serializable {
+public class ResepModel implements Serializable {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id_resep", nullable = false)
     private Long id;
 
 //    @NotNull
@@ -40,26 +43,31 @@ public class ResepModel extends UserModel implements Serializable {
     private Boolean isDone;
 
     @NotNull
+    @Column(name = "harga",nullable = false)
+    private int harga;
+
+    @NotNull
     @Column(name = "created_at", nullable = false)
+    @CreatedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "confirmer_uuid", referencedColumnName = "uuid", nullable = false)
+    @JoinColumn(name = "confirmer_uuid", referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private ApotekerModel apoteker;
+    @JsonIgnore
+    private ApotekerModel confirmer;
 
     @OneToMany(mappedBy = "resep", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<JumlahModel> listJumlah;
+    private List<JumlahModel> listJumlah;
 
-    // @ManyToMany(mappedBy = "listResep")
-    // List<ObatModel> listObat;
 
-    // ManyToOne Relationship with Appointment
-    //@ManyToOne(fetch = FetchType.EAGER, optional = false)
-    //@JoinColumn(name = "kode", referencedColumnName = "kode", nullable = false)
-    //@OnDelete(action = OnDeleteAction.CASCADE)
-    //private AppointmentModel appointment;
+//     ManyToOne Relationship with Appointment
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "kode_appointment", referencedColumnName = "kode", nullable = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private AppointmentModel appointment;
 
     // confirmer_uuid => Admin ???
 

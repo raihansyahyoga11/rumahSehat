@@ -23,7 +23,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "obat")
-public class ObatModel extends UserModel implements Serializable {
+public class ObatModel implements Serializable {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
@@ -48,10 +48,9 @@ public class ObatModel extends UserModel implements Serializable {
     // @JoinTable(name = "resep_obat", joinColumns = @JoinColumn(name = "code"), inverseJoinColumns = @JoinColumn(name = "id_resep"))
     // List<ResepModel> listResep;
 
-    //relasi dengan JumlahModel masih gagal
-    //@ManyToOne(fetch = FetchType.EAGER, optional = false)
-    //@JoinColumn(name = "obat", referencedColumnName = "idObat", nullable = false )
-    //@OnDelete(action = OnDeleteAction.CASCADE)
-    //rprivate JumlahModel jumlah;
+//    relasi dengan JumlahModel masih gagal
+    @OneToMany(mappedBy = "obat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<JumlahModel> listJumlah;
 
 }

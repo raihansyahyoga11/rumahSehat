@@ -12,6 +12,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -37,6 +38,7 @@ public class TagihanModel implements Serializable {
 
     @NotNull
     @Column(name = "tanggal_terbuat", nullable = false)
+    @CreatedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime tanggalTerbuat;
 
@@ -53,7 +55,10 @@ public class TagihanModel implements Serializable {
     @Column(name = "jumlah_tagihan", nullable = false)
     private Integer jumlahTagihan;
 
-    @OneToOne(mappedBy = "tagihan")
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "kode_appointment", referencedColumnName = "kode", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private AppointmentModel appointment;
 
     // @OneToOne(fetch = FetchType.EAGER)
