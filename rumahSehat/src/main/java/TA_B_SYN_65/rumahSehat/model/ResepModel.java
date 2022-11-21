@@ -29,7 +29,6 @@ public class ResepModel implements Serializable {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_resep", nullable = false)
     private Long id;
 
@@ -43,30 +42,23 @@ public class ResepModel implements Serializable {
     private Boolean isDone;
 
     @NotNull
-    @Column(name = "harga",nullable = false)
-    private int harga;
-
-    @NotNull
     @Column(name = "created_at", nullable = false)
-    @CreatedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "confirmer_uuid", referencedColumnName = "id")
+    @JoinColumn(name = "confirmer_uuid", referencedColumnName = "uuid")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private ApotekerModel confirmer;
 
-    @OneToMany(mappedBy = "resep", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<JumlahModel> listJumlah;
+//    @OneToMany(mappedBy = "resep", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<JumlahModel> listJumlah;
 
 
 //     ManyToOne Relationship with Appointment
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "kode_appointment", referencedColumnName = "kode", nullable = true)
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "kode_appointment", referencedColumnName = "kode")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private AppointmentModel appointment;
 
     // confirmer_uuid => Admin ???
@@ -76,6 +68,12 @@ public class ResepModel implements Serializable {
     //@JoinColumn(name = "resep", referencedColumnName = "id_resep", nullable = false )
     //@OnDelete(action = OnDeleteAction.CASCADE)
     //private JumlahModel jumlah;
+    @OneToMany(mappedBy = "resep", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<JumlahModel> listJumlah;
+
+    @NotNull
+    @Column(name = "harga",nullable = false)
+    private int harga;
 
 
 
