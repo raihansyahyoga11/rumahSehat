@@ -25,8 +25,6 @@ import java.util.List;
 @Table(name = "obat")
 public class ObatModel implements Serializable {
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "id_obat", nullable = false)
     private String id;
 

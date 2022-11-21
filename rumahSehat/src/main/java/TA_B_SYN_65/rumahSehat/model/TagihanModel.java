@@ -31,8 +31,6 @@ import java.util.List;
 public class TagihanModel implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "kode", nullable = false)
     private String kode;
 

@@ -27,8 +27,7 @@ import java.util.List;
 public class AppointmentModel implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String kode;      // udah bener
 
     @NotNull

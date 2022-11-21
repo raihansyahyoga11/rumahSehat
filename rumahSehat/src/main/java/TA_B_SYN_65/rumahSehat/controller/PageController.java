@@ -38,6 +38,8 @@ public class PageController {
     public String home(){
         return "home";
     }
+
+
     @GetMapping("/")
     private String Home(String username, Model model){
         UserModel user = userService.getUserByUsername(username);
@@ -49,7 +51,7 @@ public class PageController {
     @GetMapping ("/login")
     public String loginFormPage(Model model){
         model.addAttribute("port", serverProperties.getPort());
-        return "login";
+        return "auth/login";
     }
     @PostMapping("/login")
     private String loginSubmitPage(Model model)

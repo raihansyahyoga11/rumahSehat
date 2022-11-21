@@ -43,10 +43,6 @@ public class ResepModel implements Serializable {
     private Boolean isDone;
 
     @NotNull
-    @Column(name = "harga",nullable = false)
-    private int harga;
-
-    @NotNull
     @Column(name = "created_at", nullable = false)
     @CreatedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
