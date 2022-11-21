@@ -34,30 +34,30 @@ public class PageController {
     @Autowired
     ServerProperties serverProperties;
 
-    @RequestMapping("/home")
-    public String home(){
-        return "home";
-    }
+//    @RequestMapping("/home")
+//    public String home(){
+//        return "home";
+//    }
+//
+//
+//    @GetMapping("/")
+//    private String Home(String username, Model model){
+//        UserModel user = userService.getUserByUsername(username);
+//        model.addAttribute("user", user);
+//
+//        return "home";
+//    }
 
-
-    @GetMapping("/")
-    private String Home(String username, Model model){
-        UserModel user = userService.getUserByUsername(username);
-        model.addAttribute("user", user);
-
-        return "home";
-    }
-
-    @GetMapping ("/login")
-    public String loginFormPage(Model model){
-        model.addAttribute("port", serverProperties.getPort());
-        return "auth/login";
-    }
-    @PostMapping("/login")
-    private String loginSubmitPage(Model model)
-    { model.addAttribute("port",serverProperties.getPort());
-        return "home";
-    }
+//    @GetMapping ("/login")
+//    public String loginFormPage(Model model){
+//        model.addAttribute("port", serverProperties.getPort());
+//        return "auth/login";
+//    }
+//    @PostMapping("/login")
+//    private String loginSubmitPage(Model model)
+//    { model.addAttribute("port",serverProperties.getPort());
+//        return "home";
+//    }
 
     private WebClient webClient = WebClient.builder().build();
 

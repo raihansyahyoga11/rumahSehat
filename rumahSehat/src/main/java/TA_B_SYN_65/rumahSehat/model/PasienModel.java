@@ -17,6 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "pasien")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class PasienModel extends UserModel implements Serializable {
 
     @NotNull

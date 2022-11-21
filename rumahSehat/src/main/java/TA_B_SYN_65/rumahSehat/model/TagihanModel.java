@@ -31,12 +31,12 @@ import java.util.List;
 public class TagihanModel implements Serializable {
 
     @Id
-    @Column(name = "kode", nullable = false)
+    @NotNull
+    @Column(name="kode", nullable = false)
     private String kode;
 
     @NotNull
     @Column(name = "tanggal_terbuat", nullable = false)
-    @CreatedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime tanggalTerbuat;
 
@@ -53,10 +53,7 @@ public class TagihanModel implements Serializable {
     @Column(name = "jumlah_tagihan", nullable = false)
     private Integer jumlahTagihan;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "kode_appointment", referencedColumnName = "kode", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
+    @OneToOne(mappedBy = "tagihan")
     private AppointmentModel appointment;
 
     // @OneToOne(fetch = FetchType.EAGER)

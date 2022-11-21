@@ -51,4 +51,8 @@ public class ObatModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<JumlahModel> listJumlah;
 
+    @OneToMany(mappedBy = "obat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<JumlahModel> listObatResepMapper;
+
 }
