@@ -30,7 +30,7 @@ import java.util.List;
 
 @Controller
 public class ObatController {
-//    Qualifier("obatServiceImpl")
+    @Qualifier("obatServiceImpl")
     @Autowired
     private ObatService obatService;
 
