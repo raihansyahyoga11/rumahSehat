@@ -23,18 +23,14 @@ import java.io.Serializable;
 @Table(name = "jumlah")
 public class JumlahModel implements  Serializable{
 
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-
     @Size(max = 50)
     @ManyToOne(fetch = FetchType.EAGER, optional=false)
     @JoinColumn(name = "id_obat", referencedColumnName = "id_obat")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ObatModel obat;
 
+    @Id
     @ManyToOne(fetch = FetchType.EAGER, optional=false)
     @JoinColumn(name = "id_resep", referencedColumnName = "id_resep")
     @OnDelete(action = OnDeleteAction.CASCADE)

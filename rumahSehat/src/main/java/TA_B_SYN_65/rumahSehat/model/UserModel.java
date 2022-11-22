@@ -16,13 +16,18 @@ import java.io.Serializable;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "user")
+@Entity
 public class UserModel implements Serializable {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String uuid;
+
+    @NotNull
+    @Column(name = "is_sso", nullable = false)
+    private Boolean isSso;
 
     @NotNull
     @Size(max = 50)
@@ -51,3 +56,4 @@ public class UserModel implements Serializable {
 
 
 }
+

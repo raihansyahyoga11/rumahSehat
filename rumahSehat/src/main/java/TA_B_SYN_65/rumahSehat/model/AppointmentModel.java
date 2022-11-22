@@ -24,12 +24,11 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "appointment")
-public class AppointmentModel implements Serializable{
+public class AppointmentModel implements Serializable {
 
     @Id
-    @NotNull
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="kode",nullable = false)
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String kode;      // udah bener
 
     @NotNull
@@ -41,22 +40,21 @@ public class AppointmentModel implements Serializable{
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime waktuAwal;
 
-     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-     @JoinColumn(name = "uuid_dokter", referencedColumnName = "uuid", nullable = false)
-     @OnDelete(action = OnDeleteAction.CASCADE)
-     private DokterModel dokter;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "uuid_dokter", referencedColumnName = "uuid", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private DokterModel dokter;
 
-     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-     @JoinColumn(name = "uuid_pasien", referencedColumnName = "uuid", nullable = false)
-     @OnDelete(action = OnDeleteAction.CASCADE)
-     private PasienModel pasien;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "uuid_pasien", referencedColumnName = "uuid", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private PasienModel pasien;
 
-     @OneToOne(cascade = CascadeType.ALL)
-     @JoinColumn(name = "kode_tagihan", referencedColumnName = "kode")
-     private TagihanModel tagihan;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "kode_tagihan", referencedColumnName = "kode")
+    private TagihanModel tagihan;
 
     // Relasi dengan Resep
-    @OneToOne(mappedBy = "appointment")
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToOne(mappedBy = "appointment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private ResepModel resep;
 }

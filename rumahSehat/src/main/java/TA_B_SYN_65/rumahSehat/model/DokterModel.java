@@ -17,13 +17,13 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "dokter")
-@Inheritance(strategy = InheritanceType.JOINED)
+@PrimaryKeyJoinColumn(name ="uuid")
 public class DokterModel extends UserModel implements Serializable {
 
     @NotNull
     @Column(name = "tarif", nullable = false)
     private Integer tarif;
 
-     @OneToMany(mappedBy = "dokter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-     private List<AppointmentModel> listAppointment;
+    @OneToMany(mappedBy = "dokter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<AppointmentModel> listAppointment;
 }

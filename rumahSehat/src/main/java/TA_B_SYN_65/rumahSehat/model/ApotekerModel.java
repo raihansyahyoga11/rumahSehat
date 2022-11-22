@@ -16,9 +16,10 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "apoteker")
-@Inheritance(strategy = InheritanceType.JOINED)
+@PrimaryKeyJoinColumn(name ="uuid")
 public class ApotekerModel extends UserModel implements Serializable {
     // One to many relationship with Resep masih gagal
-     @OneToMany(mappedBy = "confirmer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-     private List<ResepModel> listResep;
+    @OneToMany(mappedBy = "confirmer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ResepModel> listResep;
 }
+
