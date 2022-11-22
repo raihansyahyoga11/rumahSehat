@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "pasien")
-@Inheritance(strategy = InheritanceType.JOINED)
+@PrimaryKeyJoinColumn(name ="uuid")
 public class PasienModel extends UserModel implements Serializable {
 
     @NotNull
@@ -29,6 +29,6 @@ public class PasienModel extends UserModel implements Serializable {
     @Column(name = "umur", nullable = false)
     private Integer umur;
 
-     @OneToMany(mappedBy = "pasien", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-     private List<AppointmentModel> listAppointment;
+    @OneToMany(mappedBy = "pasien", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<AppointmentModel> listAppointment;
 }
