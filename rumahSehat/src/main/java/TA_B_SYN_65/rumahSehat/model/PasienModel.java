@@ -25,7 +25,7 @@ public class PasienModel extends UserModel implements Serializable {
     private Integer saldo;
 
     @NotNull
-    @Size(max = 3)
+    @Size(max = 20)
     @Column(name = "umur", nullable = false)
     private Integer umur;
 
