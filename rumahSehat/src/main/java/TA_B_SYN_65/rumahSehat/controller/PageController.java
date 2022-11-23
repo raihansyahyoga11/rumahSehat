@@ -82,13 +82,14 @@ public class PageController {
             user = new UserModel();
             user.setEmail(username + "@ui.ac.id");
             user.setNama(attributes.getNama());
-            user.setPassword("belajarbelajar");
+            user.setPassword("rumahsehat");
             user.setUsername(username);
+            user.setIsSso(true);
             user.setRole("ADMIN");
             userService.addUser(user);
         }
 
-        Authentication authentication = new UsernamePasswordAuthenticationToken(username, "belajarbelajar");
+        Authentication authentication = new UsernamePasswordAuthenticationToken(username, "rumahsehat");
 
         SecurityContext securityContext = SecurityContextHolder.getContext();
         securityContext.setAuthentication(authentication);
