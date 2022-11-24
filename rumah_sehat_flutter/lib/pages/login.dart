@@ -1,0 +1,107 @@
+import 'package:flutter/material.dart';
+import 'package:rumah_sehat_flutter/controller/authentication_controller.dart';
+import 'HomePage.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Login(),
+    );
+  }
+}
+
+class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
+
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+
+
+  @override
+  Widget build(BuildContext context) {
+    AuthenticationController authenticationController = AuthenticationController();
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text("Login Page"),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(top: 60.0),
+              child: Center(
+                child: Container(
+                    width: 200,
+                    height: 150,
+                    /*decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(50.0)),*/
+                    ),
+              ),
+            ),
+            Padding(
+              //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: TextFormField(
+                controller: authenticationController.usernameController,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Username',
+                    hintText: 'Enter valid Username'),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 15.0, right: 15.0, top: 15, bottom: 0),
+              //padding: EdgeInsets.symmetric(horizontal: 15),
+              child: TextFormField(
+                controller: authenticationController.passwordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Password',
+                    hintText: 'Enter secure password'),
+              ),
+            ),
+            Container(
+              height: 50,
+              width: 250,
+              decoration: BoxDecoration(
+                  color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+              child: ElevatedButton(
+                onPressed: () async {
+                  int code = await authenticationController.loginUser();
+                  if (code == 200) {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const HomePage(),
+                    ));
+                  } else {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const Login(),
+                    ));
+                  }
+                },
+                child: Text(
+                  'Login',
+                  style: TextStyle(color: Colors.white, fontSize: 25),
+                ),
+              ),
+            ),
+
+            Text('New Patient? Create Account')
+          ],
+        ),
+      ),
+    );
+  }
+}
