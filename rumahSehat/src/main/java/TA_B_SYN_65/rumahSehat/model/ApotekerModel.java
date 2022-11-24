@@ -9,14 +9,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.*;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "apoteker")
-@PrimaryKeyJoinColumn(name ="uuid")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class ApotekerModel extends UserModel implements Serializable {
     // One to many relationship with Resep masih gagal
     @OneToMany(mappedBy = "confirmer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
