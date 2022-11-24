@@ -16,7 +16,6 @@ import java.io.Serializable;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "user")
 @Entity
 public class UserModel implements Serializable {
@@ -26,8 +25,8 @@ public class UserModel implements Serializable {
     private String uuid;
 
     @NotNull
-    @Column(name = "is_sso", nullable = false)
-    private Boolean isSso;
+    @Column(name = "is_sso")
+    private Boolean isSso=false;
 
     @NotNull
     @Size(max = 50)
