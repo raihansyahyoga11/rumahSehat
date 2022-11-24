@@ -39,7 +39,13 @@ dependencies:
     
   flutter_html: ^2.2.1
   json_annotation:
-
+  intl: ^0.17.0
+  date_time_picker: ^2.1.0
+  dropdownfield: 1.0.0
+  flutter_login: ^4.1.0
+  shared_preferences: ^2.0.5
+  get: ^4.6.5
+  dropdown_search: ^3.0.1
 
 dev_dependencies:
   json_serializable:
