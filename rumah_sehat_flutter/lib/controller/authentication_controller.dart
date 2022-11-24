@@ -11,7 +11,7 @@ class AuthenticationController {
 
 
   Future<int> loginUser() async {
-    const url = 'http://192.168.18.28:8080/api/mobile/signin';
+    const url = 'http://172.20.10.6:8080/api/mobile/signin';
    print("haha");
     var response = await http.post(Uri.parse(url),
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
@@ -22,15 +22,14 @@ class AuthenticationController {
     print("huhe");
     if (response.statusCode == 200) {
       print("masuk 200");
-      var loginArr = json.decode(response.body);
-      // save this token in shared prefrences and make user logged in and navigate
-      token = loginArr['token'];
+      var loginMaterial = json.decode(response.body);
+      token = loginMaterial['token'];
       SharedPreferences prefrences = await SharedPreferences.getInstance();
-      prefrences.setString('token', loginArr['token']);
-      prefrences.setString('username', loginArr['username']);
-      print(prefrences.getString("token"));
 
-      print(token);
+
+      prefrences.setString('token', loginMaterial['token']);
+      prefrences.setString('username', loginMaterial['username']);
+
       return response.statusCode;
     } else {
       return response.statusCode;
