@@ -37,5 +37,10 @@ public class ObatServiceImpl implements ObatService {
     ObatDb obatDb;
 
     @Override
-    public List<ObatModel> getListObat() { return obatDb.findAll(); }
+    public List<ObatModel> getListObat() {
+        return obatDb.findAll();
+    }
+
+
+    
 }
