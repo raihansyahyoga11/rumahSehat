@@ -1,17 +1,29 @@
 package TA_B_SYN_65.rumahSehat.service;
 
-import TA_B_SYN_65.rumahSehat.model.UserModel;
+import TA_B_SYN_65.rumahSehat.model.*;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
     UserModel addUser(UserModel user);
-    String encrypt(String password);
 
-    UserModel getUserByUsername(String username);
+    UserModel addUser(UserModel user, Integer tarifDokter);
 
-    List<UserModel> findAll();
+    UserModel getUserByUsername(String name);
 
-    void deleteUser(UserModel user);
+    public  String encrypt(String password);
+
+    UserModel deleteUser(UserModel user);
+
+    List<UserModel> getListUser();
+
+    List<DokterModel> getListDokter();
+
+    List<ApotekerModel> getListApoteker();
+
+    List<PasienModel> getListPasien();
+
+    void deleteUserVoid(UserModel user);
 }

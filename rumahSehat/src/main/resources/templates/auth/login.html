@@ -20,10 +20,11 @@
                     Log In
                 </div>
                 <div class="card-body">
+
+                    <br>
                     <div th:if="${param.error}">
                         <span style="color: red;">Invalid username and password</span>
                     </div>
-                    <br>
                     <form th:action="@{/login}" method="POST">
                         <div class="row form-group">
                             <label class="col-sm-4">Username:</label>
@@ -39,6 +40,7 @@
                         <div>
                             atau <a th:href="@{/login-sso}">Masuk sebagai Admin (SSO UI)</a>
                         </div>
+
                     </form>
                 </div>
             </div>
