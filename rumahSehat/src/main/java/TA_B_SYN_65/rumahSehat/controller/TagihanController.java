@@ -1,9 +1,10 @@
-package TA_B_SYN_65.rumahSehat.service;
-import TA_B_SYN_65.rumahSehat.model.ObatModel;
-import TA_B_SYN_65.rumahSehat.repository.ObatDb;
+package TA_B_SYN_65.rumahSehat.controller;
+
+import TA_B_SYN_65.rumahSehat.model.TagihanModel;
 import TA_B_SYN_65.rumahSehat.security.xml.Attributes;
 import TA_B_SYN_65.rumahSehat.security.xml.ServiceResponse;
-import TA_B_SYN_65.rumahSehat.service.ObatService;
+//import TA_B_SYN_65.rumahSehat.service.TagihanService;
+import TA_B_SYN_65.rumahSehat.service.TagihanService;
 import TA_B_SYN_65.rumahSehat.service.UserService;
 import TA_B_SYN_65.rumahSehat.setting.Setting;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,21 +26,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.transaction.Transactional;
 import java.security.Principal;
 import java.util.List;
 
-@Service
-@Transactional
-public class ObatServiceImpl implements ObatService {
+@Controller
+public class TagihanController {
+    @Qualifier("tagihanServiceImpl")
     @Autowired
-    ObatDb obatDb;
+    private TagihanService tagihanService;
 
-    @Override
-    public List<ObatModel> getListObat() {
-        return obatDb.findAll();
+    @GetMapping("/tagihan/viewall")
+    public String listTagihan(Model model){
+        List<TagihanModel> listTagihan = tagihanService.getListTagihan();
+        model.addAttribute("listTagihan", listTagihan);
+        return "viewall-tagihan";
     }
-
-
-    
 }
+
