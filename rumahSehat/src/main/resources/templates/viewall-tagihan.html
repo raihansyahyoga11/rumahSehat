@@ -29,11 +29,15 @@
           <tr th:each="tagihan, iterationStatus : ${listTagihan}"
               th:style="${iterationStatus.even} ? 'font-weight:bold;'">
             <td th:text="${tagihan.kode}"></td>
-            <td th:text="${tagihan.isPaid}"></td>
-            <td th:text="${tagihan.tanggalTerbuat}"></td>
-            <td th:text="${tagihan.jumlahTagihan}"></td>
+            <td>
+              <span th:if="${tagihan.isPaid}">Sudah Terbayar</span>
+              <span th:unless="${tagihan.isPaid}">Belum Terbayar</span>
+            </td>
+            <td th:text="${#temporals.format(tagihan.tanggalTerbuat, 'dd MMMM yyyy HH:mm')}"></td>
+            <td th:text="'Rp ' + ${tagihan.jumlahTagihan}"></td>
             <td style="align-items: center">
               <div class="flex-wrap">
+                <a class="btn btn-primary">Detail Tagihan</a>
                 <a class="btn btn-primary">Bayar Tagihan</a>
               </div>
             </td>
