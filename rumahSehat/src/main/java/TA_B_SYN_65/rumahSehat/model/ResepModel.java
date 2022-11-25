@@ -33,10 +33,10 @@ public class ResepModel implements Serializable {
     @Column(name = "id_resep", nullable = false)
     private Long id;
 
-//    @NotNull
-//    @Size(max = 50)
-//    @Column(name = "nama_obat", nullable = false)
-//    private String nama_obat;
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "nama_obat", nullable = false)
+    private String nama_obat;
 
     @NotNull
     @Column(name = "is_done", nullable = false)
@@ -54,7 +54,7 @@ public class ResepModel implements Serializable {
     private ApotekerModel confirmer;
 
     @OneToMany(mappedBy = "resep", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<JumlahModel> listJumlah;
+    private List<JumlahModel> listJumlahObat;
 
 
     //     ManyToOne Relationship with Appointment
