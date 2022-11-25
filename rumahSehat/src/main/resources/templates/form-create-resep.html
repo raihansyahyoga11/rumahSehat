@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SINGIDOL</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script 
+        src="http://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"
+    ></script>
+
+    <script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <div class="container">
+        <div class="card m-4 p-4">
+            <div class="card-body">
+                <div class="justify-content-center">
+                    <h2>Create Resep</h2>
+                    <br>
+                    <form th:action="@{/resep/create/} + ${appointment.kode}" th:object="${resep}" method="POST">
+                        <table class="table">
+                            <thead>
+                            <th>Daftar Obat</th>
+                            </thead>
+                            <tbody>
+                
+                            <tr th:each="jumlahObat, iterationStatus : *{listJumlahObat}">
+                                <td>
+                                <select class="js-example-basic-single" th:field="*{listJumlahObat[__${iterationStatus.index}__].obat}" >
+                                    <div th:each="obatEx, iterationStatus2 : ${listObat} ">
+                                    <option th:value="${obatEx.idObat}" th:text="${obatEx.namaObat}"></option>
+                                    </div>
+                                </select>
+                                </td>
+                                <td>
+                                <input required class="form-control" type="number" th:field="*{listJumlahObat[__${iterationStatus.index}__].kuantitas}" />
+                                <br><br>
+                                </td>
+                                <td>
+                                <button th:value="${iterationStatus.index}" class="btn btn-danger" type="submit"
+                                        name="deleteRowObat">Hapus</button>
+                                </td>
+                            </tr>
+                            <th>
+                                <button class="btn btn-primary" type="submit" name="addRowObat">Tambah Obat</button>
+                            </th>
+                            </tbody>
+                            </table>
+                        <button class="btn btn-primary" type="submit">Create Resep</button>
+                        <a class="btn btn-primary" href="/">Home</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
