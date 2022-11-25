@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Rumah Sehat</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+
+<div class="container">
+    <div class="card m-4 p-4">
+        <div class="card-body">
+            <div class="justify-content-center">
+                <h2>Daftar Tagihan</h2>
+                <br>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th style="text-align: center">Nomor</th>
+                        <th style="text-align: center">Status</th>
+                        <th style="text-align: center">Tanggal Terbuat</th>
+                        <th style="text-align: center">Tagihan</th>
+                        <th style="text-align: center">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="tagihan, iterationStatus : ${listTagihan}"
+                        th:style="${iterationStatus.even} ? 'font-weight:bold;'">
+                        <td th:text="${tagihan.kode}"></td>
+                        <td>
+                            <span th:if="${tagihan.isPaid}">Sudah Terbayar</span>
+                            <span th:unless="${tagihan.isPaid}">Belum Terbayar</span>
+                        </td>
+                        <td th:text="${#temporals.format(tagihan.tanggalTerbuat, 'dd MMMM yyyy HH:mm')}"></td>
+                        <td th:text="'Rp ' + ${tagihan.jumlahTagihan}"></td>
+                        <td style="align-items: center">
+                            <div class="flex-wrap">
+                                <a class="btn btn-primary">Detail Tagihan</a>
+                                <a class="btn btn-primary">Bayar Tagihan</a>
+                            </div>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
+                <a class="btn btn-primary" href="/">Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
