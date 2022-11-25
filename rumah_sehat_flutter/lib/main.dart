@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:rumah_sehat_flutter/pages/HomePage.dart';
 
 import 'Screen/TopUpPage.dart';
 import 'Screen/ProfilePage.dart';
+import 'package:flutter/widgets.dart';
+
+const baseUrl = "http://localhost:8080";
 
 void main() {
   runApp(MyApp());
@@ -27,10 +31,11 @@ class _RumahSehatNavBarState extends State<RumahSehatNavBar> {
   int _selectedNavbar = 0;
   //navigasi page
   final screens=[
-    Center(child:Text('Home', style:TextStyle(fontSize: 60))),
+    // Center(child:Text('Home', style:TextStyle(fontSize: 60))),
+    HomePage(),
     Center(child:Text('Appointment', style:TextStyle(fontSize: 60))),
     Center(child:Text('Obat', style:TextStyle(fontSize: 60))),
-    TesPage(),
+    ProfilePage()
   ];
 
   void _changeSelectedNavBar(int index) {
@@ -50,19 +55,23 @@ class _RumahSehatNavBarState extends State<RumahSehatNavBar> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            title: Text('Beranda'),
+            // title: Text('Beranda'),
+            label: 'Beranda',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.assignment),
-            title: Text('Appointment'),
+              label: 'Appointment'
+            // title: Text('Appointment')
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.medication_outlined ),
-            title: Text('Obat'),
+            label: 'Obat'
+            // title: Text('Obat'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle_outlined),
-            title: Text('Akun'),
+            label: 'Akun'
+            // title: Text('Akun'),
           ),
         ],
         currentIndex: _selectedNavbar,
