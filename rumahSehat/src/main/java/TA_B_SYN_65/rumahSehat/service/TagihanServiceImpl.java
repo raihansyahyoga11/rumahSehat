@@ -1,9 +1,10 @@
 package TA_B_SYN_65.rumahSehat.service;
-import TA_B_SYN_65.rumahSehat.model.ObatModel;
-import TA_B_SYN_65.rumahSehat.repository.ObatDb;
+
+import TA_B_SYN_65.rumahSehat.model.TagihanModel;
+import TA_B_SYN_65.rumahSehat.repository.TagihanDb;
 import TA_B_SYN_65.rumahSehat.security.xml.Attributes;
 import TA_B_SYN_65.rumahSehat.security.xml.ServiceResponse;
-import TA_B_SYN_65.rumahSehat.service.ObatService;
+import TA_B_SYN_65.rumahSehat.service.TagihanService;
 import TA_B_SYN_65.rumahSehat.service.UserService;
 import TA_B_SYN_65.rumahSehat.setting.Setting;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,15 +33,11 @@ import java.util.List;
 
 @Service
 @Transactional
-public class ObatServiceImpl implements ObatService {
+public class TagihanServiceImpl implements TagihanService {
     @Autowired
-    ObatDb obatDb;
+    TagihanDb tagihanDb;
 
     @Override
-    public List<ObatModel> getListObat() {
-        return obatDb.findAll();
-    }
-
-
-    
+    public List<TagihanModel> getListTagihan() { return tagihanDb.findAll(); }
 }
+

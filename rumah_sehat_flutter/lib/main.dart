@@ -55,23 +55,19 @@ class _RumahSehatNavBarState extends State<RumahSehatNavBar> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            // title: Text('Beranda'),
             label: 'Beranda',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.assignment),
-              label: 'Appointment'
-            // title: Text('Appointment')
+            label: 'Appointment',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.medication_outlined ),
-            label: 'Obat'
-            // title: Text('Obat'),
+            label: 'Obat',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle_outlined),
-            label: 'Akun'
-            // title: Text('Akun'),
+            label: 'Akun',
           ),
         ],
         currentIndex: _selectedNavbar,
