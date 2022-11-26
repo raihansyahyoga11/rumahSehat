@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.ArrayList;
 
 @Controller
-@RequestMapping("/dokter")
+//@RequestMapping("/dokter")
 public class DokterController {
 
     @Qualifier("dokterServiceImpl")
@@ -33,7 +33,7 @@ public class DokterController {
         dok.setEmail("ahmad@gmail.com");
         dok.setNama("dr. Ahmad Aminullah");
         dok.setTarif(75000);
-        dok.setRole("Dokter");
+        dok.setRole("DOKTER");
         dok.setListAppointment(new ArrayList<>());
         dokterService.addDokter(dok);
 
@@ -42,14 +42,12 @@ public class DokterController {
         pas.setEmail("budi@xmail.com");
         pas.setNama("Budiman Prasetyo");
         pas.setSaldo(900000);
-        pas.setRole("Pasien");
+        pas.setRole("PASIEN");
         pas.setUmur(26);
         pas.setListAppointment(new ArrayList<>());
-        pasienService.addPasien(pas);
+        pasienService.create(pas);
 
         return "home";
     }
-
-
 
 }
