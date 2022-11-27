@@ -30,6 +30,8 @@
           <div class="my-3 d-flex justify-content-center">
             <a th:href="@{/user/manajemenUser}" class="mx-2 btn btn-outline-success">Manajemen User</a>
           </div>
+        </div>
+        <div sec:authorize="hasAnyAuthority('ADMIN', 'DOKTER')">
           <div class="my-3 d-flex justify-content-center">
             <a th:href="@{/appointment}" class="mx-2 btn btn-outline-success">Jadwal Appointment</a>
           </div>

@@ -22,7 +22,7 @@
       <thead>
       <tr class="bg-secondary text-light font-weight-normal">
         <th>No</th>
-        <th>Nama Dokter</th>
+        <th sec:authorize="hasAuthority('ADMIN')">Nama Dokter</th>
         <th>Nama Pasien</th>
         <th>Waktu</th>
         <th>Status</th>
@@ -32,7 +32,7 @@
       <tbody>
       <tr th:each="appt, iterationStatus : ${listAppointment}">
         <td th:text="${iterationStatus.count}"></td>
-        <td th:text="${appt.dokter.nama}"></td>
+        <td sec:authorize="hasAuthority('ADMIN')" th:text="${appt.dokter.nama}"></td>
         <td th:text="${appt.pasien.nama}"></td>
         <td th:text="${#temporals.format(appt.waktuAwal, 'dd-MM-yyyy HH:mm')}"></td>
         <td th:if="${appt.isDone}">Selesai</td>

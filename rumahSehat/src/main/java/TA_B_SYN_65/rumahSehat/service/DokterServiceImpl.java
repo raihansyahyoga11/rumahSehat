@@ -24,4 +24,8 @@ public class DokterServiceImpl implements DokterService {
         userDb.save(dokter);
     }
 
+    @Override
+    public DokterModel getDokterByUsername(String username) {
+        return dokterDb.findByUsername(username);
+    }
 }

@@ -10,7 +10,6 @@ import TA_B_SYN_65.rumahSehat.service.DokterService;
 import TA_B_SYN_65.rumahSehat.service.PasienService;
 import TA_B_SYN_65.rumahSehat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDateTime;
@@ -67,9 +65,9 @@ public class AppointmentController {
 //        p.setSaldo(160000);
 //        p.setIsSso(false);
 //        pasienService.create(p);
-//
+////
 //        AppointmentModel appt = new AppointmentModel();
-//        appt.setDokter(d);
+//        appt.setDokter(dokterService.getDokterByUsername("hanan"));
 //        appt.setPasien(p);
 //        appt.setWaktuAwal(LocalDateTime.now());
 //        appt.setIsDone(false);
@@ -79,8 +77,14 @@ public class AppointmentController {
         if(userModel.getRole().equals("ADMIN")) {
             List<AppointmentModel> listAppointment = appointmentService.getListAppointment();
             model.addAttribute("listAppointment", listAppointment);
-            return "appointment/admin-viewall-appointment";
+            return "appointment/viewall-appointment";
+        } else if (userModel.getRole().equals("DOKTER")) {
+            DokterModel dokterLogin = dokterService.getDokterByUsername(userModel.getUsername());
+            List<AppointmentModel> listAppointment = appointmentService.getListAppointmentByDokter(dokterLogin);
+            model.addAttribute("listAppointment", listAppointment);
+            return "appointment/viewall-appointment";
+        } else {
+            return "auth/access-denied";
         }
-        return "auth/access-denied";
     }
 }
