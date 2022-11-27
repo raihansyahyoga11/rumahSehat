@@ -5,6 +5,4 @@ import java.util.List;
 
 public interface DokterService {
     void addDokter(DokterModel dokter);
-    List<DokterModel> getListDokter();
-    void deleteDokter(DokterModel dokter);
 }

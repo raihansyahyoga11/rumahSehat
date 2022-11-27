@@ -3,6 +3,7 @@ package TA_B_SYN_65.rumahSehat.service;
 
 import TA_B_SYN_65.rumahSehat.repository.DokterDb;
 import TA_B_SYN_65.rumahSehat.model.DokterModel;
+import TA_B_SYN_65.rumahSehat.repository.UserDb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,18 +16,12 @@ public class DokterServiceImpl implements DokterService {
     @Autowired
     DokterDb dokterDb;
 
+    @Autowired
+    UserDb userDb;
+
     @Override
     public void addDokter(DokterModel dokter) {
-        dokterDb.save(dokter);
+        userDb.save(dokter);
     }
 
-    @Override
-    public List<DokterModel> getListDokter() {
-        return dokterDb.findAll();
-    }
-
-    @Override
-    public void deleteDokter(DokterModel dokter) {
-        dokterDb.delete(dokter);
-    }
 }

@@ -90,16 +90,6 @@ public class PageController {
                 user.setRole("ADMIN");
                 userService.addUser(user);
             }
-            else if (username.startsWith("a")) {
-                user = new UserModel();
-                user.setEmail(username + "@ui.ac.id");
-                user.setNama(attributes.getNama());
-                user.setPassword("belajarbelajar");
-                user.setUsername(username);
-                user.setIsSso(true);
-                user.setRole("ADMIN");
-                userService.addUser(user);
-            }
             else {
                 user = new UserModel();
                 user.setEmail(username + "@ui.ac.id");
@@ -110,9 +100,10 @@ public class PageController {
                 user.setRole("NO-ROLE");
                 userService.addUser(user);
             }
+
         }
 
-        Authentication authentication = new UsernamePasswordAuthenticationToken(username, "rumahsehat");
+        Authentication authentication = new UsernamePasswordAuthenticationToken(username, "belajarbelajar");
 
         SecurityContext securityContext = SecurityContextHolder.getContext();
         securityContext.setAuthentication(authentication);
