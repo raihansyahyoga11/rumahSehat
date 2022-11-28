@@ -67,7 +67,8 @@ public class AppointmentController {
 //        p.setIsSso(false);
 //        pasienService.create(p);
 //
-//        AppointmentModel appt = new AppointmentModel();
+//        AppointmentModel appt = appointmentService.getAppointmentByKode("4028b88184bc1a2f0184bc1a9c390000");
+//        appt.setIsDone(true);
 //        appt.setDokter(dokterService.getDokterByUsername("archee"));
 //        appt.setPasien(pasienService.getPasienByUsername("rijal"));
 //        appt.setWaktuAwal(LocalDateTime.now());
