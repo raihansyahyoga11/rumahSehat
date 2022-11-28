@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,6 +37,8 @@ public class UserServiceImpl implements UserService {
         UserModel user = userDb.findByUsername(nama);
         return user;
     }
+
+
     @Override
     public UserModel addUser(UserModel user) {
         String pass = encrypt(user.getPassword());
