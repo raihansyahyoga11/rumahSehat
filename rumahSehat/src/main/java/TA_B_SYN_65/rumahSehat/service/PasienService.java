@@ -7,5 +7,6 @@ import java.util.Optional;
 
 public interface PasienService {
     PasienModel create(PasienModel pengguna);
+    PasienModel getPasienByUsername(String username);
 
 }

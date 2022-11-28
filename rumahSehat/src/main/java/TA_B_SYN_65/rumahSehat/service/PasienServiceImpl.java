@@ -16,10 +16,21 @@ import java.util.Optional;
 public class PasienServiceImpl implements PasienService {
     @Autowired
     private UserDb userDb;
+    @Autowired
+    private PasienDb pasienDb;
 
     @Override
     public PasienModel create(PasienModel pengguna) {
         return userDb.save(pengguna);
     }
 
+    @Override
+    public PasienModel getPasienByUsername(String username) {
+        Optional<PasienModel > pasien = pasienDb.findByUsername(username);
+        if (pasien.isPresent()){
+            return pasien.get();
+        } else {
+            throw new NoSuchElementException();
+        }
+    }
 }

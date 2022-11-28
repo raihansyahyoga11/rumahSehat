@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDateTime;
@@ -53,22 +54,22 @@ public class AppointmentController {
 //        d.setListAppointment(new ArrayList<>());
 //        d.setIsSso(false);
 //        dokterService.addDokter(d);
-//
+
 //        PasienModel p = new PasienModel();
-//        p.setUsername("tazkiya");
-//        p.setPassword("tazkiyamy");
-//        p.setEmail("tazkiya@gmail.com");
-//        p.setNama("Tazkiya Mutia");
+//        p.setUsername("rijal");
+//        p.setPassword("#dragneel2211");
+//        p.setEmail("rijal@gmail.com");
+//        p.setNama("Muhtarur Rijal");
 //        p.setRole("PASIEN");
 //        p.setListAppointment(new ArrayList<>());
-//        p.setUmur(24);
-//        p.setSaldo(160000);
+//        p.setUmur(23);
+//        p.setSaldo(150000);
 //        p.setIsSso(false);
 //        pasienService.create(p);
-////
+//
 //        AppointmentModel appt = new AppointmentModel();
-//        appt.setDokter(dokterService.getDokterByUsername("hanan"));
-//        appt.setPasien(p);
+//        appt.setDokter(dokterService.getDokterByUsername("archee"));
+//        appt.setPasien(pasienService.getPasienByUsername("rijal"));
 //        appt.setWaktuAwal(LocalDateTime.now());
 //        appt.setIsDone(false);
 //        appointmentService.createAppointment(appt);
@@ -86,5 +87,21 @@ public class AppointmentController {
         } else {
             return "auth/access-denied";
         }
+    }
+
+    @GetMapping("/detail/{kode}")
+    public String viewAppointmentDetail(@PathVariable String kode, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User authUser = (User) authentication.getPrincipal();
+        String authUsername = authUser.getUsername();
+        UserModel userModel = userService.getUserByUsername(authUsername);
+
+        if(userModel.getRole().equals("ADMIN") || userModel.getRole().equals("DOKTER")) {
+            AppointmentModel apt = appointmentService.getAppointmentByKode(kode);
+            model.addAttribute("appt", apt);
+            return "appointment/detail-appointment";
+        }
+
+        return "auth/access-denied";
     }
 }
