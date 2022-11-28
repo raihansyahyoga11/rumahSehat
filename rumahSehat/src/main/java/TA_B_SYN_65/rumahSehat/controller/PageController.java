@@ -81,7 +81,7 @@ public class PageController {
         UserModel user = userService.getUserByUsername(username);
 
         if (user == null) {
-            if (username.startsWith("a")) {
+            if (username.startsWith("r")) {
                 user = new UserModel();
                 user.setEmail(username + "@ui.ac.id");
                 user.setNama(attributes.getNama());
