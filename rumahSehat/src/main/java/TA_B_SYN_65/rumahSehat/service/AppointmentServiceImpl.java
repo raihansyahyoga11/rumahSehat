@@ -1,5 +1,9 @@
 package TA_B_SYN_65.rumahSehat.service;
 
+<<<<<<< HEAD
+=======
+import java.util.List;
+>>>>>>> 635bfcfef9c8a4ce83dcb100515dc0f378d76842
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -25,5 +29,18 @@ public class AppointmentServiceImpl implements AppointmentService{
             return null;
         }
     }
+<<<<<<< HEAD
     
+=======
+
+    @Override
+    public List<AppointmentModel> getListAppointment() {
+        return appointmentDb.findAll();
+    }
+
+    @Override
+    public void createAppointment(AppointmentModel appointment) {
+        appointmentDb.save(appointment);
+    }
+>>>>>>> 635bfcfef9c8a4ce83dcb100515dc0f378d76842
 }

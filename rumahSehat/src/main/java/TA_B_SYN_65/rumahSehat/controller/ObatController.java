@@ -1,18 +1,6 @@
-package TA_B_SYN_65.rumahSehat.service;
-<<<<<<< HEAD
-
-import java.util.List;
-
-import javax.transaction.Transactional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+package TA_B_SYN_65.rumahSehat.controller;
 
 import TA_B_SYN_65.rumahSehat.model.ObatModel;
-import TA_B_SYN_65.rumahSehat.repository.ObatDb;
-=======
-import TA_B_SYN_65.rumahSehat.model.ObatModel;
-import TA_B_SYN_65.rumahSehat.repository.ObatDb;
 import TA_B_SYN_65.rumahSehat.security.xml.Attributes;
 import TA_B_SYN_65.rumahSehat.security.xml.ServiceResponse;
 import TA_B_SYN_65.rumahSehat.service.ObatService;
@@ -27,7 +15,6 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,22 +25,19 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.transaction.Transactional;
 import java.security.Principal;
 import java.util.List;
->>>>>>> 635bfcfef9c8a4ce83dcb100515dc0f378d76842
 
-@Service
-@Transactional
-public class ObatServiceImpl implements ObatService {
+@Controller
+public class ObatController {
+    @Qualifier("obatServiceImpl")
     @Autowired
-    ObatDb obatDb;
+    private ObatService obatService;
 
-    @Override
-    public List<ObatModel> getListObat() {
-        return obatDb.findAll();
+    @GetMapping("/obat/viewall")
+    public String listObat(Model model){
+        List<ObatModel> listObat = obatService.getListObat();
+        model.addAttribute("listObat", listObat);
+        return "viewall-obat";
     }
-
-
-    
 }
