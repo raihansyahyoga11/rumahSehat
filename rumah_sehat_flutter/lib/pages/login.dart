@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rumah_sehat_flutter/controller/authentication_controller.dart';
 import 'HomePage.dart';
+import 'SignUp.dart';
 
 void main() {
   runApp(MyApp());
@@ -98,7 +99,20 @@ class _LoginState extends State<Login> {
               ),
             ),
 
-            Text('New Patient? Create Account')
+            TextButton(
+              onPressed: (){
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => const SignUpPage(),
+                ));
+              },
+              child:
+              Text(
+                'New Patient? Create Account',
+                textAlign: TextAlign.center,
+              ),
+
+            )
+
           ],
         ),
       ),
