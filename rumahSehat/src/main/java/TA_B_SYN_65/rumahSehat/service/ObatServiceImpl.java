@@ -1,16 +1,4 @@
 package TA_B_SYN_65.rumahSehat.service;
-<<<<<<< HEAD
-
-import java.util.List;
-
-import javax.transaction.Transactional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import TA_B_SYN_65.rumahSehat.model.ObatModel;
-import TA_B_SYN_65.rumahSehat.repository.ObatDb;
-=======
 import TA_B_SYN_65.rumahSehat.model.ObatModel;
 import TA_B_SYN_65.rumahSehat.repository.ObatDb;
 import TA_B_SYN_65.rumahSehat.security.xml.Attributes;
@@ -41,7 +29,6 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.security.Principal;
 import java.util.List;
->>>>>>> 635bfcfef9c8a4ce83dcb100515dc0f378d76842
 
 @Service
 @Transactional
