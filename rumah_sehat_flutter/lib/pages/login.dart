@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rumah_sehat_flutter/controller/authentication_controller.dart';
+import 'package:rumah_sehat_flutter/pages/SignUp.dart';
 import 'HomePage.dart';
-import 'SignUp.dart';
 
 void main() {
   runApp(MyApp());
@@ -63,7 +63,7 @@ class _LoginState extends State<Login> {
             ),
             Padding(
               padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 15, bottom: 0),
+                  left: 15.0, right: 15.0, top: 15, bottom: 15),
               //padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextFormField(
                 controller: authenticationController.passwordController,
@@ -77,6 +77,7 @@ class _LoginState extends State<Login> {
             Container(
               height: 50,
               width: 250,
+              margin: EdgeInsets.only(bottom: 10),
               decoration: BoxDecoration(
                   color: Colors.blue, borderRadius: BorderRadius.circular(20)),
               child: ElevatedButton(
@@ -102,7 +103,7 @@ class _LoginState extends State<Login> {
             TextButton(
               onPressed: (){
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => const SignUpPage(),
+                    builder: (context) => const SignUpPage(),
                 ));
               },
               child:
