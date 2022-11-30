@@ -36,7 +36,7 @@
                         <td th:text="${obat.stok}"></td>
                         <td th:text="${obat.harga}"></td>
                         <td style="align-items: center">
-                            <div class="flex-wrap">
+                            <div sec:authorize="hasAuthority('APOTEKER')">
                                 <a th:href="@{/obat/ubahStok/} + ${obat.id}" class="btn btn-secondary">Ubah Stok</a>
                             </div>
                         </td>

@@ -78,6 +78,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/css/**").permitAll()
                     .antMatchers("/js/**").permitAll()
                     .antMatchers("/login-sso", "/validate-ticket").permitAll()
+                    .antMatchers("/obat/ubahStok/**").hasAuthority("APOTEKER")
                     .anyRequest().authenticated()
                     .and()
                     .formLogin()
