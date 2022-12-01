@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             httpSecurity.csrf().disable()
                     .antMatcher("/api/mobile/**").cors().and()
                     .authorizeRequests().antMatchers("/api/mobile/signin").permitAll()
-                    .antMatchers("/api/mobile/signup").permitAll()
+                    .antMatchers("/api/mobile/signupPasien").permitAll()
                     .antMatchers("/api/mobile/**").hasAuthority("PASIEN").and()
                     .exceptionHandling().authenticationEntryPoint(jwtAuthEntryPoint).and().sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
