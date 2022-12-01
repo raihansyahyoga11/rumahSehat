@@ -154,14 +154,18 @@ packages:
       name: dropdown_search
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.1"
+    version: "5.0.3"
   dropdownfield:
     dependency: "direct main"
     description:
       name: dropdownfield
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.0.0"
+=======
+    version: "1.0.3"
+>>>>>>> 05237a1d563aad57c26976be219fed46afdf7fae
   english_words:
     dependency: "direct main"
     description:
@@ -215,7 +219,7 @@ packages:
       name: flutter_lints
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.4"
+    version: "2.0.1"
   flutter_login:
     dependency: "direct main"
     description:
@@ -323,7 +327,7 @@ packages:
       name: lints
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1"
+    version: "2.0.1"
   logging:
     dependency: transitive
     description:
@@ -464,6 +468,16 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.1"
+<<<<<<< HEAD
+=======
+  pull_to_refresh:
+    dependency: "direct dev"
+    description:
+      name: pull_to_refresh
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
+>>>>>>> 05237a1d563aad57c26976be219fed46afdf7fae
   quiver:
     dependency: transitive
     description:
