@@ -67,8 +67,9 @@ public class PasienController {
         }
     }
 
-    @PostMapping("/signupAdmin")
+    @PostMapping(value="/signupAdmin")
     public AdminModel signupAdmin(@RequestBody JwtSignUpRequest request) {
+        System.out.println("hihi");
         AdminModel user = new AdminModel();
         user.setRole(request.getRole());
         user.setUsername(request.getUsername());
@@ -79,8 +80,9 @@ public class PasienController {
         return created;
     }
 
-    @PostMapping("/signupPasien")
+    @PostMapping(value="/signupPasien")
     public PasienModel signupPasien(@RequestBody JwtSignUpRequest request) {
+        System.out.println("haha");
         PasienModel user = new PasienModel();
         user.setUmur(request.getUmur());
         user.setRole(request.getRole());

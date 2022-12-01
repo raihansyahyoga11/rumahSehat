@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rumah_sehat_flutter/pages/HomePage.dart';
 
 import 'Screen/TopUpPage.dart';
 import 'Screen/ProfilePage.dart';
-import 'package:flutter/widgets.dart';
-
-const baseUrl = "http://localhost:8080";
 
 void main() {
   runApp(MyApp());
@@ -31,15 +27,11 @@ class _RumahSehatNavBarState extends State<RumahSehatNavBar> {
   int _selectedNavbar = 0;
   //navigasi page
   final screens=[
-    // Center(child:Text('Home', style:TextStyle(fontSize: 60))),
-    HomePage(),
+    Center(child:Text('Home', style:TextStyle(fontSize: 60))),
     Center(child:Text('Appointment', style:TextStyle(fontSize: 60))),
     Center(child:Text('Obat', style:TextStyle(fontSize: 60))),
-<<<<<<< HEAD
     ProfilePage(),
-=======
-    ProfilePage()
->>>>>>> 05237a1d563aad57c26976be219fed46afdf7fae
+
   ];
 
   void _changeSelectedNavBar(int index) {

@@ -29,6 +29,7 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -37,14 +38,22 @@ public class ObatServiceImpl implements ObatService {
     ObatDb obatDb;
 
     @Override
-<<<<<<< HEAD
-    public List<ObatModel> getListObat() { return obatDb.findAll(); }
-=======
+
     public List<ObatModel> getListObat() {
         return obatDb.findAll();
     }
 
+    @Override
+    public ObatModel getObatbyId(String id) {
+        Optional<ObatModel> obat= obatDb.findById(id);
+        if (obat.isPresent()){
+            return obat.get();
+        } else return null;
+    }
 
-    
->>>>>>> 05237a1d563aad57c26976be219fed46afdf7fae
+    @Override
+    public  ObatModel updateObat(ObatModel obat){
+        return obatDb.save(obat);
+    }
+
 }
