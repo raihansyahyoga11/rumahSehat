@@ -6,6 +6,8 @@ import TA_B_SYN_65.rumahSehat.model.DokterModel;
 import java.util.List;
 import java.util.Optional;
 
+import java.util.List;
+
 public interface AppointmentService {
     AppointmentModel getAppointmentByKode(String kode);
     List<AppointmentModel> getListAppointment();

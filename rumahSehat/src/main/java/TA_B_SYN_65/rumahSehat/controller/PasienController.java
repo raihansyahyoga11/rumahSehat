@@ -1,10 +1,8 @@
 package TA_B_SYN_65.rumahSehat.controller;
 
-import TA_B_SYN_65.rumahSehat.model.JwtLoginRequest;
-import TA_B_SYN_65.rumahSehat.model.JwtResponse;
-import TA_B_SYN_65.rumahSehat.model.JwtSignUpRequest;
-import TA_B_SYN_65.rumahSehat.model.PasienModel;
+import TA_B_SYN_65.rumahSehat.model.*;
 import TA_B_SYN_65.rumahSehat.security.jwt.JwtTokenUtil;
+import TA_B_SYN_65.rumahSehat.service.AdminService;
 import TA_B_SYN_65.rumahSehat.service.PasienService;
 import TA_B_SYN_65.rumahSehat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +43,9 @@ public class PasienController {
     @Autowired
     PasienService pasienService;
 
+    @Autowired
+    AdminService adminService;
+
     @PostMapping( value = "/signin")
     public ResponseEntity<JwtResponse> authenticateLogin(@RequestBody JwtLoginRequest authenticationRequest) throws Exception {
         try {
@@ -66,17 +67,30 @@ public class PasienController {
         }
     }
 
-    @PostMapping("/signup")
-    public PasienModel signup(@RequestBody JwtSignUpRequest request) {
+    @PostMapping(value="/signupAdmin")
+    public AdminModel signupAdmin(@RequestBody JwtSignUpRequest request) {
+        System.out.println("hihi");
+        AdminModel user = new AdminModel();
+        user.setRole(request.getRole());
+        user.setUsername(request.getUsername());
+        user.setEmail(request.getEmail());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setNama(request.getNama());
+        AdminModel created = adminService.create(user);
+        return created;
+    }
+
+    @PostMapping(value="/signupPasien")
+    public PasienModel signupPasien(@RequestBody JwtSignUpRequest request) {
+        System.out.println("haha");
         PasienModel user = new PasienModel();
-        user.setRole("PASIEN");
         user.setUmur(request.getUmur());
+        user.setRole(request.getRole());
         user.setSaldo(5000);
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setNama(request.getNama());
-
         PasienModel created = pasienService.create(user);
         return created;
     }
