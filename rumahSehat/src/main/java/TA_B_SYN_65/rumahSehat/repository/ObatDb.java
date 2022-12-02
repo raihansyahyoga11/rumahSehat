@@ -11,8 +11,6 @@ import java.util.Optional;
 @Repository
 public interface ObatDb extends JpaRepository<ObatModel, String> {
 //    Optional<ObatModel> findByName(String obat);
-
-    public Optional<ObatModel> findById(String id);
-
+      Optional<ObatModel> findById(String id);
 
 }

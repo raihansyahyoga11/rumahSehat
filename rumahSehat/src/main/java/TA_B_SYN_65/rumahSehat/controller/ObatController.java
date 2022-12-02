@@ -3,16 +3,38 @@ package TA_B_SYN_65.rumahSehat.controller;
 import TA_B_SYN_65.rumahSehat.model.BarChartModel;
 import TA_B_SYN_65.rumahSehat.model.BarChartObatModel;
 import TA_B_SYN_65.rumahSehat.model.ObatModel;
+import TA_B_SYN_65.rumahSehat.model.BarChartModel;
+import TA_B_SYN_65.rumahSehat.model.BarChartObatModel;
+import TA_B_SYN_65.rumahSehat.security.xml.Attributes;
+import TA_B_SYN_65.rumahSehat.security.xml.ServiceResponse;
 import TA_B_SYN_65.rumahSehat.service.BarChartObatService;
 import TA_B_SYN_65.rumahSehat.service.BarChartService;
 import TA_B_SYN_65.rumahSehat.service.ObatService;
+import TA_B_SYN_65.rumahSehat.service.UserService;
+import TA_B_SYN_65.rumahSehat.setting.Setting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ObatController {
@@ -32,6 +54,7 @@ public class ObatController {
         model.addAttribute("listObat", listObat);
         return "viewall-obat";
     }
+
 
 
     @GetMapping("/obat/barChartObat")
@@ -70,9 +93,9 @@ public class ObatController {
             jenisBarChart = "Kuantitas";
             for (int i=0; i< barChart.getListBarChartObat().size();i++) {
                 barChart.getListBarChartObat().get(i).setBarChart(barChart);
-                data.put((obatService.getObatById(barChart.getListBarChartObat().get(i).getObatSelected().getId())).get().getNama(), (obatService.getObatById(barChart.getListBarChartObat().get(i).getObatSelected().getId()).get().getStok()));
-                System.out.println((obatService.getObatById(barChart.getListBarChartObat().get(i).getObatSelected().getId())).get().getNama());
-                System.out.println((obatService.getObatById(barChart.getListBarChartObat().get(i).getObatSelected().getId())).get().getStok());
+                data.put((obatService.getObatbyId(barChart.getListBarChartObat().get(i).getObatSelected().getId())).getNama(), (obatService.getObatbyId(barChart.getListBarChartObat().get(i).getObatSelected().getId()).getStok()));
+                System.out.println((obatService.getObatbyId(barChart.getListBarChartObat().get(i).getObatSelected().getId())).getNama());
+                System.out.println((obatService.getObatbyId(barChart.getListBarChartObat().get(i).getObatSelected().getId())).getStok());
 
             }
         }
@@ -80,9 +103,9 @@ public class ObatController {
             jenisBarChart = "Total Pendapatan";
             for (int i=0; i< barChart.getListBarChartObat().size();i++) {
                 barChart.getListBarChartObat().get(i).setBarChart(barChart);
-                data.put((obatService.getObatById(barChart.getListBarChartObat().get(i).getObatSelected().getId())).get().getNama(), (obatService.getObatById(barChart.getListBarChartObat().get(i).getObatSelected().getId()).get().getStok()));
-                System.out.println((obatService.getObatById(barChart.getListBarChartObat().get(i).getObatSelected().getId())).get().getNama());
-                System.out.println((obatService.getObatById(barChart.getListBarChartObat().get(i).getObatSelected().getId())).get().getStok());
+                data.put((obatService.getObatbyId(barChart.getListBarChartObat().get(i).getObatSelected().getId())).getNama(), (obatService.getObatbyId(barChart.getListBarChartObat().get(i).getObatSelected().getId()).getStok()));
+                System.out.println((obatService.getObatbyId(barChart.getListBarChartObat().get(i).getObatSelected().getId())).getNama());
+                System.out.println((obatService.getObatbyId(barChart.getListBarChartObat().get(i).getObatSelected().getId())).getStok());
 
             }
         }
@@ -142,5 +165,24 @@ public class ObatController {
         return "obat/form-chart-obat";
     }
 
+    @GetMapping(value="/obat/ubahStok/{id}")
+    public String updateObatFormPage(@PathVariable String id, Model model){
+        ObatModel obat = obatService.getObatbyId(id);
+        model.addAttribute("obat",obat);
+        return "form-update-stokObat";
+    }
+    @PostMapping(value="/obat/ubahStok")
+    public String updateObatSubmitPage(@ModelAttribute ObatModel obat, Model model, BindingResult result, RedirectAttributes redirectAttrs){
+        if (result.hasErrors()) {
+            redirectAttrs.addFlashAttribute("error", "The error occurred.");
+            return "redirect:/obat/ubahStok/{id}";
+        }
 
+        ObatModel updatedObat = obatService.updateObat(obat);
+        redirectAttrs.addFlashAttribute("success",
+                String.format("Stok obat %s berhasil diperbarui", updatedObat.getNama()));
+
+        model.addAttribute("nama",updatedObat.getNama());
+        return "redirect:/obat/viewall";
+    }
 }

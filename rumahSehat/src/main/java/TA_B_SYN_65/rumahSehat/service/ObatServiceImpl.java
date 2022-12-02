@@ -9,7 +9,6 @@ import TA_B_SYN_65.rumahSehat.setting.Setting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -23,13 +22,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
-import java.math.BigInteger;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -46,16 +43,18 @@ public class ObatServiceImpl implements ObatService {
     }
 
     @Override
-    public Optional<ObatModel> getObatById(String id) {
-        try {
-            return obatDb.findById(id);
-        }
-        catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found");
-        }
+    public ObatModel getObatbyId(String id) {
+        Optional<ObatModel> obat= obatDb.findById(id);
+        if (obat.isPresent()){
+            return obat.get();
+        } else return null;
+    }
+
+    @Override
+    public  ObatModel updateObat(ObatModel obat){
+        return obatDb.save(obat);
     }
 
 
-
-
+    
 }
