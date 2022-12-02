@@ -2,7 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:rumah_sehat_flutter/controller/SignUpController.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'HomePage.dart';
+import 'login.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -12,11 +16,6 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _umurController = TextEditingController();
 
   void displayDialog(context, title, text) => showDialog(
     context: context,
@@ -27,23 +26,6 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
   );
 
-  Future<http.Response> attemptSignUp(String username, String password, String umur, String name, String email) async {
-    var res = await http.post(
-        Uri.parse('http://localhost:8080/api/v1/signup'),
-        headers: <String, String>{"Content-Type": "application/json; charset=UTF-8",
-          "Accept": "application/json"},
-        body: jsonEncode(<String, String>{
-          "nama": name,
-          "email": email,
-          "umur": umur,
-          "username": username,
-          "password": password
-        })
-    );
-    return res;
-
-  }
-
   final ButtonStyle style = ElevatedButton.styleFrom(
       padding: EdgeInsets.all(20),
       backgroundColor: Colors.lightBlueAccent,
@@ -52,7 +34,7 @@ class _SignUpPageState extends State<SignUpPage> {
         borderRadius: BorderRadius.circular(20),
       ));
 
-
+  SignUpController signUpController = SignUpController();
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +67,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 child: SizedBox(
                   height: 40,
                   child: TextFormField(
-                    controller: _usernameController,
+                    controller: signUpController.usernameController,
                     autofocus: false,
                     // initialValue: 'Rose Angela',
                     decoration: InputDecoration(
@@ -107,7 +89,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: TextFormField(
                     autofocus: false,
                     //initialValue: 'some password',
-                    controller: _passwordController,
+                    controller: signUpController.passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       hintText: 'Password',
@@ -128,7 +110,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: TextFormField(
                     autofocus: false,
                     //initialValue: 'some password',
-                    controller: _nameController,
+                    controller: signUpController.nameController,
                     decoration: InputDecoration(
                       hintText: 'Nama',
                       contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
@@ -148,7 +130,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: TextFormField(
                     autofocus: false,
                     //initialValue: 'some password',
-                    controller: _emailController,
+                    controller: signUpController.emailController,
                     decoration: InputDecoration(
                       hintText: 'Email',
                       contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
@@ -168,7 +150,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: TextFormField(
                     autofocus: false,
                     //initialValue: 'some password',
-                    controller: _umurController,
+                    controller: signUpController.umurController,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       hintText: 'Umur',
@@ -187,23 +169,26 @@ class _SignUpPageState extends State<SignUpPage> {
                 child: ElevatedButton(
                   style: style,
                   onPressed: () async {
-                    var response = await attemptSignUp(_usernameController.text, _passwordController.text, _umurController.text, _nameController.text, _emailController.text);
-                    print(response.statusCode);
-                    if(response.statusCode == 200) {
-                      displayDialog(context, "Sign Up success", "Sign Up success");
-                      //JWT.fromJson(jsonDecode(jwt.body));
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => HomePage.fromBase64(jwt)
-                      //     )
-                      // );
-                    } else if(response.statusCode == 400){
-                      displayDialog(context, "An Error Occurred", "Request body has invalid type or missing field.");
-                    } else if(response.statusCode == 403) {
-                      displayDialog(context, "An Error Occurred", "Forbidden");
+                    int code = await signUpController.attemptSignUp(signUpController.usernameController.text,
+                                                                        signUpController.passwordController.text,
+                                                                        signUpController.umurController.text,
+                                                                        signUpController.nameController.text,
+                                                                        signUpController.emailController.text);
+                    if (code == 200) {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => const HomePage(),
+                      ));
                     } else {
-                      displayDialog(context, "An Error Occurred", "No account was found matching that username and password");
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => const SignUpPage(),
+                      ));
+
+                    // await signUpController.attemptSignUp(
+                    //     signUpController.usernameController.text,
+                    //     signUpController.passwordController.text,
+                    //     signUpController.umurController.text,
+                    //     signUpController.nameController.text,
+                    //     signUpController.emailController.text);
                     }
                   },
                   child: Text(
