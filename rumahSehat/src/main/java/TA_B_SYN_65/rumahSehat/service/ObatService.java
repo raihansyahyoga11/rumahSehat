@@ -11,4 +11,6 @@ public interface ObatService {
     ObatModel getObatbyId(String id);
 
     ObatModel updateObat(ObatModel obat);
+
+
 }

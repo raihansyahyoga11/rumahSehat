@@ -77,8 +77,6 @@ class _RumahSehatNavBarState extends State<RumahSehatNavBar> {
       ),
     );
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 2f469ab0a706a1c92a47390abf43f702bc689e8d
+
+
