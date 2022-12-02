@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:rumah_sehat_flutter/pages/HomePage.dart';
 
 import 'Screen/TopUpPage.dart';
 import 'Screen/ProfilePage.dart';
+import 'package:flutter/widgets.dart';
+
+const baseUrl = "http://localhost:8080";
 
 void main() {
   runApp(MyApp());
@@ -73,4 +77,8 @@ class _RumahSehatNavBarState extends State<RumahSehatNavBar> {
       ),
     );
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 2f469ab0a706a1c92a47390abf43f702bc689e8d
