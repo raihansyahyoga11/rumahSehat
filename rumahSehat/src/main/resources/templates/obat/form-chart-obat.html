@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>Form Show Chart</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+
+<div class="container">
+    <div class="card m-4 p-4">
+        <div class="card-body">
+<form th:action="@{/obat/barChartObat}" th:object="${barChart}" method="post">
+
+        Jenis Chart: <br>
+        <select name="jenisChart" th:field="${barChart.isBarChartKuantitas}"
+                class="form-control">
+            <option value="1">Kuantitas</option>
+            <option value="0">Total Pendapatan</option>
+        </select>
+        <br><br>
+
+    <h3>Daftar Obat</h3>
+        <table class="table">
+            <thead>
+            <div th:text="${message}"> </div>
+            <th>Nama Obat</th>
+            <th>
+                <button class="btn btn-primary" type="submit" name="addRowChart">Tambah obat yang ingin ditampilkan</button>
+            </th>
+            </thead>
+            <tbody>
+            <tr th:each="chart, iterationStatus : *{listBarChartObat}">
+                <td>
+                    <select required name="id"
+                            th:field="*{listBarChartObat[__${iterationStatus.index}__].obatSelected.id}"
+                            class="form-control">
+
+                        <option th:each="obat, iterationStatus2 : ${listObat}"
+                             th:value="${obat.id}" th:text="${obat.nama}">
+                        </option>
+                    </select>
+                </td>
+                <td>
+                    <button th:value="${iterationStatus.index}" class="btn btn-danger" type="submit"
+                            name="deleteRowChart">Hapus Obat yang ingin ditampilkan</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+    <button class="btn btn-primary" type="submit" name="save">Submit</button>
+    <a class="btn btn-primary" href="/">Home</a>
+</form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
