@@ -33,6 +33,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    public BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+
+
+
+//    PasswordEncoder encoder() {
+//        return new BCryptPasswordEncoder();
+//    }
+
 
 
     @Override
@@ -50,6 +59,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             httpSecurity.csrf().disable()
                     .antMatcher("/api/mobile/**").cors().and()
                     .authorizeRequests().antMatchers("/api/mobile/signin").permitAll()
+                    .antMatchers("/api/mobile/signup").permitAll()
+                    .antMatchers("/api/mobile/signupAdmin").permitAll()
                     .antMatchers("/api/mobile/signupPasien").permitAll()
                     .antMatchers("/api/mobile/**").hasAuthority("PASIEN").and()
                     .exceptionHandling().authenticationEntryPoint(jwtAuthEntryPoint).and().sessionManagement()
@@ -67,6 +78,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/css/**").permitAll()
                     .antMatchers("/js/**").permitAll()
                     .antMatchers("/login-sso", "/validate-ticket").permitAll()
+                    .antMatchers("/obat/ubahStok/**").hasAuthority("APOTEKER")
                     .anyRequest().authenticated()
                     .and()
                     .formLogin()
@@ -79,7 +91,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception{
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
     }
 
 

@@ -31,11 +31,10 @@ class _RumahSehatNavBarState extends State<RumahSehatNavBar> {
   int _selectedNavbar = 0;
   //navigasi page
   final screens=[
-    // Center(child:Text('Home', style:TextStyle(fontSize: 60))),
-    HomePage(),
+    Center(child:Text('Home', style:TextStyle(fontSize: 60))),
     Center(child:Text('Appointment', style:TextStyle(fontSize: 60))),
     Center(child:Text('Obat', style:TextStyle(fontSize: 60))),
-    ProfilePage()
+    PofilePage(),
   ];
 
   void _changeSelectedNavBar(int index) {
@@ -78,4 +77,8 @@ class _RumahSehatNavBarState extends State<RumahSehatNavBar> {
       ),
     );
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 2f469ab0a706a1c92a47390abf43f702bc689e8d

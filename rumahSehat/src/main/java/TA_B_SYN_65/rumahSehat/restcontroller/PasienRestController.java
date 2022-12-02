@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.security.Principal;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -17,13 +18,13 @@ public class PasienRestController {
     PasienRestService pasienRestService ;
 
     @CrossOrigin
-    @GetMapping(value="/profile/pasien/{username}")
-    private PasienModel retrievePasien(@PathVariable("username") String username){
+    @GetMapping(value="/profile/pasien")
+    private PasienModel retrievePasien(Principal principal){
         try{
-            return pasienRestService.getPasienByUsername(username);
+            return pasienRestService.getPasienByUsername(principal.getName());
         }catch(NoSuchElementException e){
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND,"Pasien dengan  "+ username +" not found"
+                    HttpStatus.NOT_FOUND,"Pasien dengan  "+ principal.getName() +" not found"
             );
         }
     }

@@ -26,9 +26,12 @@ environment:
 # dependencies can be manually updated by changing the version numbers below to
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
+
 dependencies:
   flutter:
     sdk: flutter
+
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -44,6 +47,8 @@ dependencies:
   dropdown_search: ^5.0.3
   flutter_html: ^2.2.1
   json_annotation: ^4.7.0
+
+
 
 dev_dependencies:
   flutter_test:

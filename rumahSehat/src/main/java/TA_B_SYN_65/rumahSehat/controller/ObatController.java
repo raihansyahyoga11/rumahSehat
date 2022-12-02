@@ -16,12 +16,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -39,5 +38,25 @@ public class ObatController {
         List<ObatModel> listObat = obatService.getListObat();
         model.addAttribute("listObat", listObat);
         return "viewall-obat";
+    }
+    @GetMapping(value="/obat/ubahStok/{id}")
+    public String updateObatFormPage(@PathVariable String id, Model model){
+        ObatModel obat = obatService.getObatbyId(id);
+        model.addAttribute("obat",obat);
+        return "form-update-stokObat";
+    }
+    @PostMapping(value="/obat/ubahStok")
+    public String updateObatSubmitPage(@ModelAttribute ObatModel obat, Model model, BindingResult result, RedirectAttributes redirectAttrs){
+        if (result.hasErrors()) {
+            redirectAttrs.addFlashAttribute("error", "The error occurred.");
+            return "redirect:/obat/ubahStok/{id}";
+        }
+
+        ObatModel updatedObat = obatService.updateObat(obat);
+        redirectAttrs.addFlashAttribute("success",
+                String.format("Stok obat %s berhasil diperbarui", updatedObat.getNama()));
+
+        model.addAttribute("nama",updatedObat.getNama());
+        return "redirect:/obat/viewall";
     }
 }
