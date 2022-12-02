@@ -37,8 +37,6 @@ class _SignUpPageState extends State<SignUpPage> {
 
   SignUpController signUpController = SignUpController();
 
-  // ProfilePage profilePage = ProfilePage();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
