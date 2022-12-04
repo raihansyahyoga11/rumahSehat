@@ -43,12 +43,14 @@ dependencies:
   intl: ^0.17.0
   http: ^0.13.4
   date_time_picker: ^2.1.0
-  dropdownfield: 1.0.0
+  dropdownfield: ^1.0.3
   flutter_login: ^4.1.0
   shared_preferences: ^2.0.5
   get: ^4.6.5
-  dropdown_search: ^3.0.1
-  
+  dropdown_search: ^5.0.3
+  flutter_html: ^2.2.1
+  json_annotation: ^4.7.0
+
 
 
 
@@ -61,7 +63,8 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^1.0.0
+  flutter_lints: ^2.0.1
+  pull_to_refresh: ^2.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
