@@ -3,6 +3,7 @@ package TA_B_SYN_65.rumahSehat.controller;
 import TA_B_SYN_65.rumahSehat.model.*;
 import TA_B_SYN_65.rumahSehat.security.jwt.JwtTokenUtil;
 import TA_B_SYN_65.rumahSehat.service.AdminService;
+import TA_B_SYN_65.rumahSehat.service.PasienRestService;
 import TA_B_SYN_65.rumahSehat.service.PasienService;
 import TA_B_SYN_65.rumahSehat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,13 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +45,8 @@ public class PasienController {
 
     @Autowired
     PasienService pasienService;
+    @Autowired
+    PasienRestService pasienRestService;
 
     @Autowired
     AdminService adminService;
@@ -93,5 +98,28 @@ public class PasienController {
         user.setNama(request.getNama());
         PasienModel created = pasienService.create(user);
         return created;
+    }
+    @CrossOrigin
+    @GetMapping(value="/profile/pasien")
+    @ResponseBody
+    private PasienModel retrievePasien(Principal principal){
+        //try{
+        return pasienRestService.getPasienByUsername(getPrincipal());
+        //}catch(NoSuchElementException e){
+        //throw new ResponseStatusException(
+        // HttpStatus.NOT_FOUND,"Pasien dengan "+ getPrincipal() +" not found"
+        //);
+        //}
+    }
+    private String getPrincipal() {
+        String userName = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            userName = ((UserDetails) principal).getUsername();
+        } else {
+            userName = principal.toString();
+        }
+        return userName;
     }
 }

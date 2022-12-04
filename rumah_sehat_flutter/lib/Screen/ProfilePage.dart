@@ -11,7 +11,7 @@ import 'TopUpPage.dart';
 
 Future<PasienModel> fetchAlbum() async {
   String url = "localhost:8080";
-  final response = await http.get(Uri.http(url, '/api/v1/profile/pasien/pasien1'));
+  final response = await http.get(Uri.http(url, '/api/v1/profile/pasien'));
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.
@@ -143,28 +143,31 @@ class _ProfilePageState extends State<ProfilePage> {
                       )
                   ),
                 ),
-                Container(
-                    child: TextButton(
-                      style: ButtonStyle(
-                        foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                      ),
-                      onPressed: () {
-                          Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => TopUpPage()),
-                          );
-                        },
-                      child: Text('TextButton'),
-                    )
-                ),
+
               ],
              );
             } else if (snapshot.hasError) {
-                return Text('${snapshot.error}');
-              }
+              return Container(
+                  child: TextButton(
+                    style: ButtonStyle(
+                      foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TopUpPage()),
+                      );
+                    },
+                    child: Text('TextButton'),
+                  )
+              );
+              Text('${snapshot.error}');
+            }
+
             //By default, show a loading spinner.
-              return const CircularProgressIndicator();
+              return Text('${snapshot.error}');
             }),
+
 
         ),
       )

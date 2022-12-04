@@ -11,12 +11,9 @@ class TopUpPage extends StatelessWidget{
   @override
 
   Widget build(BuildContext context) => Scaffold(
-      body:
-      Container(
-          padding: EdgeInsets.only(top: 32.0, bottom: 32.0, left: 16.0, right: 16.0),
-          // child:Text(berita.fields["Title"]),
-      )
-  );
+
+
+      );
 
 
 }

@@ -11,7 +11,7 @@ class AuthenticationController {
 
 
   Future<int> loginUser() async {
-    const url = 'http://10.0.2.2:8080/api/mobile/signin';
+    const url = 'http://8080:8080/api/mobile/signin';
    print("haha");
     var response = await http.post(Uri.parse(url),
         headers: {'Content-Type': 'application/json; charset=UTF-8'},

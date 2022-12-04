@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'Screen/TopUpPage.dart';
-import 'Screen/ProfilePage.dart';
+import '../Screen/ProfilePage.dart';
+import 'HomePage.dart';
 
-void main() {
-  runApp(MyApp());
-}
 
-class MyApp extends StatelessWidget {
+
+
+
+
+class beranda extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
 }
 
 class RumahSehatNavBar extends StatefulWidget {
+  const RumahSehatNavBar ({Key? key}) : super(key: key);
   @override
   _RumahSehatNavBarState createState() => _RumahSehatNavBarState();
 }
@@ -27,7 +29,7 @@ class _RumahSehatNavBarState extends State<RumahSehatNavBar> {
   int _selectedNavbar = 0;
   //navigasi page
   final screens=[
-    Center(child:Text('Home', style:TextStyle(fontSize: 60))),
+    HomePage(),
     Center(child:Text('Appointment', style:TextStyle(fontSize: 60))),
     Center(child:Text('Obat', style:TextStyle(fontSize: 60))),
     ProfilePage(),
