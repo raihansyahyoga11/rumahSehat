@@ -6,9 +6,13 @@ import TA_B_SYN_65.rumahSehat.model.PasienModel;
 import TA_B_SYN_65.rumahSehat.model.UserModel;
 import TA_B_SYN_65.rumahSehat.service.AdminService;
 import TA_B_SYN_65.rumahSehat.service.PasienRestService;
+import io.jsonwebtoken.Jwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,8 +36,9 @@ public class PasienRestController {
     @CrossOrigin
     @GetMapping(value="/profile/pasien")
     @ResponseBody
-    private PasienModel retrievePasien(Principal principal){
+    private PasienModel retrievePasien(){
         //try{
+            System.out.print("masuk22");
             return pasienRestService.getPasienByUsername(getPrincipal());
         //}catch(NoSuchElementException e){
             //throw new ResponseStatusException(
@@ -43,7 +48,9 @@ public class PasienRestController {
     }
     private String getPrincipal() {
         String userName = null;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication authentication = context.getAuthentication();
+        Object principal = authentication.getPrincipal();
 
         if (principal instanceof UserDetails) {
             userName = ((UserDetails) principal).getUsername();

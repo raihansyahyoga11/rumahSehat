@@ -3,32 +3,38 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+import '../Model/PasienModel.dart';
 
 class AuthenticationController {
+  final storage = new FlutterSecureStorage();
   String? token;
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
+  TextEditingController saldoController = TextEditingController();
 
   Future<int> loginUser() async {
-    const url = 'http://8080:8080/api/mobile/signin';
-   print("haha");
+    const url = 'http://localhost:8080/api/mobile/signin';
     var response = await http.post(Uri.parse(url),
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
         body: jsonEncode({
           "username": usernameController.text,
           "password": passwordController.text,
         }));
-    print("huhe");
     if (response.statusCode == 200) {
       print("masuk 200");
       var loginMaterial = json.decode(response.body);
       token = loginMaterial['token'];
       SharedPreferences prefrences = await SharedPreferences.getInstance();
 
+      await storage.write(key: 'TOKEN', value :token);
+      await storage.write(key: 'USERNAME', value :loginMaterial['username']);
 
       prefrences.setString('token', loginMaterial['token']);
       prefrences.setString('username', loginMaterial['username']);
+
+
 
       return response.statusCode;
 
@@ -38,6 +44,7 @@ class AuthenticationController {
     }
   }
 
+
   logOut() async {
     SharedPreferences prefrences = await SharedPreferences.getInstance();
     prefrences.remove("token");
@@ -45,4 +52,44 @@ class AuthenticationController {
     print(token);
     prefrences.remove("token");
   }
+  Future<int> attemptTopUp() async {
+    const url = 'http://localhost:8080/api/mobile/topUp/';
+    String? token1 = await storage.read(key:'TOKEN');
+    String? username1 = await storage.read(key:'USERNAME');
+    var response = await http.put(Uri.parse(url),
+        headers: {'Content-Type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token1',
+        },
+        body: jsonEncode({
+          "saldo": saldoController.text
+        }));
+    if (response.statusCode == 200) {
+      print("masuk 200 okok");
+
+
+      return response.statusCode;
+    } else {
+      return response.statusCode;
+    }
+  }
+
+  Future<PasienModel> getUserProfile() async {
+    const url = 'http://localhost:8080/api/mobile/profile/pasien';
+    String? token1 = await storage.read(key:'TOKEN');
+    var response = await http.get(Uri.parse(url),
+        headers: {'Content-Type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token1',
+        });
+    if (response.statusCode == 200) {
+
+      var loginMaterial = json.decode(response.body);
+
+      return PasienModel.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to load album');
+    }
+  }
+
 }

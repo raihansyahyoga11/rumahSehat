@@ -8,24 +8,24 @@ import 'HomePage.dart';
 
 
 
-class beranda extends StatelessWidget {
+class RumahSehat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Rumah Sehat",
       debugShowCheckedModeBanner: false,
-      home: RumahSehatNavBar(),
+      home: RumahSehatMain(),
     );
   }
 }
 
-class RumahSehatNavBar extends StatefulWidget {
-  const RumahSehatNavBar ({Key? key}) : super(key: key);
+class RumahSehatMain extends StatefulWidget {
+  const RumahSehatMain ({Key? key}) : super(key: key);
   @override
-  _RumahSehatNavBarState createState() => _RumahSehatNavBarState();
+  _RumahSehatMainState createState() => _RumahSehatMainState();
 }
 
-class _RumahSehatNavBarState extends State<RumahSehatNavBar> {
+class _RumahSehatMainState extends State<RumahSehatMain> {
   int _selectedNavbar = 0;
   //navigasi page
   final screens=[
@@ -46,6 +46,7 @@ class _RumahSehatNavBarState extends State<RumahSehatNavBar> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Rumah Sehat"),
+   
       ),
       body: screens[_selectedNavbar],
       bottomNavigationBar: BottomNavigationBar(
