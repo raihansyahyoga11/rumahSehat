@@ -8,4 +8,6 @@ public interface AppointmentService {
     AppointmentModel getAppointmentByKode(String kode);
 
     List<AppointmentModel> getListAppointment();
+
+    void createAppointment(AppointmentModel appointment);
 }
