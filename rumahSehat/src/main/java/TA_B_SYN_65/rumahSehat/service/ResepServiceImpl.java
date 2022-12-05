@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import TA_B_SYN_65.rumahSehat.model.ResepModel;
 import TA_B_SYN_65.rumahSehat.repository.ResepDb;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class ResepServiceImpl implements ResepService {
@@ -19,6 +21,10 @@ public class ResepServiceImpl implements ResepService {
         resepDb.save(resep);
         
     }
+    public List<ResepModel> getAllResep() {
+        return resepDb.findAll();
+    };
+
 
     
 }
