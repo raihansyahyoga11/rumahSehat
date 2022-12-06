@@ -109,4 +109,11 @@ public class ResepController {
 
         return "form-create-resep";
     }
+
+    @GetMapping(value = "/viewall")
+    public String listResep(Model model){
+        List<ResepModel> listResep = resepService.getAllResep();
+        model.addAttribute("listResep", listResep);
+        return "resep/viewall-resep";
+    }
 }

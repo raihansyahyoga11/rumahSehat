@@ -8,20 +8,20 @@ import 'package:json_annotation/json_annotation.dart';
 
 
 class PasienModel {
-   final String id;
-   final String nama;
-   final String role;
-   final String username;
-   final String password;
-   final String email;
-   final int saldo;
-   final int umur;
-   final List<dynamic> listAppointment;
+   final String  uuid;
+   final String  nama;
+   final String  role;
+   final String  username;
+   final String  password;
+   final String  email;
+   final int  saldo;
+   final int  umur;
+   final List<dynamic>?  listAppointment;
 
 
 
    PasienModel({
-      required this.id,
+      required this.uuid,
       required this.nama,
       required this.username,
       required this.email,
@@ -33,7 +33,7 @@ class PasienModel {
    });
    factory PasienModel.fromJson(Map<String, dynamic> json) {
       return PasienModel(
-          id: json['id'],
+          uuid: json['uuid'],
           nama: json['nama'],
           username: json['username'],
           email: json['email'],
@@ -44,4 +44,5 @@ class PasienModel {
           listAppointment: json['listAppointment']
       );
    }
+
 }

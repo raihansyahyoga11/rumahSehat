@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rumah_sehat_flutter/controller/authentication_controller.dart';
 import 'package:rumah_sehat_flutter/pages/SignUp.dart';
+import '../main.dart';
 import 'HomePage.dart';
+import 'RumahSehatPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -85,7 +87,7 @@ class _LoginState extends State<Login> {
                   int code = await authenticationController.loginUser();
                   if (code == 200) {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const HomePage(),
+                      builder: (context) =>  RumahSehatMain(),
                     ));
                   } else {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(

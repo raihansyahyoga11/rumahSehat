@@ -38,6 +38,8 @@ public class UserServiceImpl implements UserService {
         UserModel user = userDb.findByUsername(nama);
         return user;
     }
+
+
     @Override
     public UserModel addUser(UserModel user) {
         String pass = encrypt(user.getPassword());

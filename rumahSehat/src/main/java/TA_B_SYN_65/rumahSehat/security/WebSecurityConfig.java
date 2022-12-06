@@ -20,7 +20,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Autowired
     private JwtAuthEntryPoint jwtAuthEntryPoint;
@@ -33,6 +33,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    public BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+
+
+
+//    PasswordEncoder encoder() {
+//        return new BCryptPasswordEncoder();
+//    }
+
 
     public BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -58,6 +67,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatcher("/api/mobile/**").cors().and()
                     .authorizeRequests().antMatchers("/api/mobile/signin").permitAll()
                     .antMatchers("/api/mobile/signup").permitAll()
+                    .antMatchers("/api/mobile/signupAdmin").permitAll()
+                    .antMatchers("/api/mobile/signupPasien").permitAll()
+                    .antMatchers("/api/mobile/profile/pasien").permitAll()
                     .antMatchers("/api/mobile/**").hasAuthority("PASIEN").and()
                     .exceptionHandling().authenticationEntryPoint(jwtAuthEntryPoint).and().sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -74,6 +86,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/css/**").permitAll()
                     .antMatchers("/js/**").permitAll()
                     .antMatchers("/login-sso", "/validate-ticket").permitAll()
+                    .antMatchers("/obat/ubahStok/**").hasAuthority("APOTEKER")
+                    .antMatchers("/obat/barChartObat").hasAuthority("ADMIN")
+                    .antMatchers("/user/manajemenUser").hasAuthority("ADMIN")
+                    .antMatchers("/user/view/**").hasAuthority("ADMIN")
                     .anyRequest().authenticated()
                     .and()
                     .formLogin()
@@ -86,8 +102,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception{
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
     }
+
+
 
 
 }

@@ -10,6 +10,10 @@ import TA_B_SYN_65.rumahSehat.service.DokterService;
 import TA_B_SYN_65.rumahSehat.service.PasienService;
 import TA_B_SYN_65.rumahSehat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< HEAD
+=======
+import org.springframework.cglib.core.Local;
+>>>>>>> e0777bd319f8ffe92696629ad6ab567ab6b9dc6f
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -54,6 +58,7 @@ public class AppointmentController {
 //        d.setListAppointment(new ArrayList<>());
 //        d.setIsSso(false);
 //        dokterService.addDokter(d);
+<<<<<<< HEAD
 
 //        PasienModel p = new PasienModel();
 //        p.setUsername("rijal");
@@ -71,6 +76,24 @@ public class AppointmentController {
 //        appt.setIsDone(true);
 //        appt.setDokter(dokterService.getDokterByUsername("archee"));
 //        appt.setPasien(pasienService.getPasienByUsername("rijal"));
+=======
+//
+//        PasienModel p = new PasienModel();
+//        p.setUsername("tazkiya");
+//        p.setPassword("tazkiyamy");
+//        p.setEmail("tazkiya@gmail.com");
+//        p.setNama("Tazkiya Mutia");
+//        p.setRole("PASIEN");
+//        p.setListAppointment(new ArrayList<>());
+//        p.setUmur(24);
+//        p.setSaldo(160000);
+//        p.setIsSso(false);
+//        pasienService.create(p);
+//
+//        AppointmentModel appt = new AppointmentModel();
+//        appt.setDokter(d);
+//        appt.setPasien(p);
+>>>>>>> e0777bd319f8ffe92696629ad6ab567ab6b9dc6f
 //        appt.setWaktuAwal(LocalDateTime.now());
 //        appt.setIsDone(false);
 //        appointmentService.createAppointment(appt);
@@ -79,6 +102,7 @@ public class AppointmentController {
         if(userModel.getRole().equals("ADMIN")) {
             List<AppointmentModel> listAppointment = appointmentService.getListAppointment();
             model.addAttribute("listAppointment", listAppointment);
+<<<<<<< HEAD
             return "appointment/viewall-appointment";
         } else if (userModel.getRole().equals("DOKTER")) {
             DokterModel dokterLogin = dokterService.getDokterByUsername(userModel.getUsername());
@@ -103,6 +127,10 @@ public class AppointmentController {
             return "appointment/detail-appointment";
         }
 
+=======
+            return "appointment/admin-viewall-appointment";
+        }
+>>>>>>> e0777bd319f8ffe92696629ad6ab567ab6b9dc6f
         return "auth/access-denied";
     }
 }
