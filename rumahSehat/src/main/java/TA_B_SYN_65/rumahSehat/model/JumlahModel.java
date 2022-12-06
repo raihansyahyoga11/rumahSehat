@@ -24,22 +24,25 @@ import java.io.Serializable;
 public class JumlahModel implements Serializable{
 
     @Id
-    @Size(max = 50)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long idJumlah;
+
+    @NotNull
+    @Column(name = "kuantitas", nullable = false)
+    private Integer kuantitas;
+
     @ManyToOne(fetch = FetchType.EAGER, optional=false)
     @JoinColumn(name = "id_obat", referencedColumnName = "id_obat")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ObatModel obat;
 
-    @Id
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, optional=false)
     @JoinColumn(name = "id_resep", referencedColumnName = "id_resep")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ResepModel resep;
 
-    @NotNull
-    @Size(max = 200)
-    @Column(name = "kuantitas", nullable = false)
-    private Integer kuantitas;
 }
 
 
