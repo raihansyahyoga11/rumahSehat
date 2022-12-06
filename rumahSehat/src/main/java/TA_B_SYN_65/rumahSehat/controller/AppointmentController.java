@@ -76,7 +76,7 @@ public class AppointmentController {
 //        appointmentService.createAppointment(appt);
 
 
-        if(userModel.getRole().equals("ADMIN")) {
+        if(userModel.getRole().equals("ADMIN") || userModel.getRole().equals("DOKTER") || userModel.getRole().equals("PASIEN")) {
             List<AppointmentModel> listAppointment = appointmentService.getListAppointment();
             model.addAttribute("listAppointment", listAppointment);
             return "appointment/admin-viewall-appointment";
