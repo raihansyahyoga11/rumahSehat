@@ -3,9 +3,12 @@ package TA_B_SYN_65.rumahSehat.controller;
 import TA_B_SYN_65.rumahSehat.model.*;
 import TA_B_SYN_65.rumahSehat.security.jwt.JwtTokenUtil;
 import TA_B_SYN_65.rumahSehat.service.AdminService;
+import TA_B_SYN_65.rumahSehat.service.PasienRestService;
 import TA_B_SYN_65.rumahSehat.service.PasienService;
 import TA_B_SYN_65.rumahSehat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,13 +16,19 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+import reactor.core.publisher.Mono;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @CrossOrigin
@@ -42,6 +51,8 @@ public class PasienController {
 
     @Autowired
     PasienService pasienService;
+    @Autowired
+    PasienRestService pasienRestService;
 
     @Autowired
     AdminService adminService;
@@ -94,4 +105,33 @@ public class PasienController {
         PasienModel created = pasienService.create(user);
         return created;
     }
+    @PostMapping(value="/topUp")
+    public PasienModel topupPasien(@RequestBody JwtSignUpRequest request) {
+        PasienModel user = pasienRestService.getPasienByUsername(request.getUsername());
+        user.setSaldo(request.getSaldo());
+        PasienModel created = pasienService.create(user);
+        return created;
+    }
+    @CrossOrigin
+    @GetMapping(value="/profile/pasien")
+    @ResponseBody
+    private PasienModel retrievePasien(Authentication authentication){
+        try{
+            return pasienRestService.getPasienByUsername(authentication.getName());
+        }catch(NoSuchElementException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Pasien dengan "+ authentication.getName() +" not found");
+        }
+    }
+    @CrossOrigin
+    @PutMapping(value="/topUp")
+    private PasienModel topUpPasien(@RequestBody PasienModel pasien1,Authentication authentication){
+        try{
+            PasienModel pasien = pasienRestService.getPasienByUsername(authentication.getName());
+            pasien.setSaldo(pasien.getSaldo() + pasien1.getSaldo());
+            return pasienService.create(pasien);
+        }catch(NoSuchElementException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Pasien dengan "+ authentication.getName() +" not found");
+        }
+    }
+
 }
