@@ -32,13 +32,13 @@
               th:style="${iterationStatus.even} ? 'font-weight:bold;'">
             <td th:text="${resep.id}" style="text-align: center" ></td>
             <td th:text="${#temporals.format(resep.createdAt, 'dd MMMM yyyy, HH:mm')}" style="text-align: center"></td>
-            <td th:text="${resep.isDone}" style="text-align: center"></td>
-            <td style="align-items: center">
-              <div sec:authorize="hasAuthority('APOTEKER')">
-                <a th:href="@{/resep/} + ${resep.id}" class="btn btn-secondary">Detail Resep</a>
+            <td th:if="${resep.isDone == false}" style="text-align: center">Not Done</td>
+            <td th:unless="${resep.isDone == false}" style="text-align: center">Done</td>
+            <td style="align-items: center; text-align: center;">
+              <div class="col" sec:authorize="hasAuthority('APOTEKER')">
+                <a th:href="@{/resep/detail/} + ${resep.id}" class="btn btn-secondary">Detail Resep</a>
               </div>
             </td>
-
           </tr>
           </tbody>
         </table>

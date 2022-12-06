@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import TA_B_SYN_65.rumahSehat.model.ApotekerModel;
 import TA_B_SYN_65.rumahSehat.model.AppointmentModel;
 import TA_B_SYN_65.rumahSehat.model.JumlahModel;
 import TA_B_SYN_65.rumahSehat.model.ObatModel;
@@ -149,11 +150,51 @@ public class ResepController {
         return "redirect:/resep/viewall";
     }
 
+    @GetMapping("/detail/{id}")
+    public String viewDetailResep(@PathVariable Long id, Model model) {
+        
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User authUser = (User) authentication.getPrincipal();
+        String authUsername = authUser.getUsername();
+        UserModel userModel = userService.getUserByUsername(authUsername);
+        
+        if (userModel.getRole().equals("DOKTER") || userModel.getRole().equals("ADMIN") 
+            || userModel.getRole().equals("APOTEKER")) {
+            
+            ResepModel resep = resepService.findResepById(id);
+            ApotekerModel apoteker = resep.getConfirmer();
+    
+            if (resep == null){
+                return "/error/404.html";
+            }
+
+
+            String namaDokter = resep.getAppointment().getDokter().getNama();
+            String namaPasien = resep.getAppointment().getPasien().getNama();
+
+            List<JumlahModel> listJumlahObat = resep.getListJumlah();
+
+            if (!(apoteker == null)) {
+                String namaApoteker = apoteker.getNama();
+            }
+            String namaApoteker = "Tidak Ada";
+
+            model.addAttribute("resep", resep);
+            model.addAttribute("namaDokter", namaDokter);
+            model.addAttribute("namaPasien", namaPasien);
+            model.addAttribute("listJumlahObat", listJumlahObat);
+            model.addAttribute("namaApoteker", namaApoteker);
+
+
+            return "/resep/viewdetail-resep";
+        }
+        return "auth/access-denied";
+    }
+
     @GetMapping(value = "/viewall")
     public String listResep(Model model){
         List<ResepModel> listResep = resepService.getAllResep();
         model.addAttribute("listResep", listResep);
         return "resep/viewall-resep";
     }
-    // Test for push
 }
