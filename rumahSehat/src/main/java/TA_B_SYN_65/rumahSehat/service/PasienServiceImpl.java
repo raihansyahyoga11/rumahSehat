@@ -34,7 +34,7 @@ public class PasienServiceImpl implements PasienService{
 
     @Override
     public PasienModel getPasienByUsername(String username) {
-        Optional<PasienModel > pasien = userDb.findByUsername(username);
+        Optional<PasienModel> pasien = userDb.findByUsername(username);
         if (pasien.isPresent()){
             return pasien.get();
         } else {
