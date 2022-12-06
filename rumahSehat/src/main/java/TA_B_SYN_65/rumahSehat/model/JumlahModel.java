@@ -21,7 +21,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Entity
 @Table(name = "jumlah")
-public class JumlahModel implements  Serializable{
+public class JumlahModel implements Serializable{
 
     @Id
     @Size(max = 50)
