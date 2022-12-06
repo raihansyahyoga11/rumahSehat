@@ -16,6 +16,7 @@ import TA_B_SYN_65.rumahSehat.model.ObatModel;
 import TA_B_SYN_65.rumahSehat.model.ResepModel;
 import TA_B_SYN_65.rumahSehat.model.UserModel;
 import TA_B_SYN_65.rumahSehat.service.AppointmentService;
+import TA_B_SYN_65.rumahSehat.service.JumlahService;
 import TA_B_SYN_65.rumahSehat.service.ObatService;
 import TA_B_SYN_65.rumahSehat.service.ResepService;
 import TA_B_SYN_65.rumahSehat.service.UserService;
@@ -40,8 +41,8 @@ public class ResepController {
     @Autowired
     private UserService userService;
 
-    // @Autowired
-    // private JumlahService jumlahService;
+    @Autowired
+    private JumlahService jumlahService;
 
     // Create Resep => Yang boleh cuma dokter
     @GetMapping("/create/{kodeAppointment}")
@@ -56,17 +57,20 @@ public class ResepController {
             ResepModel resep = new ResepModel();
             List<ObatModel> listObat = obatService.getListObat();
 
+            // List jumlah semuanya
+            List<JumlahModel> listAllJumlah = jumlahService.getAllJumlah();
+            
+            // New list jumlah => List jumlah setiap resep pasti baru 
+            // Create new list
             List<JumlahModel> listJumlahNew = new ArrayList<>();
-            resep.setListJumlahObat(listJumlahNew);
-            AppointmentModel appointment = appointmentService.getAppointmentByKode(kodeAppointment);
 
-            resep.getListJumlahObat().add(new JumlahModel());
-
+            resep.setListJumlah(listJumlahNew);
+            resep.getListJumlah().add(new JumlahModel());
             
             model.addAttribute("resep", resep);
             model.addAttribute("listObat", listObat);
-            model.addAttribute("listJumlahNew", listJumlahNew);
-            model.addAttribute("appointment", appointment);
+            model.addAttribute("listAllJumlah", listAllJumlah);
+            model.addAttribute("listJumlah", listJumlahNew);
             model.addAttribute("kodeAppointment", kodeAppointment);
 
             return "resep/form-create-resep";
@@ -74,39 +78,20 @@ public class ResepController {
         return "auth/access-denied";
     }
 
-    // @PostMapping(value = "/create/{kodeAppointment}")
-    // public String createResepSubmit(@PathVariable String kodeAppointment, 
-    //                                 @ModelAttribute ResepModel resep, 
-    //                                 Model model) {
-    //     if(resep.getListJumlahObat() == null) {
-    //         resep.setListJumlahObat(new ArrayList<>());
-    //     }
-
-    //     for (JumlahModel temp: resep.getListJumlahObat()) {
-    //         temp.setResep(resep);
-    //     }
-    //     resep.setCreatedAt(LocalDateTime.now());
-    //     AppointmentModel appointment = appointmentService.getAppointmentByKode(kodeAppointment);
-    //     resep.setAppointment(appointment);
-    //     resepService.createResep(resep);
-    //     model.addAttribute("resep", resep);
-    //     return "create-resep";
-    // }
-
     @PostMapping(value = "/create/{kodeAppointment}", params = {"addRowObat"})
     private String addRowObatMultiple(@PathVariable String kodeAppointment,
                                     @ModelAttribute ResepModel resep,
                                     Model model
     ){
         List<ObatModel> listObat = obatService.getListObat();
-        if(resep.getListJumlahObat() == null){
-            resep.setListJumlahObat(new ArrayList<>());
+        if(resep.getListJumlah() == null){
+            resep.setListJumlah(new ArrayList<>());
         }
-        resep.getListJumlahObat().add(new JumlahModel());
-        List<JumlahModel> listJumlah = resep.getListJumlahObat();
+        resep.getListJumlah().add(new JumlahModel());
+        List<JumlahModel> listAllJumlah = jumlahService.getAllJumlah();
 
         model.addAttribute("resep", resep);
-        model.addAttribute("listJumlah", listJumlah);
+        model.addAttribute("listJumlah", listAllJumlah);
         model.addAttribute("listObat", listObat);
 
         return "resep/form-create-resep";
@@ -119,17 +104,14 @@ public class ResepController {
                                         Model model) {
         
         List<ObatModel> listObat = obatService.getListObat();
+        final Integer rowInt = Integer.valueOf(row);
+        resep.getListJumlah().remove(rowInt.intValue());
 
-        final Integer rowId = Integer.valueOf(row);
-        resep.getListJumlahObat().remove(rowId.intValue());
-        
-        List<JumlahModel> listJumlah = resep.getListJumlahObat();
-
-        // AppointmentModel appointment = appointmentService.getAppointmentByKode(kodeAppointment);
+        List<JumlahModel> listJumlah = resep.getListJumlah();
 
         model.addAttribute("resep", resep);
-        model.addAttribute("listObat", listObat);
         model.addAttribute("listJumlah", listJumlah);
+        model.addAttribute("listObat", listObat);
 
         return "resep/form-create-resep";
     }
@@ -144,14 +126,14 @@ public class ResepController {
         appointment.setResep(resep);
         resep.setAppointment(appointment);
 
-        if(resep.getListJumlahObat() == null){
-            resep.setListJumlahObat(new ArrayList<>());
+        if(resep.getListJumlah() == null){
+            resep.setListJumlah(new ArrayList<>());
         }else{
             int count = 0;
-            for (JumlahModel jumlah : resep.getListJumlahObat()){
+            for (JumlahModel jumlah : resep.getListJumlah()){
                 jumlah.setResep(resep);
-                jumlah.setObat(resep.getListJumlahObat().get(count).getObat());
-                jumlah.setKuantitas(resep.getListJumlahObat().get(count).getKuantitas());
+                jumlah.setObat(resep.getListJumlah().get(count).getObat());
+                jumlah.setKuantitas(resep.getListJumlah().get(count).getKuantitas());
                 count++;
             }
         }
@@ -164,7 +146,7 @@ public class ResepController {
         redirectAttrs.addFlashAttribute("success",
                 String.format("Resep dengan Id %s berhasil ditambahkan!", resep.getId()));
 
-        return "redirect:/appointment/viewall";
+        return "redirect:/resep/viewall";
     }
 
     @GetMapping(value = "/viewall")
@@ -173,6 +155,5 @@ public class ResepController {
         model.addAttribute("listResep", listResep);
         return "resep/viewall-resep";
     }
-
-    // Test changes to push commit
+    // Test for push
 }
