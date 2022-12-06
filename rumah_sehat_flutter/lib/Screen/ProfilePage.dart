@@ -4,24 +4,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:rumah_sehat_flutter/Model/PasienModel.dart';
-
+import 'package:rumah_sehat_flutter/controller/authentication_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'TopUpPage.dart';
 
 
 
-Future<PasienModel> fetchAlbum() async {
-  String url = "localhost:8080";
-  final response = await http.get(Uri.http(url, '/api/v1/profile/pasien/pasien1'));
-  if (response.statusCode == 200) {
-    // If the server did return a 200 OK response,
-    // then parse the JSON.
-    return PasienModel.fromJson(jsonDecode(response.body));
-  } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
-    throw Exception('Failed to load album');
-  }
-}
+
 
 class ProfilePage extends StatefulWidget {
 
@@ -37,7 +26,8 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    futureAlbum = fetchAlbum();
+    AuthenticationController profileController= AuthenticationController();
+    futureAlbum = AuthenticationController().getUserProfile();
 
   }
 
@@ -57,7 +47,7 @@ class _ProfilePageState extends State<ProfilePage> {
           FutureBuilder<PasienModel>(
             future: futureAlbum,
             builder: (context, snapshot) {
-            if (snapshot.hasData) {
+              if (snapshot.hasData) {
             return ListView(
               padding: const EdgeInsets.all(8),
               children: <Widget>[
@@ -144,48 +134,36 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
                 Container(
-                    child: TextButton(
-                      style: ButtonStyle(
-                        foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                      ),
-                      onPressed: () {
-                          Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => TopUpPage()),
-                          );
-                        },
-                      child: Text('TextButton'),
-                    )
+                  width: 60,
+                  height: 35,
+                  decoration: BoxDecoration(
+                      color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+                  child: ElevatedButton(
+                    child: const Text('Top Up', selectionColor: Color(0xffffffff)),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xffF18265),
+                    ),
+                    onPressed: () { Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => TopUpPage()),);
+                    },
+
+                  ),
                 ),
+
               ],
              );
             } else if (snapshot.hasError) {
-                return Text('${snapshot.error}');
-              }
-            //By default, show a loading spinner.
-              return const CircularProgressIndicator();
-            }),
+                Text('${snapshot.error}');
 
+             }
+
+            //By default, show a loading spinner.
+              return Text('${snapshot.error}');
+            }),
         ),
       )
     );
   }
 
-
-
 }
 
-//width: double.infinity,
-//child: FutureBuilder<PasienModel>(
-//future: futureAlbum,
-//builder: (context, snapshot) {
-  //if (snapshot.hasData) {
-  //return Text(snapshot.data!.nama);
-  //} else if (snapshot.hasError) {
-  //return Text('${snapshot.error}');
-  //}
-
-  // By default, show a loading spinner.
-  //return const CircularProgressIndicator();
-  //},
-//),
