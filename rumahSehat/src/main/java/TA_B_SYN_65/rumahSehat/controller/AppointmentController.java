@@ -44,6 +44,37 @@ public class AppointmentController {
         String authUsername = authUser.getUsername();
         UserModel userModel = userService.getUserByUsername(authUsername);
 
+        DokterModel d = new DokterModel();
+        d.setUsername("ahmad");
+        d.setPassword("emonyhwh");
+        d.setEmail("ahmad@gmail.com");
+        d.setNama("dr. Ahmad Aminullah");
+        d.setTarif(75000);
+        d.setRole("DOKTER");
+        d.setListAppointment(new ArrayList<>());
+        d.setIsSso(false);
+        dokterService.addDokter(d);
+
+        PasienModel p = new PasienModel();
+        p.setUsername("tazkiya");
+        p.setPassword("tazkiyamy");
+        p.setEmail("tazkiya@gmail.com");
+        p.setNama("Tazkiya Mutia");
+        p.setRole("PASIEN");
+        p.setListAppointment(new ArrayList<>());
+        p.setUmur(24);
+        p.setSaldo(160000);
+        p.setIsSso(false);
+        pasienService.create(p);
+
+        AppointmentModel appt = new AppointmentModel();
+        appt.setDokter(d);
+        appt.setPasien(p);
+        appt.setWaktuAwal(LocalDateTime.now());
+        appt.setIsDone(false);
+        appointmentService.createAppointment(appt);
+
+
         if(userModel.getRole().equals("ADMIN") || userModel.getRole().equals("DOKTER") || userModel.getRole().equals("PASIEN")) {
             List<AppointmentModel> listAppointment = appointmentService.getListAppointment();
             model.addAttribute("listAppointment", listAppointment);
@@ -55,20 +86,6 @@ public class AppointmentController {
             return "appointment/viewall-appointment";
         } else {
             return "auth/access-denied";
-        }
-    }
-
-    @GetMapping("/detail/{kode}")
-    public String viewAppointmentDetail(@PathVariable String kode, Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User authUser = (User) authentication.getPrincipal();
-        String authUsername = authUser.getUsername();
-        UserModel userModel = userService.getUserByUsername(authUsername);
-
-        if(userModel.getRole().equals("ADMIN") || userModel.getRole().equals("DOKTER")) {
-            AppointmentModel apt = appointmentService.getAppointmentByKode(kode);
-            model.addAttribute("appt", apt);
-            return "appointment/detail-appointment";
         }
     }
 
