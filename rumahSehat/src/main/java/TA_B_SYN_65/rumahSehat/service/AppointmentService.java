@@ -1,12 +1,12 @@
 package TA_B_SYN_65.rumahSehat.service;
 
+import java.util.List;
+
 import TA_B_SYN_65.rumahSehat.model.AppointmentModel;
 import TA_B_SYN_65.rumahSehat.model.DokterModel;
 
 import java.util.List;
 import java.util.Optional;
-
-import java.util.List;
 
 public interface AppointmentService {
     AppointmentModel getAppointmentByKode(String kode);

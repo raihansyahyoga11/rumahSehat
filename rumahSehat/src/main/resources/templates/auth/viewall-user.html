@@ -19,7 +19,7 @@
     <h2 th:case="'APOTEKER'">Daftar Seluruh APOTEKER</h2>
   </div>
   <br>
-  <div th:if="${userRole == 'DOKTER' OR userRole == 'APOTEKER'}">
+  <div th:if="${userRole == 'DOKTER' OR userRole == 'APOTEKER' OR userRole == 'PASIEN'}">
     <a class="btn btn-primary" th:href="@{/user/add/} + ${userRole}">+ Tambah User</a>
   </div>
   <br>

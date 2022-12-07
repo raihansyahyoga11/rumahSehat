@@ -45,11 +45,17 @@
           <td th:text="'Nama Pasien'"></td>
           <td th:text="${appt.pasien.nama}"></td>
         </tr>
-        <tr>
+        <tr sec:authorize="hasAuthority('DOKTER')" th:unless="${appt.isDone}">
           <td th:text="'Aksi'"></td>
-          <td th:unless="${appt.isDone}">
+          <td>
             <a class="btn btn-primary" th:href="@{/resep/create/} + ${appt.kode}">Buat Resep</a>
             <a class="btn btn-danger" th:href="@{/appointment/detail/} + ${appt.kode}">Selesai</a>
+          </td>
+        </tr>
+        <tr sec:authorize="hasAnyAuthority('ADMIN', 'PASIEN')" th:if="${appt.isDone}">
+          <td th:text="'Aksi'"></td>
+          <td th:if="${appt.isDone}">
+            <a class="btn btn-primary" th:href="@{/resep/detail/} + ${appt.kode}">Detail Resep</a>
           </td>
         </tr>
       </tbody>

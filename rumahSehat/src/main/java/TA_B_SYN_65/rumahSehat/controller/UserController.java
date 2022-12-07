@@ -71,11 +71,13 @@ public class UserController {
         UserModel user = new UserModel();
 
         if(userModel.getRole().equals("ADMIN")){
-            if(userRole.equals("DOKTER") || userRole.equals("APOTEKER")){
+            //tambahan
+            if(userRole.equals("DOKTER") || userRole.equals("APOTEKER") || userRole.equals("PASIEN")){
                 List<String> listRole = new ArrayList<>();
                 listRole.add("ADMIN");
                 listRole.add("APOTEKER");
                 listRole.add("DOKTER");
+                listRole.add("PASIEN"); //tambahan
                 model.addAttribute("userRole", userRole);
                 model.addAttribute("user", user);
                 model.addAttribute("listRole", listRole);
@@ -108,7 +110,13 @@ public class UserController {
                 userService.addUser(user, tarifDokter);
                 model.addAttribute("namaUser", user.getUsername());
                 return "auth/add-user";
-            } else{
+            } else if (role.equals("PASIEN")){//tambahan
+                user.setRole("PASIEN");
+                userService.addUser(user, tarifDokter);
+                model.addAttribute("namaUser", user.getUsername());
+                return "auth/add-user";
+            }
+            else{
                 return "auth/access-denied";
             }
         }

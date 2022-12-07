@@ -10,10 +10,6 @@ import TA_B_SYN_65.rumahSehat.service.DokterService;
 import TA_B_SYN_65.rumahSehat.service.PasienService;
 import TA_B_SYN_65.rumahSehat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
-=======
-import org.springframework.cglib.core.Local;
->>>>>>> 2f469ab0a706a1c92a47390abf43f702bc689e8d
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -48,59 +44,9 @@ public class AppointmentController {
         String authUsername = authUser.getUsername();
         UserModel userModel = userService.getUserByUsername(authUsername);
 
-//        DokterModel d = new DokterModel();
-//        d.setUsername("ahmad");
-//        d.setPassword("emonyhwh");
-//        d.setEmail("ahmad@gmail.com");
-//        d.setNama("dr. Ahmad Aminullah");
-//        d.setTarif(75000);
-//        d.setRole("DOKTER");
-//        d.setListAppointment(new ArrayList<>());
-//        d.setIsSso(false);
-//        dokterService.addDokter(d);
-<<<<<<< HEAD
-
-//        PasienModel p = new PasienModel();
-//        p.setUsername("rijal");
-//        p.setPassword("#dragneel2211");
-//        p.setEmail("rijal@gmail.com");
-//        p.setNama("Muhtarur Rijal");
-//        p.setRole("PASIEN");
-//        p.setListAppointment(new ArrayList<>());
-//        p.setUmur(23);
-//        p.setSaldo(150000);
-=======
-//
-//        PasienModel p = new PasienModel();
-//        p.setUsername("tazkiya");
-//        p.setPassword("tazkiyamy");
-//        p.setEmail("tazkiya@gmail.com");
-//        p.setNama("Tazkiya Mutia");
-//        p.setRole("PASIEN");
-//        p.setListAppointment(new ArrayList<>());
-//        p.setUmur(24);
-//        p.setSaldo(160000);
->>>>>>> 2f469ab0a706a1c92a47390abf43f702bc689e8d
-//        p.setIsSso(false);
-//        pasienService.create(p);
-//
-//        AppointmentModel appt = new AppointmentModel();
-<<<<<<< HEAD
-//        appt.setDokter(dokterService.getDokterByUsername("archee"));
-//        appt.setPasien(pasienService.getPasienByUsername("rijal"));
-=======
-//        appt.setDokter(d);
-//        appt.setPasien(p);
->>>>>>> 2f469ab0a706a1c92a47390abf43f702bc689e8d
-//        appt.setWaktuAwal(LocalDateTime.now());
-//        appt.setIsDone(false);
-//        appointmentService.createAppointment(appt);
-
-
-        if(userModel.getRole().equals("ADMIN")) {
+        if(userModel.getRole().equals("ADMIN") || userModel.getRole().equals("DOKTER") || userModel.getRole().equals("PASIEN")) {
             List<AppointmentModel> listAppointment = appointmentService.getListAppointment();
             model.addAttribute("listAppointment", listAppointment);
-<<<<<<< HEAD
             return "appointment/viewall-appointment";
         } else if (userModel.getRole().equals("DOKTER")) {
             DokterModel dokterLogin = dokterService.getDokterByUsername(userModel.getUsername());
@@ -124,11 +70,20 @@ public class AppointmentController {
             model.addAttribute("appt", apt);
             return "appointment/detail-appointment";
         }
+    }
 
-=======
-            return "appointment/admin-viewall-appointment";
+    @GetMapping("/detail/{kode}")
+    public String viewAppointmentDetail(@PathVariable String kode, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User authUser = (User) authentication.getPrincipal();
+        String authUsername = authUser.getUsername();
+        UserModel userModel = userService.getUserByUsername(authUsername);
+
+        if(userModel.getRole().equals("ADMIN") || userModel.getRole().equals("DOKTER")) {
+            AppointmentModel apt = appointmentService.getAppointmentByKode(kode);
+            model.addAttribute("appt", apt);
+            return "appointment/detail-appointment";
         }
->>>>>>> 2f469ab0a706a1c92a47390abf43f702bc689e8d
         return "auth/access-denied";
     }
 }
