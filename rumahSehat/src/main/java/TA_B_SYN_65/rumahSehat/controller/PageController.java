@@ -30,6 +30,7 @@ public class PageController {
     @Autowired
     private UserService userService;
 
+
     private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
@@ -80,7 +81,7 @@ public class PageController {
         UserModel user = userService.getUserByUsername(username);
 
         if (user == null) {
-            if (username.startsWith("r")) {
+            if (username.startsWith("a") || username.startsWith("r") || username.startsWith("d")) {
                 user = new UserModel();
                 user.setEmail(username + "@ui.ac.id");
                 user.setNama(attributes.getNama());

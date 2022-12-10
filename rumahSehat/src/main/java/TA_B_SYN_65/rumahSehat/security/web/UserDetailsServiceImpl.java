@@ -3,6 +3,7 @@ package TA_B_SYN_65.rumahSehat.security.web;
 import TA_B_SYN_65.rumahSehat.model.UserModel;
 import TA_B_SYN_65.rumahSehat.repository.UserDb;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;

@@ -11,5 +11,7 @@ public class JwtSignUpRequest implements Serializable {
     private String email;
     private String nama;
     private Integer umur;
+    private String role;
+    private Integer saldo = 0;
 
 }

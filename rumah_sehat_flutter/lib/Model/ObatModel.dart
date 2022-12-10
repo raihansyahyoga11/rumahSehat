@@ -33,3 +33,21 @@ class ObatModel {
     );
   }
 }
+
+  ObatModel({
+    required this.id,
+    required this.nama,
+    required this.stok,
+    required this.harga,
+    required this.listJumlah,
+  });
+  factory ObatModel.fromJson(Map<String, dynamic> json) {
+    return ObatModel(
+        id: json['id'],
+        nama: json['nama'],
+        stok: json['stok'],
+        harga: json['harga'],
+        listJumlah: json['listJumlah']
+    );
+  }
+}
