@@ -1,40 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:rumah_sehat_flutter/pages/HomePage.dart';
-import 'package:rumah_sehat_flutter/pages/appointment_list.dart';
 
-import 'Screen/TopUpPage.dart';
-import 'Screen/ProfilePage.dart';
-import 'package:flutter/widgets.dart';
+import '../Screen/ProfilePage.dart';
+import 'HomePage.dart';
 
-const baseUrl = "http://localhost:8080";
 
-void main() {
-  runApp(MyApp());
-}
 
-class MyApp extends StatelessWidget {
+
+
+
+class RumahSehat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Rumah Sehat",
       debugShowCheckedModeBanner: false,
-      home: RumahSehatNavBar(),
+      home: RumahSehatMain(),
     );
   }
 }
 
-class RumahSehatNavBar extends StatefulWidget {
+class RumahSehatMain extends StatefulWidget {
+  const RumahSehatMain ({Key? key}) : super(key: key);
   @override
-  _RumahSehatNavBarState createState() => _RumahSehatNavBarState();
+  _RumahSehatMainState createState() => _RumahSehatMainState();
 }
 
-class _RumahSehatNavBarState extends State<RumahSehatNavBar> {
+class _RumahSehatMainState extends State<RumahSehatMain> {
   int _selectedNavbar = 0;
   //navigasi page
   final screens=[
     HomePage(),
-    JadwalAppointmentApp(),
-    // Center(child:Text('Appointment', style:TextStyle(fontSize: 60))),
+    Center(child:Text('Appointment', style:TextStyle(fontSize: 60))),
     Center(child:Text('Obat', style:TextStyle(fontSize: 60))),
     ProfilePage(),
   ];
@@ -50,6 +46,7 @@ class _RumahSehatNavBarState extends State<RumahSehatNavBar> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Rumah Sehat"),
+   
       ),
       body: screens[_selectedNavbar],
       bottomNavigationBar: BottomNavigationBar(
@@ -80,5 +77,3 @@ class _RumahSehatNavBarState extends State<RumahSehatNavBar> {
     );
   }
 }
-
-

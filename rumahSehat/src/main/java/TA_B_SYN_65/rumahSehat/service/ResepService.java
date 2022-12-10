@@ -8,4 +8,6 @@ public interface ResepService {
     void createResep(ResepModel resep);
 
     List<ResepModel> getAllResep();
+
+    ResepModel findResepById(Long id);
 }

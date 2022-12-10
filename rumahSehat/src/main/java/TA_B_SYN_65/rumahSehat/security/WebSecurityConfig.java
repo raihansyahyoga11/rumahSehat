@@ -62,6 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/api/mobile/signup").permitAll()
                     .antMatchers("/api/mobile/signupAdmin").permitAll()
                     .antMatchers("/api/mobile/signupPasien").permitAll()
+                    .antMatchers("/api/mobile/profile/pasien").permitAll()
                     .antMatchers("/api/mobile/**").hasAuthority("PASIEN").and()
                     .exceptionHandling().authenticationEntryPoint(jwtAuthEntryPoint).and().sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -82,6 +83,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/obat/barChartObat").hasAuthority("ADMIN")
                     .antMatchers("/user/manajemenUser").hasAuthority("ADMIN")
                     .antMatchers("/user/view/**").hasAuthority("ADMIN")
+                    // .antMatchers("/appointment/**").hasAuthority("ADMIN")
+                    // .antMatchers("/appointment/**").hasAuthority("DOKTER")
+                    // .antMatchers("/appointment/**").hasAuthority("PASIEN")
                     .anyRequest().authenticated()
                     .and()
                     .formLogin()

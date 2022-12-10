@@ -55,32 +55,55 @@ public class AppointmentController {
 //        d.setListAppointment(new ArrayList<>());
 //        d.setIsSso(false);
 //        dokterService.addDokter(d);
-//
+
 //        PasienModel p = new PasienModel();
-//        p.setUsername("tazkiya");
-//        p.setPassword("tazkiyamy");
-//        p.setEmail("tazkiya@gmail.com");
-//        p.setNama("Tazkiya Mutia");
+//        p.setUsername("rijal");
+//        p.setPassword("#dragneel2211");
+//        p.setEmail("rijal@gmail.com");
+//        p.setNama("Muhtarur Rijal");
 //        p.setRole("PASIEN");
 //        p.setListAppointment(new ArrayList<>());
-//        p.setUmur(24);
-//        p.setSaldo(160000);
+//        p.setUmur(23);
+//        p.setSaldo(150000);
 //        p.setIsSso(false);
 //        pasienService.create(p);
 //
-//        AppointmentModel appt = new AppointmentModel();
-//        appt.setDokter(d);
-//        appt.setPasien(p);
+//        AppointmentModel appt = appointmentService.getAppointmentByKode("4028b88184bc1a2f0184bc1a9c390000");
+//        appt.setIsDone(true);
+//        appt.setDokter(dokterService.getDokterByUsername("archee"));
+//        appt.setPasien(pasienService.getPasienByUsername("rijal"));
 //        appt.setWaktuAwal(LocalDateTime.now());
 //        appt.setIsDone(false);
 //        appointmentService.createAppointment(appt);
 
 
-        if(userModel.getRole().equals("ADMIN")) {
+        if(userModel.getRole().equals("ADMIN") || userModel.getRole().equals("DOKTER") || userModel.getRole().equals("PASIEN")) {
             List<AppointmentModel> listAppointment = appointmentService.getListAppointment();
             model.addAttribute("listAppointment", listAppointment);
-            return "appointment/admin-viewall-appointment";
+            return "appointment/viewall-appointment";
+        } else if (userModel.getRole().equals("DOKTER")) {
+            DokterModel dokterLogin = dokterService.getDokterByUsername(userModel.getUsername());
+            List<AppointmentModel> listAppointment = appointmentService.getListAppointmentByDokter(dokterLogin);
+            model.addAttribute("listAppointment", listAppointment);
+            return "appointment/viewall-appointment";
+        } else {
+            return "auth/access-denied";
         }
+    }
+
+    @GetMapping("/detail/{kode}")
+    public String viewAppointmentDetail(@PathVariable String kode, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User authUser = (User) authentication.getPrincipal();
+        String authUsername = authUser.getUsername();
+        UserModel userModel = userService.getUserByUsername(authUsername);
+
+        if(userModel.getRole().equals("ADMIN") || userModel.getRole().equals("DOKTER")) {
+            AppointmentModel apt = appointmentService.getAppointmentByKode(kode);
+            model.addAttribute("appt", apt);
+            return "appointment/detail-appointment";
+        }
+
         return "auth/access-denied";
     }
 }
