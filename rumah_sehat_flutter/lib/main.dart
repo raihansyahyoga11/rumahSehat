@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:rumah_sehat_flutter/pages/HomePage.dart';
-import 'package:rumah_sehat_flutter/pages/appointment_list.dart';
-
-import 'Screen/TopUpPage.dart';
-import 'Screen/ProfilePage.dart';
-import 'package:flutter/widgets.dart';
-
-const baseUrl = "http://localhost:8080";
+import 'package:rumah_sehat_flutter/controller/authentication_controller.dart';
+import 'package:rumah_sehat_flutter/pages/SignUp.dart';
+import 'pages/HomePage.dart';
+import 'pages/RumahSehatPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,18 +25,14 @@ class Login extends StatefulWidget {
   _LoginState createState() => _LoginState();
 }
 
-class _RumahSehatNavBarState extends State<RumahSehatNavBar> {
-  int _selectedNavbar = 0;
-  //navigasi page
-  final screens=[
-    Center(child:Text('Obat', style:TextStyle(fontSize: 60))),
-    ProfilePage(),
-  ];
+class _LoginState extends State<Login> {
 
 
+  @override
   Widget build(BuildContext context) {
     AuthenticationController authenticationController = AuthenticationController();
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text("Login Page"),
       ),
@@ -51,12 +43,12 @@ class _RumahSehatNavBarState extends State<RumahSehatNavBar> {
               padding: const EdgeInsets.only(top: 60.0),
               child: Center(
                 child: Container(
-                    width: 200,
-                    height: 150,
-                    /*decoration: BoxDecoration(
+                  width: 200,
+                  height: 150,
+                  /*decoration: BoxDecoration(
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(50.0)),*/
-                    ),
+                ),
               ),
             ),
             Padding(
@@ -112,7 +104,7 @@ class _RumahSehatNavBarState extends State<RumahSehatNavBar> {
             TextButton(
               onPressed: (){
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const SignUpPage(),
+                  builder: (context) => const SignUpPage(),
                 ));
               },
               child:
