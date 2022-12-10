@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
-import 'dart:html';
+// import 'dart:html';
 import 'package:intl/intl.dart';
 import 'package:rumah_sehat_flutter/Model/resep_model.dart';
 import 'package:http/http.dart' as http;
@@ -13,8 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ResepDetail extends StatelessWidget {
   final Resep resep;
 
-  const ResepDetail({Key? key, required this.resep})
-      : super(key: key);
+  const ResepDetail({Key? key, required this.resep}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -80,9 +79,7 @@ class ResepDetail extends StatelessWidget {
                           ),
                         ),
                         subtitle: Text(
-                          resep.isDone
-                              ? "Sudah selesai"
-                              : "Belum selesai",
+                          resep.isDone ? "Sudah selesai" : "Belum selesai",
                           style: const TextStyle(
                               fontSize: 14, color: Colors.black),
                         ),
@@ -104,14 +101,14 @@ class ResepDetail extends StatelessWidget {
                       //       style: const TextStyle(
                       //           fontSize: 14, color: Colors.black),
                       //     )),
-                  ],
+                    ],
                   ),
                   // const SizedBox(
                   //   height: 10,
                   // ),
                   // SizedBox(
                   //   width: double.infinity,
-                  //   child: 
+                  //   child:
                   //   TextButton(
                   //     style: const ButtonStyle(
                   //       alignment: Alignment.centerRight,

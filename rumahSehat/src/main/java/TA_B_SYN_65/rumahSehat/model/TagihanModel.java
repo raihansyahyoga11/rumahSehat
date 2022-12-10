@@ -31,8 +31,8 @@ import java.util.List;
 public class TagihanModel implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue(generator = "bill-generator")
+    @GenericGenerator(name = "bill-generator",parameters = @org.hibernate.annotations.Parameter(name = "prefix", value = "BILL"), strategy = "TA_B_SYN_65.rumahSehat.ids.TagihanIdGenerator")
     @Column(name = "kode", nullable = false)
     private String kode;
 

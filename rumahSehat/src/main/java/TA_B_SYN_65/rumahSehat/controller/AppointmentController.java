@@ -45,25 +45,25 @@ public class AppointmentController {
         UserModel userModel = userService.getUserByUsername(authUsername);
 
         DokterModel d = new DokterModel();
-        d.setUsername("ahmad");
-        d.setPassword("emonyhwh");
-        d.setEmail("ahmad@gmail.com");
-        d.setNama("dr. Ahmad Aminullah");
-        d.setTarif(75000);
+        d.setUsername("muhromli");
+        d.setPassword("muhromli123");
+        d.setEmail("romli@gmail.com");
+        d.setNama("dr. Muhammad Romli");
+        d.setTarif(65000);
         d.setRole("DOKTER");
         d.setListAppointment(new ArrayList<>());
         d.setIsSso(false);
         dokterService.addDokter(d);
 
         PasienModel p = new PasienModel();
-        p.setUsername("tazkiya");
-        p.setPassword("tazkiyamy");
-        p.setEmail("tazkiya@gmail.com");
-        p.setNama("Tazkiya Mutia");
+        p.setUsername("kiara");
+        p.setPassword("kiarakiara999");
+        p.setEmail("kiara@gmail.com");
+        p.setNama("Kiara Amida");
         p.setRole("PASIEN");
         p.setListAppointment(new ArrayList<>());
-        p.setUmur(24);
-        p.setSaldo(160000);
+        p.setUmur(21);
+        p.setSaldo(150000);
         p.setIsSso(false);
         pasienService.create(p);
 
