@@ -43,6 +43,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 //    }
 
 
+    // public BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+//    PasswordEncoder encoder() {
+//        return new BCryptPasswordEncoder();
+//    }
+
+
 
     @Override
     @Bean
@@ -83,6 +90,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                     .antMatchers("/obat/barChartObat").hasAuthority("ADMIN")
                     .antMatchers("/user/manajemenUser").hasAuthority("ADMIN")
                     .antMatchers("/user/view/**").hasAuthority("ADMIN")
+                    // .antMatchers("/appointment/**").hasAuthority("ADMIN")
+                    // .antMatchers("/appointment/**").hasAuthority("DOKTER")
+                    // .antMatchers("/appointment/**").hasAuthority("PASIEN")
                     .anyRequest().authenticated()
                     .and()
                     .formLogin()

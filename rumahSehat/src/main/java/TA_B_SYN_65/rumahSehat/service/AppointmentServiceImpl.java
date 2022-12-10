@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import TA_B_SYN_65.rumahSehat.model.DokterModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,5 +36,10 @@ public class AppointmentServiceImpl implements AppointmentService{
     @Override
     public void createAppointment(AppointmentModel appointment) {
         appointmentDb.save(appointment);
+    }
+
+    @Override
+    public List<AppointmentModel> getListAppointmentByDokter(DokterModel dokter) {
+        return appointmentDb.findByDokter(dokter);
     }
 }

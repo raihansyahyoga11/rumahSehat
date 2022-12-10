@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>SINGIDOL</title>
+    <title>Rumah Sehat</title>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
@@ -23,23 +23,26 @@
                 <div class="justify-content-center">
                     <h2>Create Resep</h2>
                     <br>
-                    <form th:action="@{/resep/create/} + ${appointment.kode}" th:object="${resep}" method="POST">
+                    <form th:action="@{/resep/create/} + ${kodeAppointment}" th:object="${resep}" method="POST">
+                        Kode Appointment: <br>
+                        <input class="form-control" type="text"th:value="${kodeAppointment}" readonly/>
+                        <br>
                         <table class="table">
                             <thead>
                             <th>Daftar Obat</th>
                             </thead>
                             <tbody>
                 
-                            <tr th:each="jumlahObat, iterationStatus : *{listJumlahObat}">
+                            <tr th:each="obat, iterationStatus : *{listJumlah}">
                                 <td>
-                                <select class="js-example-basic-single" th:field="*{listJumlahObat[__${iterationStatus.index}__].obat}" >
+                                <select name="id_obat" class="js-example-basic-single form-control" th:field="*{listJumlah[__${iterationStatus.index}__].obat.id}">
                                     <div th:each="obatEx, iterationStatus2 : ${listObat} ">
-                                    <option th:value="${obatEx.idObat}" th:text="${obatEx.namaObat}"></option>
+                                        <option th:value="${obatEx.id}" th:text="${obatEx.nama}"></option>
                                     </div>
                                 </select>
                                 </td>
                                 <td>
-                                <input required class="form-control" type="number" th:field="*{listJumlahObat[__${iterationStatus.index}__].kuantitas}" />
+                                <input required class="form-control" type="number" placeholder="Kuantitas" th:field="*{listJumlah[__${iterationStatus.index}__].kuantitas}" />
                                 <br><br>
                                 </td>
                                 <td>
