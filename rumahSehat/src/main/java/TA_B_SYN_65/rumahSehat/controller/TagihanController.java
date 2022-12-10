@@ -17,10 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -40,6 +37,12 @@ public class TagihanController {
         List<TagihanModel> listTagihan = tagihanService.getListTagihan();
         model.addAttribute("listTagihan", listTagihan);
         return "viewall-tagihan";
+    }
+    @GetMapping("/tagihan/{kode}")
+    public String viewDetailTagihanPage(@PathVariable(value = "kode") String kode, Model model) {
+        TagihanModel tagihan = tagihanService.getKodeTagihan(Long.parseLong(kode));
+        model.addAttribute("tagihan", tagihan);
+        return "view-tagihan";
     }
 }
 

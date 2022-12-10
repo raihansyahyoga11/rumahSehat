@@ -30,6 +30,7 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -39,5 +40,14 @@ public class TagihanServiceImpl implements TagihanService {
 
     @Override
     public List<TagihanModel> getListTagihan() { return tagihanDb.findAll(); }
+    @Override
+    public TagihanModel getKodeTagihan(Long kode) {
+        Optional<TagihanModel> tagihan = tagihanDb.findByKode(kode);
+        if (tagihan.isPresent()) {
+            return tagihan.get();
+        } else {
+            return null;
+        }
+    }
 }
 
