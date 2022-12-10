@@ -20,7 +20,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JwtAuthEntryPoint jwtAuthEntryPoint;
@@ -37,13 +37,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
 
 
-
-//    PasswordEncoder encoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-
-
-    // public BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
 //    PasswordEncoder encoder() {
 //        return new BCryptPasswordEncoder();
@@ -107,8 +100,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception{
         auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
     }
-
-
 
 
 }

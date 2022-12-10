@@ -75,8 +75,10 @@ class AuthenticationController {
   }
 
   Future<PasienModel> getUserProfile() async {
+
     print("getuser dijalankan");
     const url = 'http://localhost:8080/api/mobile/profile/pasien';
+
     String? token1 = await storage.read(key:'TOKEN');
     var response = await http.get(Uri.parse(url),
         headers: {'Content-Type': 'application/json; charset=UTF-8',
