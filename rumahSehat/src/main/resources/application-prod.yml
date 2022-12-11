@@ -4,19 +4,20 @@ server:
   servlet.session.tracking-modes: COOKIE
 
 spring:
+  main:
+    allow-circular-references: true
   # konfigurasi untuk koneksi db
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
 
     # sesuaikan nama database anda dengan di bawah ini
-    url: jdbc:mysql://db:3306/apap_db?useSSL=false&serverTimezone=Asia/Jakarta
+    url: jdbc:mysql://db:3306/tk_apap?useSSL=false&serverTimezone=Asia/Jakarta
 
     # sesuaikan dengan NAMA dan PASSWORD anda dengan username password di bawah ini
     username: apap_user
     password: password1234!
 
-  main:
-    allow-circular-references: true
+
 
   jpa:
     properties:
@@ -29,8 +30,12 @@ spring:
 
     show-sql: true
 
-  jwt:
-   refreshExpirationMs: 360000000
-   expirationMs: 3600000
-   secret: rumahsehat
+
+
+jwt:
+  secret: rumahsehat
+  expirationMs: 3600000
+
+sso:
+  url: https://apap-065.cs.ui.ac.id
 
