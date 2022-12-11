@@ -57,9 +57,7 @@ public class PageController {
     }
     @PostMapping("/login")
     private String loginSubmitPage(Model model)
-    {
-        System.out.println("dddddd");
-        model.addAttribute("port",serverProperties.getPort());
+    { model.addAttribute("port",serverProperties.getPort());
         return "home";
     }
 

@@ -31,12 +31,14 @@ import java.util.List;
 public class TagihanModel implements Serializable {
 
     @Id
-    @NotNull
-    @Column(name="kode", nullable = false)
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @Column(name = "kode", nullable = false)
     private String kode;
 
     @NotNull
     @Column(name = "tanggal_terbuat", nullable = false)
+    @CreatedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime tanggalTerbuat;
 
