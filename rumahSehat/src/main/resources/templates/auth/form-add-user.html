@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>Tambah User</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+
+</head>
+<body>
+<div class="container">
+    <div class="card m-4 p-4">
+        <div class="card-body">
+            <div class="justify-content-center">
+                <h2> Tambah User Baru</h2>
+                <br>
+                <form th:action="@{/user/add}" th:object="${user}" method="POST">
+                    <label>Username</label>
+                    <input type="text" name="username" class ="form-control"/>
+
+                    <label>Nama</label>
+                    <input type="text" name="nama" class ="form-control"/>
+
+                    <label>E-mail</label>
+                    <input type="text" name="email" class ="form-control"/>
+
+                    <label>Password</label>
+                    <input required type="password" name="password" class="form-control" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" title="Password must contain numbers, uppercase letters, lowercase letters, and symbols and must have at least 8 characters"/>
+
+                    <br>
+                    <div th:if="${userRole == 'DOKTER'}">
+                        <label>Tarif</label>
+                        <input type="number" min="0" name ="tarifDokter" step="any" class="form-control" />
+                    </div>
+                    <div th:unless="${userRole == 'DOKTER'}">
+                        <input type="hidden" name ="tarifDokter" th:value=0 />
+                    </div>
+
+                    <div th:if="${userRole == 'PASIEN'}">
+                        <label>Umur</label>
+                        <input type="number" min="0" name ="umur" step="any" class="form-control" />
+                    </div>
+
+                    <div th:unless="${userRole == 'PASIEN'}">
+                        <input type="hidden" name ="umur" th:value=0 />
+                    </div>
+
+                    <br>
+                    <label>Role</label>
+
+                    <div>
+                        <input th:if="${userRole == 'DOKTER'}" name = "role" type="text" value="DOKTER" readonly >
+                        <input th:if="${userRole == 'APOTEKER'}" name = "role" type="text" value="APOTEKER" readonly >
+                        <input th:if="${userRole == 'PASIEN'}" name = "role" type="text" value="PASIEN" readonly >
+                    </div>
+
+                    <br>
+                    <button type="submit" class="btn btn-primary" > Submit</button>
+                    <a class="btn btn-link" href="/">Home</a>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

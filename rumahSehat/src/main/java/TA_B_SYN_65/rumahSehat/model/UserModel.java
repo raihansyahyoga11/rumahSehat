@@ -16,13 +16,17 @@ import java.io.Serializable;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 @Table(name = "user")
+@Entity
 public class UserModel implements Serializable {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String uuid;
+
+    @NotNull
+    @Column(name = "is_sso")
+    private Boolean isSso=false;
 
     @NotNull
     @Size(max = 50)
@@ -51,3 +55,4 @@ public class UserModel implements Serializable {
 
 
 }
+

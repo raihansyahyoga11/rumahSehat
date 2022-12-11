@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 
@@ -16,7 +13,6 @@ import java.io.Serializable;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "admin")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class AdminModel extends UserModel implements Serializable {
 }

@@ -6,29 +6,30 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "pasien")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class PasienModel extends UserModel implements Serializable {
 
     @NotNull
-    @Column(name = "saldo", nullable = false)
+    @Column(name = "saldo")
     private Integer saldo;
 
-    @NotNull
-    @Size(max = 3)
-    @Column(name = "umur", nullable = false)
+    @Column(name = "umur")
     private Integer umur;
-
-     @OneToMany(mappedBy = "pasien", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-     private List<AppointmentModel> listAppointment;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "pasien", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<AppointmentModel> listAppointment;
 }

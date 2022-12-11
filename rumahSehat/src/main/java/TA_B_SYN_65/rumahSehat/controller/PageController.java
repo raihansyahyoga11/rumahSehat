@@ -11,13 +11,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,39 +23,43 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
+@CrossOrigin
 @Controller
 public class PageController {
 
     @Autowired
     private UserService userService;
 
+
+    private BCryptPasswordEncoder passwordEncoder;
+
     @Autowired
     ServerProperties serverProperties;
 
-//    @RequestMapping("/home")
-//    public String home(){
-//        return "home";
-//    }
-//
-//
-//    @GetMapping("/")
-//    private String Home(String username, Model model){
-//        UserModel user = userService.getUserByUsername(username);
-//        model.addAttribute("user", user);
-//
-//        return "home";
-//    }
+    @GetMapping("/home")
+    public String home(){
+        return "home";
+    }
 
-//    @GetMapping ("/login")
-//    public String loginFormPage(Model model){
-//        model.addAttribute("port", serverProperties.getPort());
-//        return "auth/login";
-//    }
-//    @PostMapping("/login")
-//    private String loginSubmitPage(Model model)
-//    { model.addAttribute("port",serverProperties.getPort());
-//        return "home";
-//    }
+
+    @GetMapping("/")
+    private String Home(String username, Model model){
+        UserModel user = userService.getUserByUsername(username);
+        model.addAttribute("user", user);
+
+        return "home";
+    }
+
+    @GetMapping ("/login")
+    public String loginFormPage(Model model){
+        model.addAttribute("port", serverProperties.getPort());
+        return "auth/login";
+    }
+    @PostMapping("/login")
+    private String loginSubmitPage(Model model)
+    { model.addAttribute("port",serverProperties.getPort());
+        return "home";
+    }
 
     private WebClient webClient = WebClient.builder().build();
 
@@ -79,13 +81,27 @@ public class PageController {
         UserModel user = userService.getUserByUsername(username);
 
         if (user == null) {
-            user = new UserModel();
-            user.setEmail(username + "@ui.ac.id");
-            user.setNama(attributes.getNama());
-            user.setPassword("belajarbelajar");
-            user.setUsername(username);
-            user.setRole("ADMIN");
-            userService.addUser(user);
+            if (username.startsWith("a") || username.startsWith("r") || username.startsWith("d")) {
+                user = new UserModel();
+                user.setEmail(username + "@ui.ac.id");
+                user.setNama(attributes.getNama());
+                user.setPassword("belajarbelajar");
+                user.setUsername(username);
+                user.setIsSso(true);
+                user.setRole("ADMIN");
+                userService.addUser(user);
+            }
+            else {
+                user = new UserModel();
+                user.setEmail(username + "@ui.ac.id");
+                user.setNama(attributes.getNama());
+                user.setPassword("belajarbelajar");
+                user.setUsername(username);
+                user.setIsSso(true);
+                user.setRole("NO-ROLE");
+                userService.addUser(user);
+            }
+
         }
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(username, "belajarbelajar");

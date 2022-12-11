@@ -21,29 +21,28 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Entity
 @Table(name = "jumlah")
-public class JumlahModel implements  Serializable{
-
+public class JumlahModel implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id")
+    private Long idJumlah;
 
+    @NotNull
+    @Column(name = "kuantitas", nullable = false)
+    private Integer kuantitas;
 
-    @Size(max = 50)
     @ManyToOne(fetch = FetchType.EAGER, optional=false)
     @JoinColumn(name = "id_obat", referencedColumnName = "id_obat")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ObatModel obat;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, optional=false)
     @JoinColumn(name = "id_resep", referencedColumnName = "id_resep")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ResepModel resep;
 
-    @NotNull
-    @Size(max = 200)
-    @Column(name = "kuantitas", nullable = false)
-    private Integer kuantitas;
 }
 
 

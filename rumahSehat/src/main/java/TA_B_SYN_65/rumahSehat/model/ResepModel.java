@@ -29,13 +29,9 @@ public class ResepModel implements Serializable {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_resep", nullable = false)
     private Long id;
-
-//    @NotNull
-//    @Size(max = 50)
-//    @Column(name = "nama_obat", nullable = false)
-//    private String nama_obat;
 
     @NotNull
     @Column(name = "is_done", nullable = false)
@@ -43,38 +39,24 @@ public class ResepModel implements Serializable {
 
     @NotNull
     @Column(name = "created_at", nullable = false)
+    @CreatedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime createdAt;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "confirmer_uuid", referencedColumnName = "uuid")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "confirmer_uuid", referencedColumnName = "uuid", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ApotekerModel confirmer;
 
-//    @OneToMany(mappedBy = "resep", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private List<JumlahModel> listJumlah;
-
-
-//     ManyToOne Relationship with Appointment
-    @OneToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "kode_appointment", referencedColumnName = "kode")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private AppointmentModel appointment;
-
-    // confirmer_uuid => Admin ???
-
-    // relasi dengan jumlah model masih gagal
-    // @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    //@JoinColumn(name = "resep", referencedColumnName = "id_resep", nullable = false )
-    //@OnDelete(action = OnDeleteAction.CASCADE)
-    //private JumlahModel jumlah;
     @OneToMany(mappedBy = "resep", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<JumlahModel> listJumlah;
 
-    @NotNull
-    @Column(name = "harga",nullable = false)
-    private int harga;
-
-
+    //     ManyToOne Relationship with Appointment
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "kode_appointment", referencedColumnName = "kode", nullable = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private AppointmentModel appointment;
 
 }
+

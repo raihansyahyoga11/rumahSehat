@@ -9,6 +9,9 @@
 <body>
 <nav th:replace = "fragments/fragment :: navbar"></nav>
 <div class="d-flex justify-content-center">
+  <h2 th:text="'Hello '+${#httpServletRequest.remoteUser}+'!'">Login as</h2>
+</div>
+<div class="d-flex justify-content-center">
   <div class="m-4">
     <div class="card border border-light">
       <div class="card-header text-white bg-primary mb3">
@@ -19,9 +22,19 @@
         <h5 align ="center">List of features:</h5>
         <br>
         <div class="d-flex justify-content-center">
-          <a class = "mx-2 btn btn-primary">Appointment</a>
-          <a class = "mx-2 btn btn-primary">Resep</a>
-          <a class = "mx-2 btn btn-primary">Obat</a>
+          <a th:href="@{/appointment}" class = "mx-2 btn btn-primary">Appointment</a>
+          <a th:ref="@{/resep/viewall}" class = "mx-2 btn btn-primary">Resep</a>
+          <a th:href="@{/obat/viewall}" class = "mx-2 btn btn-primary">Obat</a>
+        </div>
+        <div sec:authorize="hasAuthority('ADMIN')">
+          <div class="my-3 d-flex justify-content-center">
+            <a th:href="@{/user/manajemenUser}" class="mx-2 btn btn-outline-success">Manajemen User</a>
+          </div>
+        </div>
+        <div sec:authorize="hasAnyAuthority('ADMIN', 'DOKTER')">
+          <div class="my-3 d-flex justify-content-center">
+            <a th:href="@{/appointment}" class="mx-2 btn btn-outline-success">Jadwal Appointment</a>
+          </div>
         </div>
       </div>
     </div>
