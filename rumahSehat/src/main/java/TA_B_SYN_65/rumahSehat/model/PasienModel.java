@@ -27,7 +27,8 @@ public class PasienModel extends UserModel implements Serializable {
 
     @Column(name = "umur")
     private Integer umur;
-
+    
+    @JsonIgnore
     @OneToMany(mappedBy = "pasien", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<AppointmentModel> listAppointment;
 }
