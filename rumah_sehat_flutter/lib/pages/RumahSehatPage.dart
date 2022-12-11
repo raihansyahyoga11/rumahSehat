@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rumah_sehat_flutter/pages/appointment_list.dart';
 
 import '../Screen/ProfilePage.dart';
 import 'HomePage.dart';
@@ -30,7 +31,7 @@ class _RumahSehatMainState extends State<RumahSehatMain> {
   //navigasi page
   final screens=[
     HomePage(),
-    Center(child:Text('Appointment', style:TextStyle(fontSize: 60))),
+    JadwalAppointmentApp(),
     Center(child:Text('Obat', style:TextStyle(fontSize: 60))),
     ProfilePage(),
   ];

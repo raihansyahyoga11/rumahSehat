@@ -1,5 +1,5 @@
 import 'package:rumah_sehat_flutter/controller/authentication_controller.dart';
-import 'login.dart';
+import '../main.dart';
 
 import 'package:flutter/material.dart';
 

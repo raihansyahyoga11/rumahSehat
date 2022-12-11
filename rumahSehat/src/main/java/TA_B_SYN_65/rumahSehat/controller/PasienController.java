@@ -7,27 +7,23 @@ import TA_B_SYN_65.rumahSehat.service.PasienRestService;
 import TA_B_SYN_65.rumahSehat.service.PasienService;
 import TA_B_SYN_65.rumahSehat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import reactor.core.publisher.Mono;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -63,10 +59,10 @@ public class PasienController {
             System.out.println("Masuk");
 
             Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
-        System.out.println("sini");
+            System.out.println("sini");
             final String token = jwtTokenUtil.generateToken((UserDetails) authenticate.getPrincipal());
-        System.out.println(token);
-        System.out.println(authenticate.getName());
+            System.out.println(token);
+            System.out.println(authenticate.getName());
             return ResponseEntity.ok()
                     .body(new JwtResponse(token, authenticate.getName()));
         }
@@ -115,13 +111,33 @@ public class PasienController {
     @CrossOrigin
     @GetMapping(value="/profile/pasien")
     @ResponseBody
-    private PasienModel retrievePasien(Authentication authentication){
+    private PasienModel retrievePasien(Model model ,Authentication authentication){
+        String userName = "";
+        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+        Object principal  = loggedInUser.getPrincipal();
+        if (principal instanceof UserDetails) {
+            userName = ((UserDetails) principal).getUsername();
+        } else {
+            userName = principal.toString();
+        }
+
         try{
             return pasienRestService.getPasienByUsername(authentication.getName());
         }catch(NoSuchElementException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Pasien dengan "+ authentication.getName() +" not found");
         }
     }
+    private String getPrincipal() {
+        String userName = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            userName = ((UserDetails) principal).getUsername();
+        } else {
+            userName = principal.toString();
+        }
+        return userName;
+    };
     @CrossOrigin
     @PutMapping(value="/topUp")
     private PasienModel topUpPasien(@RequestBody PasienModel pasien1,Authentication authentication){
