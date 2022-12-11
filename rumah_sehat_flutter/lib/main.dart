@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:rumah_sehat_flutter/pages/HomePage.dart';
-import 'package:rumah_sehat_flutter/pages/appointment_list.dart';
-
-import 'Screen/TopUpPage.dart';
-import 'Screen/ProfilePage.dart';
-import 'package:flutter/widgets.dart';
-
-const baseUrl = "http://localhost:8080";
+import 'package:rumah_sehat_flutter/controller/authentication_controller.dart';
+import 'package:rumah_sehat_flutter/pages/SignUp.dart';
+import 'pages/HomePage.dart';
+import 'pages/RumahSehatPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,69 +12,112 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Rumah Sehat",
       debugShowCheckedModeBanner: false,
-      home: RumahSehatNavBar(),
+      home: Login(),
     );
   }
 }
 
-class RumahSehatNavBar extends StatefulWidget {
+class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
+
   @override
-  _RumahSehatNavBarState createState() => _RumahSehatNavBarState();
+  _LoginState createState() => _LoginState();
 }
 
-class _RumahSehatNavBarState extends State<RumahSehatNavBar> {
-  int _selectedNavbar = 0;
-  //navigasi page
-  final screens=[
-    HomePage(),
-    JadwalAppointmentApp(),
-    // Center(child:Text('Appointment', style:TextStyle(fontSize: 60))),
-    Center(child:Text('Obat', style:TextStyle(fontSize: 60))),
-    ProfilePage(),
-  ];
+class _LoginState extends State<Login> {
 
-  void _changeSelectedNavBar(int index) {
-    setState(() {
-      _selectedNavbar = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    AuthenticationController authenticationController = AuthenticationController();
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Rumah Sehat"),
+        title: Text("Login Page"),
       ),
-      body: screens[_selectedNavbar],
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Beranda',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.assignment),
-            label: 'Appointment',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.medication_outlined ),
-            label: 'Obat',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_outlined),
-            label: 'Akun',
-          ),
-        ],
-        currentIndex: _selectedNavbar,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        showUnselectedLabels: true,
-        onTap: _changeSelectedNavBar,
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(top: 60.0),
+              child: Center(
+                child: Container(
+                  width: 200,
+                  height: 150,
+                  /*decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(50.0)),*/
+                ),
+              ),
+            ),
+            Padding(
+              //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: TextFormField(
+                controller: authenticationController.usernameController,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Username',
+                    hintText: 'Enter valid Username'),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 15.0, right: 15.0, top: 15, bottom: 15),
+              //padding: EdgeInsets.symmetric(horizontal: 15),
+              child: TextFormField(
+                controller: authenticationController.passwordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Password',
+                    hintText: 'Enter secure password'),
+              ),
+            ),
+            Container(
+              height: 50,
+              width: 250,
+              margin: EdgeInsets.only(bottom: 10),
+              decoration: BoxDecoration(
+                  color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+              child: ElevatedButton(
+                onPressed: () async {
+                  int code = await authenticationController.loginUser();
+                  if (code == 200) {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) =>  RumahSehatMain(),
+                    ));
+                  } else {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const Login(),
+                    ));
+                  }
+                },
+                child: Text(
+                  'Login',
+                  style: TextStyle(color: Colors.white, fontSize: 25),
+                ),
+              ),
+            ),
+
+            TextButton(
+              onPressed: (){
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => const SignUpPage(),
+                ));
+              },
+              child:
+              Text(
+                'New Patient? Create Account',
+                textAlign: TextAlign.center,
+              ),
+
+            )
+
+          ],
+        ),
       ),
     );
   }
 }
-
-
