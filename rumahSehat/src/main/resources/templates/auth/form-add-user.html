@@ -25,7 +25,7 @@
                     <input type="text" name="email" class ="form-control"/>
 
                     <label>Password</label>
-                    <input required type="password" name="password" class="form-control" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" title="Password must contain numbers, uppercase letters, lowercase letters, and symbols and must have at least 8 characters"/>
+                    <input required type="password" name="password" class="form-control" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&_*-]).{8,}$" title="Password must contain numbers, uppercase letters, lowercase letters, and symbols and must have at least 8 characters"/>
 
                     <br>
                     <div th:if="${userRole == 'DOKTER'}">
