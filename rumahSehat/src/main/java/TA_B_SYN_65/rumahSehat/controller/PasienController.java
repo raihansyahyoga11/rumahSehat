@@ -111,21 +111,20 @@ public class PasienController {
     @CrossOrigin
     @GetMapping(value="/profile/pasien")
     @ResponseBody
-    private PasienModel retrievePasien(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User authUser = null;
-        if (authentication instanceof User) {
-            authUser = (User) authentication.getPrincipal();
+    private PasienModel retrievePasien(Model model ,Authentication authentication){
+        String userName = "";
+        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+        Object principal  = loggedInUser.getPrincipal();
+        if (principal instanceof UserDetails) {
+            userName = ((UserDetails) principal).getUsername();
         } else {
-            authUser = (User) authentication.getPrincipal();
+            userName = principal.toString();
         }
-        String authUsername = authUser.getUsername();
-        UserModel userModel = userService.getUserByUsername(authUsername);
 
         try{
-            return pasienRestService.getPasienByUsername(authUsername);
+            return pasienRestService.getPasienByUsername(authentication.getName());
         }catch(NoSuchElementException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Pasien dengan "+ userModel.getUsername() +" not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Pasien dengan "+ authentication.getName() +" not found");
         }
     }
     private String getPrincipal() {
