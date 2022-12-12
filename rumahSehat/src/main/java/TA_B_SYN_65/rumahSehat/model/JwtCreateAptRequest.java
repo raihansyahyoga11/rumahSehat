@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 
 @Data
 public class JwtCreateAptRequest implements Serializable {
-    private PasienModel pasien;
-    private DokterModel dokter;
+    private String pasien;
+    private String dokter;
     private LocalDateTime datetime;
     private Boolean isDone = false;
 
