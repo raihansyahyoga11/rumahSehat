@@ -181,6 +181,9 @@ class _JadwalAppointmentState extends State<JadwalAppointmentApp> {
                       );
                     });
               }
-            }));
+            }),
+    children: Column(
+
+    ));
   }
 }
