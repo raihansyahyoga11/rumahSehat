@@ -29,6 +29,7 @@ import java.util.List;
 @Entity
 @Table(name = "tagihan")
 public class TagihanModel implements Serializable {
+    public static int count = 1;
 
     @Id
     @GeneratedValue(generator = "bill-generator")

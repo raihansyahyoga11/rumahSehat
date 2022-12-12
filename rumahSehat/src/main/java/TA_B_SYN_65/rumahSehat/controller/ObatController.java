@@ -51,13 +51,11 @@ public class ObatController {
     BarChartObatService barChartObatService;
 
     @GetMapping("/obat/viewall")
-    public String listObat(Model model){
+    public String listObat(Model model) {
         List<ObatModel> listObat = obatService.getListObat();
         model.addAttribute("listObat", listObat);
         return "viewall-obat";
     }
-
-
 
     @GetMapping("/obat/barChartObat")
     public String ChartObatForm(Model model) {
@@ -68,7 +66,6 @@ public class ObatController {
 
         newBarChart.getListBarChartObat().add(new BarChartObatModel());
 
-
         List<ObatModel> listObat = obatService.getListObat();
 
         newBarChart.setListBarChartObat(new ArrayList<>());
@@ -78,36 +75,35 @@ public class ObatController {
         return "obat/form-chart-obat";
     }
 
-
     @PostMapping("/obat/barChartObat")
     public String chartObatSubmit(@ModelAttribute BarChartModel barChart, Model model) {
         if (barChart.getListBarChartObat() == null) {
             barChart.setListBarChartObat(new ArrayList<>());
         }
         System.out.println(barChart.getListBarChartObat().size());
-        for (int i=0; i< barChart.getListBarChartObat().size();i++) {
+        for (int i = 0; i < barChart.getListBarChartObat().size(); i++) {
             barChart.getListBarChartObat().get(i).setBarChart(barChart);
         }
         barChartService.addBarChart(barChart);
         Map<String, Integer> data = new LinkedHashMap<String, Integer>();
         String jenisBarChart = "";
 
-
         if (barChart.getIsBarChartKuantitas() == true) {
             jenisBarChart = "Kuantitas";
             for (int i = 0; i < barChart.getListBarChartObat().size(); i++) {
                 barChart.getListBarChartObat().get(i).setBarChart(barChart);
-                String namaObat = (obatService.getObatbyId(barChart.getListBarChartObat().get(i).getObatSelected().getId())).getNama();
+                String namaObat = (obatService
+                        .getObatbyId(barChart.getListBarChartObat().get(i).getObatSelected().getId())).getNama();
                 Integer kuantitas = barChartObatService.getKuantitas(barChart.getListBarChartObat().get(i));
                 data.put(namaObat, kuantitas);
             }
 
-        }
-        else {
+        } else {
             jenisBarChart = "Total Pendapatan";
-            for (int i=0; i< barChart.getListBarChartObat().size();i++) {
+            for (int i = 0; i < barChart.getListBarChartObat().size(); i++) {
                 barChart.getListBarChartObat().get(i).setBarChart(barChart);
-                String namaObat = (obatService.getObatbyId(barChart.getListBarChartObat().get(i).getObatSelected().getId())).getNama();
+                String namaObat = (obatService
+                        .getObatbyId(barChart.getListBarChartObat().get(i).getObatSelected().getId())).getNama();
                 Integer totalPendapatan = barChartObatService.getTotalPendapatan(barChart.getListBarChartObat().get(i));
                 data.put(namaObat, totalPendapatan);
 
@@ -119,12 +115,10 @@ public class ObatController {
         return "obat/chart-obat";
     }
 
-
-    @PostMapping(value = "/obat/barChartObat", params = {"addRowChart"})
+    @PostMapping(value = "/obat/barChartObat", params = { "addRowChart" })
     private String addRowObatMultiple(
             @ModelAttribute BarChartModel barChart,
-            Model model
-    ) {
+            Model model) {
         System.out.println("seengganya masuk sini");
         List<ObatModel> listObat = obatService.getListObat();
         if (barChart.getListBarChartObat() == null || barChart.getListBarChartObat().size() == 0) {
@@ -135,32 +129,29 @@ public class ObatController {
             model.addAttribute("barChart", barChart);
             model.addAttribute("listObat", listObat);
             return "obat/form-chart-obat";
-        }
-        else if (barChart.getListBarChartObat().size() < 8) {
+        } else if (barChart.getListBarChartObat().size() < 8) {
             System.out.println("jim");
             barChart.getListBarChartObat().add(new BarChartObatModel());
             model.addAttribute("barChart", barChart);
             model.addAttribute("listObat", listObat);
-//            model.addAttribute("listBarChart", newBarChartObat);
+            // model.addAttribute("listBarChart", newBarChartObat);
             return "obat/form-chart-obat";
-        }
-        else {
+        } else {
             System.out.println("cihuy1");
             model.addAttribute("barChart", barChart);
             model.addAttribute("listObat", listObat);
-//            model.addAttribute("listBarChart", newBarChartObat);
+            // model.addAttribute("listBarChart", newBarChartObat);
             model.addAttribute("message", "Maaf, anda sudah mencapai jumlah maksimal obat yang dapat ditampilkan");
             return "obat/form-chart-obat";
         }
 
     }
 
-    @PostMapping(value = "/obat/barChartObat", params = {"deleteRowChart"})
+    @PostMapping(value = "/obat/barChartObat", params = { "deleteRowChart" })
     private String deleteRowObatMultiple(
             @ModelAttribute BarChartModel barChart,
             @RequestParam("deleteRowChart") Integer row,
-            Model model
-    ) {
+            Model model) {
         List<ObatModel> listObat = obatService.getListObat();
         final Integer rowId = Integer.valueOf(row);
         barChart.getListBarChartObat().remove(rowId.intValue());
@@ -169,14 +160,16 @@ public class ObatController {
         return "obat/form-chart-obat";
     }
 
-    @GetMapping(value="/obat/ubahStok/{id}")
-    public String updateObatFormPage(@PathVariable String id, Model model){
+    @GetMapping(value = "/obat/ubahStok/{id}")
+    public String updateObatFormPage(@PathVariable String id, Model model) {
         ObatModel obat = obatService.getObatbyId(id);
-        model.addAttribute("obat",obat);
+        model.addAttribute("obat", obat);
         return "form-update-stokObat";
     }
-    @PostMapping(value="/obat/ubahStok")
-    public String updateObatSubmitPage(@ModelAttribute ObatModel obat, Model model, BindingResult result, RedirectAttributes redirectAttrs){
+
+    @PostMapping(value = "/obat/ubahStok")
+    public String updateObatSubmitPage(@ModelAttribute ObatModel obat, Model model, BindingResult result,
+            RedirectAttributes redirectAttrs) {
         if (result.hasErrors()) {
             redirectAttrs.addFlashAttribute("error", "The error occurred.");
             return "redirect:/obat/ubahStok/{id}";
@@ -186,7 +179,7 @@ public class ObatController {
         redirectAttrs.addFlashAttribute("success",
                 String.format("Stok obat %s berhasil diperbarui", updatedObat.getNama()));
 
-        model.addAttribute("nama",updatedObat.getNama());
+        model.addAttribute("nama", updatedObat.getNama());
         return "redirect:/obat/viewall";
     }
     @GetMapping(value ="/obat/lineChartObat")

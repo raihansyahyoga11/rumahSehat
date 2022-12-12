@@ -13,5 +13,4 @@ public interface ObatService {
 
     ObatModel updateObat(ObatModel obat);
 
-
 }
