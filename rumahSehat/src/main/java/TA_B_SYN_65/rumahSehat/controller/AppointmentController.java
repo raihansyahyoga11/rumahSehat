@@ -2,10 +2,7 @@ package TA_B_SYN_65.rumahSehat.controller;
 
 
 import TA_B_SYN_65.rumahSehat.model.*;
-import TA_B_SYN_65.rumahSehat.service.AppointmentService;
-import TA_B_SYN_65.rumahSehat.service.DokterService;
-import TA_B_SYN_65.rumahSehat.service.PasienService;
-import TA_B_SYN_65.rumahSehat.service.UserService;
+import TA_B_SYN_65.rumahSehat.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,6 +27,8 @@ public class AppointmentController {
     PasienService pasienService;
     @Autowired
     AppointmentService appointmentService;
+    @Autowired
+    TagihanService tagihanService;
 
 //    @GetMapping("/api/{username}")
 //    public List<AppointmentModel> listAppointment(@PathVariable String username, Model model) {
@@ -53,13 +52,6 @@ public class AppointmentController {
         User authUser = (User) authentication.getPrincipal();
         String authUsername = authUser.getUsername();
         UserModel userModel = userService.getUserByUsername(authUsername);
-
-//        AppointmentModel apt = new AppointmentModel();
-//        apt.setDokter(dokterService.getDokterByUsername("hanan"));
-//        apt.setPasien(pasienService.getPasienByUsername("aaminullah"));
-//        apt.setIsDone(false);
-//        apt.setWaktuAwal(LocalDateTime.now());
-//        appointmentService.createAppointment(apt);
 
         if(userModel.getRole().equals("ADMIN")) {
             List<AppointmentModel> listAppointment = appointmentService.getListAppointment();

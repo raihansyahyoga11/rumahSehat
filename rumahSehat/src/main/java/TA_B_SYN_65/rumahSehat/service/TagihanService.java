@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface TagihanService {
 
+    void createTagihan(TagihanModel tagihan);
     List<TagihanModel> getListTagihan();
 }
