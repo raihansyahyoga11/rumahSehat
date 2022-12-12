@@ -15,7 +15,7 @@ class SignUpController {
 
   // Versi Yoga
   Future<int> attemptSignUp(String username, String password, String name, String email, String umur, String role) async {
-    const url = 'http://10.0.2.2:8080/api/mobile/signupPasien';
+    const url = 'https://apap-065.cs.ui.ac.id/api/mobile/signupPasien';
     print("haha");
     var response = await http.post(Uri.parse(url),
         headers: {'Content-Type': 'application/json; charset=UTF-8'},

@@ -15,7 +15,7 @@ class AuthenticationController {
   TextEditingController saldoController = TextEditingController();
 
   Future<int> loginUser() async {
-    const url = 'http://localhost:8080/api/mobile/signin';
+    const url = 'https://apap-065.cs.ui.ac.id/api/mobile/signin';
     var response = await http.post(Uri.parse(url),
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
         body: jsonEncode({
@@ -53,7 +53,7 @@ class AuthenticationController {
     prefrences.remove("token");
   }
   Future<int> attemptTopUp() async {
-    const url = 'http://localhost:8080/api/mobile/topUp/';
+    const url = 'https://apap-065.cs.ui.ac.id/api/mobile/topUp/';
     String? token1 = await storage.read(key:'TOKEN');
     String? username1 = await storage.read(key:'USERNAME');
     var response = await http.put(Uri.parse(url),
@@ -77,7 +77,7 @@ class AuthenticationController {
   Future<PasienModel> getUserProfile() async {
 
     print("getuser dijalankan");
-    const url = 'http://localhost:8080/api/mobile/profile/pasien';
+    const url = 'https://apap-065.cs.ui.ac.id/api/mobile/profile/pasien';
 
     String? token1 = await storage.read(key:'TOKEN');
     var response = await http.get(Uri.parse(url),

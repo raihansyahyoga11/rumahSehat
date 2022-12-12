@@ -1,41 +1,93 @@
 import 'package:rumah_sehat_flutter/controller/authentication_controller.dart';
+import 'package:rumah_sehat_flutter/pages/appointment_list.dart';
+
+import '../Screen/ProfilePage.dart';
 import '../main.dart';
+import 'package:rumah_sehat_flutter/pages/RumahSehatPage.dart';
 
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePage();
+
+
+
+
 }
 
-class _HomePageState extends State<HomePage> {
-  AuthenticationController authenticationController = AuthenticationController();
+class _HomePage extends State<HomePage> {
+
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  void initState() {
+    super.initState();
+    AuthenticationController authenticationController = AuthenticationController();
+  }
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
       body: Center(
         child: Container(
-          height: 80,
-          width: 150,
-          decoration: BoxDecoration(
-              color: Colors.blue, borderRadius: BorderRadius.circular(10)),
-          child: ElevatedButton(
-            onPressed: () async {
-              authenticationController.logOut();
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => Login(),
-              ));
-            },
-            child: Text(
-              'Log out',
-              style: TextStyle(color: Colors.white, fontSize: 25),
-            ),
+          height: 500,
+          width: 300,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Image.asset('assets/hospital.png'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () async {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => JadwalAppointmentApp()));
+                    },
+                    child: Text(
+                      'Daftar Appointment',
+                      style: TextStyle(color: Colors.white, fontSize: 25),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () async {
+                      // authenticationController.logOut();
+                      // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      //   builder: (context) => Login(),
+                      // ));
+                    },
+                    child: Text(
+                      'Lihat Obat',
+                      style: TextStyle(color: Colors.white, fontSize: 25),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () async {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => Login(),
+                      ));
+                    },
+                    child: Text(
+                      'Log out',
+                      style: TextStyle(color: Colors.white, fontSize: 25),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
     );
   }
-}
+

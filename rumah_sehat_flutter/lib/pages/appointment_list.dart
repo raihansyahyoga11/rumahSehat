@@ -21,7 +21,7 @@ class _JadwalAppointmentState extends State<JadwalAppointmentApp> {
     var USERNAME = prefrences.getString('username');
     var token = prefrences.getString('token');
     var url = Uri.encodeFull(
-        'http://localhost:2020/api/coba/list-appointment/${USERNAME}');
+        'https://apap-065.cs.ui.ac.id//api/coba/list-appointment/${USERNAME}');
 
     var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json',
