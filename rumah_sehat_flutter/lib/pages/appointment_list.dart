@@ -22,7 +22,7 @@ class _JadwalAppointmentState extends State<JadwalAppointmentApp> {
     var USERNAME = prefrences.getString('username');
     var token = prefrences.getString('token');
     var url = Uri.encodeFull(
-        'https://apap-065.cs.ui.ac.id/api/mobile/appointment/list-appointment/${USERNAME}');
+        'http://10.0.2.2:8080/api/mobile/appointment/list-appointment/${USERNAME}');
 
     var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json',
@@ -178,6 +178,9 @@ class _JadwalAppointmentState extends State<JadwalAppointmentApp> {
                       );
                     });
               }
-            }));
+            }),
+    children: Column(
+
+    ));
   }
 }
