@@ -1,6 +1,5 @@
 package TA_B_SYN_65.rumahSehat.repository;
 
-
 import TA_B_SYN_65.rumahSehat.model.PasienModel;
 import TA_B_SYN_65.rumahSehat.model.UserModel;
 

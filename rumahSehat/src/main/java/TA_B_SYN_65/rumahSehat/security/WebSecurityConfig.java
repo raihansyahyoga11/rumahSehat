@@ -33,16 +33,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     public BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-
-
-
-//    PasswordEncoder encoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-
-
+    // PasswordEncoder encoder() {
+    // return new BCryptPasswordEncoder();
+    // }
 
     @Override
     @Bean
@@ -57,12 +53,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         protected void configure(HttpSecurity httpSecurity) throws Exception {
 
             httpSecurity.csrf().disable()
-                    .antMatcher("/api/mobile/**").cors().and()
+                    .antMatcher("/api/**").cors().and()
                     .authorizeRequests().antMatchers("/api/mobile/signin").permitAll()
                     .antMatchers("/api/mobile/signup").permitAll()
                     .antMatchers("/api/mobile/signupAdmin").permitAll()
                     .antMatchers("/api/mobile/signupPasien").permitAll()
                     .antMatchers("/api/mobile/profile/pasien").permitAll()
+                    .antMatchers("/api/v1/list-tagihan").permitAll()
+                    .antMatchers("/api/v1/tagihan/pay").permitAll()
                     .antMatchers("/api/mobile/**").hasAuthority("PASIEN").and()
                     .exceptionHandling().authenticationEntryPoint(jwtAuthEntryPoint).and().sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -97,10 +95,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .sessionManagement().sessionFixation().newSession().maximumSessions(1);
         }
     }
+
     @Autowired
-    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception{
+    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
     }
-
 
 }

@@ -19,10 +19,10 @@ class JadwalAppointmentApp extends StatefulWidget {
 class _JadwalAppointmentState extends State<JadwalAppointmentApp> {
   Future<List<Appointment>> fetchAppointment() async {
     SharedPreferences prefrences = await SharedPreferences.getInstance();
-    var USERNAME = prefrences.getString('username');
     var token = prefrences.getString('token');
     var url = Uri.encodeFull(
-        'http://10.0.2.2:8080/api/mobile/appointment/list-appointment/${USERNAME}');
+        'https://apap-065.cs.ui.ac.id/api/mobile/appointment/list-appointment/');
+
 
     var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ class _JadwalAppointmentState extends State<JadwalAppointmentApp> {
 
     if (response.statusCode == 200) {
       List<Appointment> listAppointment = [];
-      var data = json.decode(response.body);
+      var data = jsonDecode(utf8.decode(response.bodyBytes));
       for (var d in data) {
         if (d != null) {
           listAppointment.add(Appointment.fromJson(d));
@@ -122,7 +122,7 @@ class _JadwalAppointmentState extends State<JadwalAppointmentApp> {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
                       return Card(
-                          child: Padding(
+                        child: Padding(
                           padding: EdgeInsets.all(12.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -160,18 +160,21 @@ class _JadwalAppointmentState extends State<JadwalAppointmentApp> {
                                       fontFamily: 'Roboto',
                                       fontSize: 16,
                                       color: Colors.grey)),
-                                      SizedBox(height: 12,),
-                                    TextButton(onPressed: (){
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => AppointmentDetail(
-                                                appointment: snapshot.data![index],
-                                              ),
-                                            ));
-                                      },
-              
-                                    child: Text('View Detail'))
+                              SizedBox(
+                                height: 12,
+                              ),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              AppointmentDetail(
+                                            appointment: snapshot.data![index],
+                                          ),
+                                        ));
+                                  },
+                                  child: Text('View Detail'))
                             ],
                           ),
                         ),

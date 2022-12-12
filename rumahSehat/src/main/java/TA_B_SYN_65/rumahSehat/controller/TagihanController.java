@@ -69,7 +69,7 @@ public class TagihanController {
                 tagihan.setJumlahTagihan(apt.getDokter().getTarif() + totalObat);
             }
 
-            tagihanService.createTagihan(tagihan);
+//            tagihanService.createTagihan(tagihan);
 
             model.addAttribute("appt", apt);
             return "appointment/detail-appointment";
