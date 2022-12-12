@@ -4,11 +4,6 @@ import 'package:rumah_sehat_flutter/pages/CreateAppointment.dart';
 import '../Screen/ProfilePage.dart';
 import 'HomePage.dart';
 
-
-
-
-
-
 class RumahSehat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
