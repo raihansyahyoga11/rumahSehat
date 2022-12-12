@@ -17,7 +17,7 @@ import java.util.List;
 
 @CrossOrigin
 @Controller
-@RequestMapping("/api/mobile/appointment")
+@RequestMapping("/appointment")
 public class AppointmentController {
     @Autowired
     UserService userService;
