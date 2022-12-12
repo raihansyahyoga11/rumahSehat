@@ -17,7 +17,7 @@ class _TagihanModelPageState extends State<TagihanModelPage> {
   Future<List<TagihanModel>> fetchTagihanModel() async {
     final storage = new FlutterSecureStorage();
     String? token1 = await storage.read(key: 'TOKEN');
-    var url = Uri.parse('http://localhost:8080/api/v1/list-tagihan');
+    var url = Uri.parse('https://apap-065.cs.ui.ac.id/api/v1/list-tagihan');
     print("await");
     var response = await http.get(
       url,
@@ -28,13 +28,10 @@ class _TagihanModelPageState extends State<TagihanModelPage> {
       },
     );
     print(response.body);
-    print("udah get");
     if (response.statusCode == 200) {
-      print("berhasil");
     }
     // melakukan decode response menjadi bentuk json
     var data = jsonDecode(utf8.decode(response.bodyBytes));
-    print("udah decode");
     print(data);
     // melakukan konversi data json menjadi object TagihanModel
     List<TagihanModel> listTagihanModel = [];

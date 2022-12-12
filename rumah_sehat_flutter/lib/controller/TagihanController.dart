@@ -8,7 +8,7 @@ class TagihanController {
   final TextEditingController kodeController = TextEditingController();
 
   Future<int> attemptPay(String kodeController) async {
-    var url = 'http://localhost:8080/api/v1/tagihan/pay/$kodeController';
+    var url = 'https://apap-065.cs.ui.ac.id/api/v1/tagihan/pay/$kodeController';
     var response = await http.post(
       Uri.parse(url),
     );
