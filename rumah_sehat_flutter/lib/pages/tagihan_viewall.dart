@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:rumah_sehat_flutter/Model/TagihanModel.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'tagihan_detail.dart';
 
 class TagihanModelPage extends StatefulWidget {
   const TagihanModelPage({Key? key}) : super(key: key);
@@ -120,6 +121,19 @@ class _TagihanModelPageState extends State<TagihanModelPage> {
                                 const SizedBox(height: 10),
                                 Text(
                                     "Jumlah Tagihan: ${snapshot.data![index].jumlahTagihan}"),
+                                const SizedBox(height: 10),
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                TagihanDetailPage(
+                                              tagihan: snapshot.data![index],
+                                            ),
+                                          ));
+                                    },
+                                    child: Text('Detail'))
                               ],
                             ),
                           ));

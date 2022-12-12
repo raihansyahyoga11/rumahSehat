@@ -60,6 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/api/mobile/signupPasien").permitAll()
                     .antMatchers("/api/mobile/profile/pasien").permitAll()
                     .antMatchers("/api/v1/list-tagihan").permitAll()
+                    .antMatchers("/api/v1/tagihan/pay").permitAll()
                     .antMatchers("/api/mobile/**").hasAuthority("PASIEN").and()
                     .exceptionHandling().authenticationEntryPoint(jwtAuthEntryPoint).and().sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

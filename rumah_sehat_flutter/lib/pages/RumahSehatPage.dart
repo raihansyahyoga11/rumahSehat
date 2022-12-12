@@ -51,10 +51,10 @@ class _RumahSehatMainState extends State<RumahSehatMain> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.assignment),
-            label: 'TODO',
+            label: 'Tagihan',
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.medication_outlined), label: 'Tagihan'),
+              icon: Icon(Icons.medication_outlined), label: 'Profile'),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle_outlined),
             label: 'Akun',
