@@ -29,7 +29,7 @@ public class BarChartServiceImpl implements BarChartService {
         barChartDb.save(barChart);
     }
 
-
+    ;
 
 
 
