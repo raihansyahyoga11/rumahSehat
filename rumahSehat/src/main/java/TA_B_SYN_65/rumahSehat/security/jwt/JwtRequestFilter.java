@@ -36,7 +36,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         if (request.getServletPath().contains("/api/mobile/") && (!request.getServletPath().equals("/api/mobile/signin")) && (!request.getServletPath().equals("/api/mobile/signupAdmin") && (!request.getServletPath().equals("/api/mobile/signupPasien")
                ))) {
-            System.out.println("jin");
             final String requestTokenHeader = request.getHeader("Authorization");
             String username = null;
             String jwtToken = null;
