@@ -13,18 +13,13 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePage();
 
 
-
-
 }
 
 class _HomePage extends State<HomePage> {
 
 
-  @override
-  void initState() {
-    super.initState();
-    AuthenticationController authenticationController = AuthenticationController();
-  }
+  AuthenticationController authenticationController = AuthenticationController();
+
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -73,6 +68,7 @@ class _HomePage extends State<HomePage> {
                 children: [
                   ElevatedButton(
                     onPressed: () async {
+                      authenticationController.logOut();
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => Login(),
                       ));
