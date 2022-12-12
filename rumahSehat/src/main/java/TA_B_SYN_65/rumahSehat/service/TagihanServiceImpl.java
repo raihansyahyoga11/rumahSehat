@@ -38,6 +38,11 @@ public class TagihanServiceImpl implements TagihanService {
     TagihanDb tagihanDb;
 
     @Override
+    public void createTagihan(TagihanModel tagihan) {
+        tagihanDb.save(tagihan);
+    }
+
+    @Override
     public List<TagihanModel> getListTagihan() { return tagihanDb.findAll(); }
 }
 

@@ -1,5 +1,6 @@
 package TA_B_SYN_65.rumahSehat.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 
@@ -15,6 +16,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@JsonIgnoreProperties(value={"listAppointment"}, allowSetters = true)
 @Inheritance(strategy = InheritanceType.JOINED)
 public class DokterModel extends UserModel implements Serializable {
 
