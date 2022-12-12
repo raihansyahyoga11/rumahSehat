@@ -81,9 +81,9 @@ class _TagihanModelPageState extends State<TagihanModelPage> {
                   return Column(
                     children: const [
                       Text(
-                        "Tidak ada to do list :(",
+                        "Tidak ada tagihan",
                         style:
-                            TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+                        TextStyle(color: Color(0xff59A5D8), fontSize: 20),
                       ),
                       SizedBox(height: 8),
                     ],
@@ -92,51 +92,57 @@ class _TagihanModelPageState extends State<TagihanModelPage> {
                   return ListView.builder(
                       itemCount: snapshot.data!.length,
                       itemBuilder: (_, index) => Container(
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 12),
-                            padding: const EdgeInsets.all(20.0),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(15.0),
-                                boxShadow: const [
-                                  BoxShadow(
-                                      color: Colors.black, blurRadius: 2.0)
-                                ]),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Kode Tagihan: ${snapshot.data![index].kode}",
-                                  style: const TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                Text("Status: ${snapshot.data![index].isPaid}"),
-                                const SizedBox(height: 10),
-                                Text(
-                                    "Tanggal Terbuat: ${snapshot.data![index].tanggalTerbuat}"),
-                                const SizedBox(height: 10),
-                                Text(
-                                    "Jumlah Tagihan: ${snapshot.data![index].jumlahTagihan}"),
-                                const SizedBox(height: 10),
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                TagihanDetailPage(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 12),
+                        padding: const EdgeInsets.all(20.0),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(15.0),
+                            boxShadow: const [
+                              BoxShadow(
+                                  color: Colors.black, blurRadius: 2.0)
+                            ]),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Kode Tagihan: ${snapshot.data![index].kode}",
+                              style: const TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              snapshot.data![index].isPaid
+                                  ? "Sudah dibayar"
+                                  : "Belum dibayar",
+                              style: const TextStyle(
+                                  fontSize: 14, color: Colors.black),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                                "Tanggal Terbuat: ${snapshot.data![index].tanggalTerbuat}"),
+                            const SizedBox(height: 10),
+                            Text(
+                                "Jumlah Tagihan: ${snapshot.data![index].jumlahTagihan}"),
+                            const SizedBox(height: 10),
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            TagihanDetailPage(
                                               tagihan: snapshot.data![index],
                                             ),
-                                          ));
-                                    },
-                                    child: Text('Detail'))
-                              ],
-                            ),
-                          ));
+                                      ));
+                                },
+                                child: Text('Detail'))
+                          ],
+                        ),
+                      ));
                 }
               }
             }));
