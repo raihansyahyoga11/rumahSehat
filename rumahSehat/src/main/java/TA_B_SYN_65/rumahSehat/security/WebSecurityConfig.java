@@ -20,7 +20,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JwtAuthEntryPoint jwtAuthEntryPoint;
@@ -37,13 +37,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
 
 
-
-//    PasswordEncoder encoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-
-
-    // public BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
 //    PasswordEncoder encoder() {
 //        return new BCryptPasswordEncoder();
@@ -86,6 +79,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                     .antMatchers("/css/**").permitAll()
                     .antMatchers("/js/**").permitAll()
                     .antMatchers("/login-sso", "/validate-ticket").permitAll()
+                    .antMatchers("/").hasAnyAuthority("ADMIN", "APOTEKER","DOKTER")
                     .antMatchers("/obat/ubahStok/**").hasAuthority("APOTEKER")
                     .antMatchers("/obat/barChartObat").hasAuthority("ADMIN")
                     .antMatchers("/user/manajemenUser").hasAuthority("ADMIN")
@@ -107,8 +101,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception{
         auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
     }
-
-
 
 
 }

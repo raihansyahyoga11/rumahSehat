@@ -7,7 +7,7 @@ import 'package:rumah_sehat_flutter/controller/SignUpController.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'HomePage.dart';
-import 'login.dart';
+import '../main.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
