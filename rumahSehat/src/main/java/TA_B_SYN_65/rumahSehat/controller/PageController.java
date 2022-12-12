@@ -81,11 +81,11 @@ public class PageController {
         UserModel user = userService.getUserByUsername(username);
 
         if (user == null) {
-            if (username.startsWith("a") || username.startsWith("r") || username.startsWith("d")) {
+            if (username.startsWith("a") || username.startsWith("r") || username.startsWith("d") || username.startsWith("h") || username.startsWith("a")) {
                 user = new UserModel();
                 user.setEmail(username + "@ui.ac.id");
                 user.setNama(attributes.getNama());
-                user.setPassword("belajarbelajar");
+                user.setPassword("rumahsehat");
                 user.setUsername(username);
                 user.setIsSso(true);
                 user.setRole("ADMIN");
@@ -95,7 +95,7 @@ public class PageController {
                 user = new UserModel();
                 user.setEmail(username + "@ui.ac.id");
                 user.setNama(attributes.getNama());
-                user.setPassword("belajarbelajar");
+                user.setPassword("rumahsehat");
                 user.setUsername(username);
                 user.setIsSso(true);
                 user.setRole("NO-ROLE");
@@ -104,7 +104,7 @@ public class PageController {
 
         }
 
-        Authentication authentication = new UsernamePasswordAuthenticationToken(username, "belajarbelajar");
+        Authentication authentication = new UsernamePasswordAuthenticationToken(username, "rumahsehat");
 
         SecurityContext securityContext = SecurityContextHolder.getContext();
         securityContext.setAuthentication(authentication);
