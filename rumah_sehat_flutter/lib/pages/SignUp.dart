@@ -2,11 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:rumah_sehat_flutter/Screen/ProfilePage.dart';
 import 'package:rumah_sehat_flutter/controller/SignUpController.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'HomePage.dart';
-import 'login.dart';
+import '../main.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -42,7 +43,8 @@ class _SignUpPageState extends State<SignUpPage> {
         appBar: AppBar(title: Text("Sign Up"),),
         body: Padding(
           padding: const EdgeInsets.all(3.0),
-          child: Column(
+          child: SingleChildScrollView(
+            child: Column(
             children: [
               SizedBox(
                 height: 35,
@@ -165,30 +167,44 @@ class _SignUpPageState extends State<SignUpPage> {
                 height: 35,
               ),
               Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: SizedBox(
+                  height: 40,
+                  child: TextFormField(
+                    autofocus: false,
+                    //initialValue: 'some password',
+                    controller: signUpController.roleController,
+                    decoration: InputDecoration(
+                      hintText: 'Role. Please type: "PASIEN"',
+                      contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(32.0)),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 35,
+              ),
+              Padding(
                 padding: EdgeInsets.symmetric(vertical: 16.0),
                 child: ElevatedButton(
                   style: style,
                   onPressed: () async {
                     int code = await signUpController.attemptSignUp(signUpController.usernameController.text,
                                                                         signUpController.passwordController.text,
-                                                                        signUpController.umurController.text,
                                                                         signUpController.nameController.text,
-                                                                        signUpController.emailController.text);
+                                                                        signUpController.emailController.text,
+                                                                        signUpController.umurController.text,
+                                                                        signUpController.roleController.text);
                     if (code == 200) {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => const HomePage(),
+                        builder: (context) => Login(),
                       ));
                     } else {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => const SignUpPage(),
                       ));
-
-                    // await signUpController.attemptSignUp(
-                    //     signUpController.usernameController.text,
-                    //     signUpController.passwordController.text,
-                    //     signUpController.umurController.text,
-                    //     signUpController.nameController.text,
-                    //     signUpController.emailController.text);
                     }
                   },
                   child: Text(
@@ -198,6 +214,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
               ),
             ],
+          ),
           ),
         )
     );

@@ -1,5 +1,5 @@
 import 'package:rumah_sehat_flutter/controller/authentication_controller.dart';
-import 'login.dart';
+import '../main.dart';
 
 import 'package:flutter/material.dart';
 
@@ -16,9 +16,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Rumah Sehat'),
-      ),
       body: Center(
         child: Container(
           height: 80,
