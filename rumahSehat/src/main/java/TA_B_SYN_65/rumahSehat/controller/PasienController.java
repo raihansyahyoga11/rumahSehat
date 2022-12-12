@@ -93,7 +93,7 @@ public class PasienController {
         PasienModel user = new PasienModel();
         user.setUmur(request.getUmur());
         user.setRole(request.getRole());
-        user.setSaldo(5000);
+        user.setSaldo(0);
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));

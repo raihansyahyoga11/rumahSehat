@@ -3,9 +3,13 @@ package TA_B_SYN_65.rumahSehat.service;
 import TA_B_SYN_65.rumahSehat.model.AppointmentModel;
 import TA_B_SYN_65.rumahSehat.repository.AppointmentDb;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
+@Service
+@Transactional
 public class AppointmentRestServiceImpl implements AppointmentRestService {
     @Autowired
     AppointmentDb appointmentDb;
