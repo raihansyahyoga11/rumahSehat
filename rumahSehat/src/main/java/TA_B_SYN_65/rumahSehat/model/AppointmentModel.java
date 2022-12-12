@@ -57,5 +57,6 @@ public class AppointmentModel implements Serializable {
 
     // Relasi dengan Resep
     @OneToOne(mappedBy = "appointment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    // @JoinColumn(name = "kode_resep", referencedColumnName = "id_resep")
     private ResepModel resep;
 }

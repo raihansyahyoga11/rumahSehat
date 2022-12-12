@@ -34,7 +34,7 @@
 | NPM | Nama Lengkap | Fitur yang akan diselesaikan  |
 | ----------| --- | ---------- | 
 | 2006483031 | Raihansyah Yoga Adhitama | 10 21(BarChart) |
-| 2006464423 | Dominikus Kern Bunardi  | 12 |
+| 2006464423 | Dominikus Kern Bunardi  | 12 21(Line Chart)|
 | 2006463843| Hilmi Al Biruni | 17 |
 | 1906399064 | Ahmad Aminullah Alfiyanto | 6 |
 | 2006482773 | Alfina Azaria | 11 |

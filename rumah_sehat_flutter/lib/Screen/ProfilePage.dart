@@ -39,7 +39,7 @@ class _ProfilePageState extends State<ProfilePage> {
       title: 'User Profile',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-      ),
+      ), debugShowCheckedModeBanner: false,
       home: Scaffold(
       body:SizedBox(
           width: double.infinity,

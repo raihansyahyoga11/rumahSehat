@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>Form Show Chart</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+
+<div class="container">
+    <div class="card m-4 p-4">
+        <div class="card-body">
+
+            <form th:action="@{/obat/lineChartObat/pilih}" th:object="${lineChart}" method="post">
+                Periode: <br>
+                <select name="periode" th:field="${lineChart.isBulan}"
+                        class="form-control">
+                    <option value="1">Periode Bulan</option>
+                    <option value="0">Periode Tahun</option>
+                </select>
+                <br><br>
+
+                Bulan: <br>
+                <select  name="bulan" th:field="${lineChart.bulan}" class="form-control">
+                    <option th:each="bulan, iterationStatus2 : ${listBulan}"
+                            th:value="${bulan}" th:text="${bulan}">
+                    </option>
+                </select>
+
+                <br><br>
+                <button class="btn btn-primary" type="submit" name="save">Submit</button>
+                <a class="btn btn-primary" href="/">kembali</a>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

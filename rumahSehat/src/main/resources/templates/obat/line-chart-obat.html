@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <title>Form Show Chart</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+
+</head>
+
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="container">
+  <div class="card m-4 p-4">
+    <div class="card-body">
+      <div>
+        <canvas id="myChart"></canvas>
+      </div>
+      <a class="btn btn-primary" href="/obat/lineChartObat">Kembali</a>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script th:inline="javascript">
+
+
+   var htmldata = [[${data}]];
+   var periode = [[${periode}]];
+   var listNama = [[${listNama}]];
+   var size = [[${size}+1]];
+   const ctx = document.getElementById('myChart').getContext('2d');
+
+
+
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: Object.keys(htmldata[0]),
+
+            datasets: [
+              {
+                label: listNama[0],
+                data: Object.keys(htmldata[0]).map(function(key) {
+                    return htmldata[0][key];
+                    }),
+                borderWidth: 1
+              }
+
+            ]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: true,
+              text: periode
+            }
+          }
+        },
+    });
+    for(let i = 1 ;i < size;i++ ){
+      const newDataset = {
+            label: listNama[i],
+            borderColor: dsColor,
+            data: Object.keys(htmldata[i]).map(function(key) {
+            return htmldata[i][key];
+            }),
+            borderWidth: 1
+      };
+      chart.data.datasets.push(newDataset);
+      chart.update();
+    }
+
+</script>
+
+</body>
+</html>

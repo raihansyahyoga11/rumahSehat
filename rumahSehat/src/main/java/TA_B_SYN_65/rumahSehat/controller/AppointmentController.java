@@ -16,10 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,7 +24,7 @@ import java.util.List;
 
 @CrossOrigin
 @Controller
-@RequestMapping("/appointment")
+@RequestMapping("/api/mobile/appointment")
 public class AppointmentController {
     @Autowired
     UserService userService;
@@ -106,4 +103,25 @@ public class AppointmentController {
 
         return "auth/access-denied";
     }
+
+    //tes postman create appoinment
+    @CrossOrigin
+    @PostMapping("/create")
+    public AppointmentModel makeAppoinment(@RequestBody String kode,Model model,Authentication authentication){
+        AppointmentModel appointment = new AppointmentModel();
+        PasienModel pasien = pasienService.getPasienByUsername(authentication.getName());
+        appointment.setIsDone(true);
+        appointment.setDokter(dokterService.getDokterByUsername("dokter1"));
+        appointment.setPasien(pasien);
+
+        appointment.setWaktuAwal(LocalDateTime.now());
+
+        appointmentService.createAppointment(appointment);
+        //List<AppointmentModel> newListAppoinment = pasien.getListAppointment();
+        //newListAppoinment.add(appointment);
+        //pasien.setListAppointment(newListAppoinment);
+        return appointment;
+
+    }
+
 }

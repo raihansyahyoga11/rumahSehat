@@ -120,8 +120,7 @@ class _LoginState extends State<Login> {
                     builder: (context) => const SignUpPage(),
                 ));
               },
-              child:
-              Text(
+              child:Text(
                 'New Patient? Create Account',
                 textAlign: TextAlign.center,
               ),

@@ -1,5 +1,6 @@
 package TA_B_SYN_65.rumahSehat.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,7 @@ public class PasienModel extends UserModel implements Serializable {
     @Column(name = "umur")
     private Integer umur;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "pasien", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<AppointmentModel> listAppointment;
 }
