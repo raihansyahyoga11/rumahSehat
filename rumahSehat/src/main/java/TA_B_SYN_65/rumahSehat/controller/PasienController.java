@@ -93,7 +93,7 @@ public class PasienController {
         PasienModel user = new PasienModel();
         user.setUmur(request.getUmur());
         user.setRole(request.getRole());
-        user.setSaldo(5000);
+        user.setSaldo(0);
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
@@ -120,14 +120,11 @@ public class PasienController {
         } else {
             userName = principal.toString();
         }
-        //authUser = (UserDetails) authentication.getPrincipal();
-        //String authUsername = authUser.getUsername();
-        //UserModel userModel = userService.getUserByUsername(authUsername);
 
         try{
             return pasienRestService.getPasienByUsername(authentication.getName());
         }catch(NoSuchElementException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Pasien dengan "+ userName +" not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Pasien dengan "+ authentication.getName() +" not found");
         }
     }
     private String getPrincipal1() {

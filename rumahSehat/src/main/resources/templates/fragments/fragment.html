@@ -19,7 +19,7 @@
 </head>
 <body>
 <nav th:fragment ="navbar" class = "navbar navbar-expand-lg navbar-light bg-light" >
-    <a class="navbar-brand font-weight-bold text-primary" href="#">Rumah Sehat</a>
+    <a class="navbar-brand font-weight-bold text-primary" th:href="@{/}">Rumah Sehat</a>
     <button
             class = "navbar-toggler"
             type = "button"
@@ -40,7 +40,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">Appointment<span class ="sr-only">{current}</span></a>
+                <a class="nav-link" th:href="@{/appointment}">Appointment<span class ="sr-only">{current}</span></a>
             </li>
 
             <li class="nav-item">

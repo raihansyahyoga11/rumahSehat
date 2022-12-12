@@ -23,26 +23,27 @@
         <br>
         <div class="d-flex justify-content-center">
           <a th:href="@{/appointment}" class = "mx-2 btn btn-primary">Appointment</a>
-          <a th:ref="@{/resep/viewall}" class = "mx-2 btn btn-primary">Resep</a>
-          <a th:href="@{/obat/viewall}" class = "mx-2 btn btn-primary">Obat</a>
         </div>
         <div sec:authorize="hasAuthority('ADMIN')">
           <div class="my-3 d-flex justify-content-center">
+            <a th:href="@{/resep/viewall}" class = "mx-2 btn btn-primary">Resep</a>
+            <a th:href="@{/obat/viewall}" class = "mx-2 btn btn-primary">Obat</a>
             <a th:href="@{/user/manajemenUser}" class="mx-2 btn btn-outline-success">Manajemen User</a>
           </div>
         </div>
-        <div sec:authorize="hasAnyAuthority('ADMIN', 'DOKTER')">
+        <div sec:authorize="hasAuthority('DOKTER')">
+        </div>
+        <div sec:authorize="hasAuthority('APOTEKER')">
           <div class="my-3 d-flex justify-content-center">
-            <a th:href="@{/appointment}" class="mx-2 btn btn-outline-success">Jadwal Appointment</a>
+            <a th:href="@{/resep/viewall}" class = "mx-2 btn btn-primary">Resep</a>
+            <a th:href="@{/obat/viewall}" class = "mx-2 btn btn-primary">Obat</a>
           </div>
         </div>
       </div>
-    </div>
 
+    </div>
   </div>
 </div>
-
-
 
 </body>
 </html>

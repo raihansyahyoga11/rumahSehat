@@ -91,23 +91,25 @@ public class ObatController {
         barChartService.addBarChart(barChart);
         Map<String, Integer> data = new LinkedHashMap<String, Integer>();
         String jenisBarChart = "";
+
+
         if (barChart.getIsBarChartKuantitas() == true) {
             jenisBarChart = "Kuantitas";
-            for (int i=0; i< barChart.getListBarChartObat().size();i++) {
+            for (int i = 0; i < barChart.getListBarChartObat().size(); i++) {
                 barChart.getListBarChartObat().get(i).setBarChart(barChart);
-                data.put((obatService.getObatbyId(barChart.getListBarChartObat().get(i).getObatSelected().getId())).getNama(), (obatService.getObatbyId(barChart.getListBarChartObat().get(i).getObatSelected().getId()).getStok()));
-                System.out.println((obatService.getObatbyId(barChart.getListBarChartObat().get(i).getObatSelected().getId())).getNama());
-                System.out.println((obatService.getObatbyId(barChart.getListBarChartObat().get(i).getObatSelected().getId())).getStok());
-
+                String namaObat = (obatService.getObatbyId(barChart.getListBarChartObat().get(i).getObatSelected().getId())).getNama();
+                Integer kuantitas = barChartObatService.getKuantitas(barChart.getListBarChartObat().get(i));
+                data.put(namaObat, kuantitas);
             }
+
         }
         else {
             jenisBarChart = "Total Pendapatan";
             for (int i=0; i< barChart.getListBarChartObat().size();i++) {
                 barChart.getListBarChartObat().get(i).setBarChart(barChart);
-                data.put((obatService.getObatbyId(barChart.getListBarChartObat().get(i).getObatSelected().getId())).getNama(), (obatService.getObatbyId(barChart.getListBarChartObat().get(i).getObatSelected().getId()).getStok()));
-                System.out.println((obatService.getObatbyId(barChart.getListBarChartObat().get(i).getObatSelected().getId())).getNama());
-                System.out.println((obatService.getObatbyId(barChart.getListBarChartObat().get(i).getObatSelected().getId())).getStok());
+                String namaObat = (obatService.getObatbyId(barChart.getListBarChartObat().get(i).getObatSelected().getId())).getNama();
+                Integer totalPendapatan = barChartObatService.getTotalPendapatan(barChart.getListBarChartObat().get(i));
+                data.put(namaObat, totalPendapatan);
 
             }
         }

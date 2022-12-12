@@ -49,7 +49,7 @@
           <td th:text="'Aksi'"></td>
           <td>
             <a class="btn btn-primary" th:href="@{/resep/create/} + ${appt.kode}">Buat Resep</a>
-            <a class="btn btn-danger" th:href="@{/appointment/detail/} + ${appt.kode}">Selesai</a>
+            <a class="btn btn-danger" th:href="@{/tagihan/create/} + ${appt.kode}" type="submit">Selesai</a>
           </td>
         </tr>
         <tr sec:authorize="hasAnyAuthority('ADMIN', 'PASIEN')" th:if="${appt.isDone}">

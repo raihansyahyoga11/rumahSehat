@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Setter
@@ -28,7 +29,7 @@ public class PasienModel extends UserModel implements Serializable {
 
     @Column(name = "umur")
     private Integer umur;
-
+    
     @JsonIgnore
     @OneToMany(mappedBy = "pasien", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<AppointmentModel> listAppointment;
