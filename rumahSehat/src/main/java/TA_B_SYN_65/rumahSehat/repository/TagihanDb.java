@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TagihanDb extends JpaRepository<TagihanModel, String> {
-   TagihanModel findByCode(String kode);
+   TagihanModel findByKode(String kode);
 
 }

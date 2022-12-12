@@ -23,6 +23,6 @@ public class TagihanRestServiceImpl implements TagihanRestService {
 
    @Override
    public TagihanModel getTagihanByCode(String code) {
-      return tagihanDb.findByCode(code);
+      return tagihanDb.findByKode(code);
    }
 }

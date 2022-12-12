@@ -48,7 +48,7 @@ public class TagihanRestController {
 
    @GetMapping(value = "/list-tagihan")
    private List<TagihanDto> retrieveListTagihan(Model model, HttpServletRequest request) {
-      String username = request.getUserPrincipal().getName();
+      String username = "pasien";
       List<TagihanModel> listTagihan = new ArrayList<>();
 
       for (TagihanModel tagihan : tagihanDb.findAll()) {
