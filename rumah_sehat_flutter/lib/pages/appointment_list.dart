@@ -19,7 +19,8 @@ class _JadwalAppointmentState extends State<JadwalAppointmentApp> {
   Future<List<Appointment>> fetchAppointment() async {
     SharedPreferences prefrences = await SharedPreferences.getInstance();
     var token = prefrences.getString('token');
-    var url = Uri.encodeFull('http://192.168.42.46:8080/api/v1/list-tagihan');
+    var url = Uri.encodeFull(
+        'https://apap-065.cs.ui.ac.id//api/coba/list-appointment/${USERNAME}');
 
     var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json',
