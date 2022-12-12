@@ -41,6 +41,7 @@ public class TagihanRestServiceImpl implements TagihanRestService {
       if (tagihan.getJumlahTagihan() <= pasien.getSaldo()) {
          tagihan.setIsPaid(true);
          tagihan.setTanggalBayar(LocalDateTime.now());
+         tagihanDb.save(tagihan);
          return true;
       } else {
          return false;

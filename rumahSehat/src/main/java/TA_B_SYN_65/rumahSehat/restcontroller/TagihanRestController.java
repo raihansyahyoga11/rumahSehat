@@ -7,9 +7,13 @@ import java.util.NoSuchElementException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import TA_B_SYN_65.rumahSehat.model.PasienModel;
 import TA_B_SYN_65.rumahSehat.service.PasienRestService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,13 +47,17 @@ public class TagihanRestController {
    @Autowired
    PasienRestService pasienRestService ;
 
+   Logger logger = LoggerFactory.getLogger(TagihanRestController.class);
+
    @GetMapping(value = "/tagihan/{code}")
    private TagihanDto retrieveTagihan(@PathVariable("code") String code) {
       try {
+         logger.info("Retrieve Tagihan Method");
          TagihanModel tagihan = tagihanRestService.getTagihanByCode(code);
          return new TagihanDto(tagihan);
 
       } catch (NoSuchElementException e) {
+         logger.error("Tagihan not found");
          throw new ResponseStatusException(
                HttpStatus.NOT_FOUND, "Code Tagihan " + code + " not found");
       }
@@ -59,7 +67,7 @@ public class TagihanRestController {
       String userName = null;
       SecurityContext context = SecurityContextHolder.getContext();
       Authentication authentication = context.getAuthentication();
-      Object principal = authentication.getName();
+      Object principal = authentication.getPrincipal();
 
       if (principal instanceof UserDetails) {
          userName = ((UserDetails) principal).getUsername();
@@ -72,7 +80,9 @@ public class TagihanRestController {
 
    @GetMapping(value = "/list-tagihan")
    private List<TagihanDto> retrieveListTagihan(Model model) {
-      String username = getPrincipal();
+//      UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//      String username = userDetails.getUsername();
+      String username = "pasien";
       List<TagihanModel> listTagihan = new ArrayList<>();
 
       for (TagihanModel tagihan : tagihanDb.findAll()) {
@@ -92,6 +102,8 @@ public class TagihanRestController {
 
    @PostMapping(value = "/tagihan/pay/{code}")
    public int pelunasanTagihan(@PathVariable("code") String code) {
+//      UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//      String username = userDetails.getUsername();
       String username = "pasien";
       boolean pembayaranLunas = tagihanRestService.pay(code, username);
       if (pembayaranLunas) {
