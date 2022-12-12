@@ -1,3 +1,4 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:rumah_sehat_flutter/Model/TagihanModel.dart';
@@ -14,8 +15,8 @@ class TagihanModelPage extends StatefulWidget {
 
 class _TagihanModelPageState extends State<TagihanModelPage> {
   Future<List<TagihanModel>> fetchTagihanModel() async {
-    SharedPreferences prefrences = await SharedPreferences.getInstance();
-    var token = prefrences.getString('token');
+    final storage = new FlutterSecureStorage();
+    String? token1 = await storage.read(key: 'TOKEN');
     var url = Uri.parse('http://localhost:8080/api/v1/list-tagihan');
     print("await");
     var response = await http.get(
@@ -23,7 +24,7 @@ class _TagihanModelPageState extends State<TagihanModelPage> {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $token1',
       },
     );
     print(response.body);

@@ -130,7 +130,6 @@ class TagihanDetailPage extends StatelessWidget {
                           int code =
                               await tagihanController.attemptPay(tagihan.kode);
                           if (code == 200) {
-                            print("kebayarrr");
                           }
                         }),
                   ),

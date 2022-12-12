@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import TA_B_SYN_65.rumahSehat.service.PasienRestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
@@ -39,6 +40,9 @@ public class TagihanRestController {
    @Autowired
    private TagihanRestService tagihanRestService;
 
+   @Autowired
+   PasienRestService pasienRestService ;
+
    @GetMapping(value = "/tagihan/{code}")
    private TagihanDto retrieveTagihan(@PathVariable("code") String code) {
       try {
@@ -55,7 +59,7 @@ public class TagihanRestController {
       String userName = null;
       SecurityContext context = SecurityContextHolder.getContext();
       Authentication authentication = context.getAuthentication();
-      Object principal = authentication.getPrincipal();
+      Object principal = authentication.getName();
 
       if (principal instanceof UserDetails) {
          userName = ((UserDetails) principal).getUsername();
@@ -68,7 +72,7 @@ public class TagihanRestController {
 
    @GetMapping(value = "/list-tagihan")
    private List<TagihanDto> retrieveListTagihan(Model model) {
-      String username = "pasien";
+      String username = getPrincipal();
       List<TagihanModel> listTagihan = new ArrayList<>();
 
       for (TagihanModel tagihan : tagihanDb.findAll()) {
@@ -88,12 +92,12 @@ public class TagihanRestController {
 
    @PostMapping(value = "/tagihan/pay/{code}")
    public int pelunasanTagihan(@PathVariable("code") String code) {
-      String username = getPrincipal();
+      String username = "pasien";
       boolean pembayaranLunas = tagihanRestService.pay(code, username);
       if (pembayaranLunas) {
-         return 200;
+         return 1;
       } else {
-         return 100;
+         return 0;
       }
    }
 

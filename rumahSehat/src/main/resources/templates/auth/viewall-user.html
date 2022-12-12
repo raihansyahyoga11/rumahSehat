@@ -20,13 +20,15 @@
   </div>
   <br>
   <div th:if="${userRole == 'DOKTER' OR userRole == 'APOTEKER' OR userRole == 'PASIEN'}">
-    <a class="btn btn-primary" th:href="@{/user/add/} + ${userRole}">+ Tambah User</a>
+    <a class="btn btn-primary" th:href="@{/user/add/} + ${userRole}"> Tambah User</a>
   </div>
+
   <br>
+
   <br>
   <table class="table">
     <thead>
-    <tr class="bg-secondary text-light font-weight-normal">
+    <tr>
       <th>No</th>
       <th>Username User</th>
       <th>Nama User</th>
