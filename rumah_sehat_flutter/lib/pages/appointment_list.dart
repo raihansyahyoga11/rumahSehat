@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'appointment_detail.dart';
+import 'package:rumah_sehat_flutter/pages/CreateAppointment.dart';
 
 class JadwalAppointmentApp extends StatefulWidget {
   const JadwalAppointmentApp({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class _JadwalAppointmentState extends State<JadwalAppointmentApp> {
     var USERNAME = prefrences.getString('username');
     var token = prefrences.getString('token');
     var url = Uri.encodeFull(
-        'https://apap-065.cs.ui.ac.id//api/coba/list-appointment/${USERNAME}');
+        'https://apap-065.cs.ui.ac.id/api/mobile/appointment/list-appointment/${USERNAME}');
 
     var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json',
@@ -53,25 +54,68 @@ class _JadwalAppointmentState extends State<JadwalAppointmentApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('My Appointment'),
-        ),
         body: FutureBuilder(
             future: fetchAppointment(),
             builder: (context, AsyncSnapshot snapshot) {
-              if (!snapshot.hasData) {
-                return Column(
-                  children: const [
-                    Text(
-                      "Anda belum memiliki Appointment!",
-                      style: TextStyle(
-                          color: Colors.indigo,
-                          fontFamily: 'Roboto',
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 8),
-                  ],
+              if (!snapshot.hasData || snapshot.data!.length == 0) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Anda belum memiliki Appointment",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.indigo,
+                            fontFamily: 'Roboto',
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+
+                      SizedBox(height: 8),
+                      Container(
+                        height: 40,
+                        width: 180,
+                        margin: EdgeInsets.only(bottom: 10),
+                        decoration: BoxDecoration(
+                            color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                builder: (context) => const CreateAppointmentPage(),
+                            ));
+                            // int code = await authenticationController.loginUser();
+                            // if (code == 200) {
+                            //   Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            //     builder: (context) =>  RumahSehatMain(),
+                            //   ));
+                            // } else {
+                            //   showDialog(
+                            //       context: context,
+                            //       builder: (BuildContext context) {
+                            //         return AlertDialog(
+                            //           title: Text("Error"),
+                            //           content: Text("Bad Credential, please try again"),
+                            //           actions: [
+                            //             ElevatedButton(
+                            //               child: Text("Ok"),
+                            //               onPressed: () {
+                            //                 Navigator.of(context).pop();
+                            //               },
+                            //             )
+                            //           ],
+                            //         );
+                            //       });
+                            // }
+                          },
+                          child: Text(
+                            'Buat Appointment',
+                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 );
               } else {
                 return ListView.builder(

@@ -1,9 +1,10 @@
 package TA_B_SYN_65.rumahSehat.controller;
 
-import TA_B_SYN_65.rumahSehat.model.TagihanModel;
+import TA_B_SYN_65.rumahSehat.model.*;
 import TA_B_SYN_65.rumahSehat.security.xml.Attributes;
 import TA_B_SYN_65.rumahSehat.security.xml.ServiceResponse;
 //import TA_B_SYN_65.rumahSehat.service.TagihanService;
+import TA_B_SYN_65.rumahSehat.service.AppointmentService;
 import TA_B_SYN_65.rumahSehat.service.TagihanService;
 import TA_B_SYN_65.rumahSehat.service.UserService;
 import TA_B_SYN_65.rumahSehat.setting.Setting;
@@ -14,19 +15,18 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -34,6 +34,48 @@ public class TagihanController {
     @Qualifier("tagihanServiceImpl")
     @Autowired
     private TagihanService tagihanService;
+    @Autowired
+    private AppointmentService appointmentService;
+    @Autowired
+    private UserService userService;
+
+
+    @GetMapping("tagihan/create/{kode}")
+    public String createTagihan(@PathVariable String kode, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User authUser = (User) authentication.getPrincipal();
+        String authUsername = authUser.getUsername();
+        UserModel userModel = userService.getUserByUsername(authUsername);
+
+        if(userModel.getRole().equals("DOKTER")) {
+            AppointmentModel apt = appointmentService.getAppointmentByKode(kode);
+            apt.setIsDone(true);
+
+            TagihanModel tagihan = new TagihanModel();
+            tagihan.setAppointment(apt);
+            tagihan.setIsPaid(false);
+            tagihan.setTanggalTerbuat(LocalDateTime.now());
+            tagihan.setTanggalBayar(LocalDateTime.now().plusHours(6));
+
+            if (apt.getResep() == null) {
+                tagihan.setJumlahTagihan(apt.getDokter().getTarif());
+            } else {
+                ResepModel r = apt.getResep();
+                int totalObat = 0;
+                for (JumlahModel j : r.getListJumlah()) {
+                    int harga = j.getKuantitas() * j.getObat().getHarga();
+                    totalObat = totalObat + harga;
+                }
+                tagihan.setJumlahTagihan(apt.getDokter().getTarif() + totalObat);
+            }
+
+            tagihanService.createTagihan(tagihan);
+
+            model.addAttribute("appt", apt);
+            return "appointment/detail-appointment";
+        }
+        return "auth/access-denied";
+    }
 
     @GetMapping("/tagihan/viewall")
     public String listTagihan(Model model){
