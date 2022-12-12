@@ -51,23 +51,6 @@ class _HomePage extends State<HomePage> {
                 children: [
                   ElevatedButton(
                     onPressed: () async {
-                      // authenticationController.logOut();
-                      // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      //   builder: (context) => Login(),
-                      // ));
-                    },
-                    child: Text(
-                      'Lihat Obat',
-                      style: TextStyle(color: Colors.white, fontSize: 25),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () async {
                       authenticationController.logOut();
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => Login(),
