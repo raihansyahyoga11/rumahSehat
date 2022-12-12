@@ -16,7 +16,6 @@ class SignUpController {
   // Versi Yoga
   Future<int> attemptSignUp(String username, String password, String name, String email, String umur, String role) async {
     const url = 'https://apap-065.cs.ui.ac.id/api/mobile/signupPasien';
-    print("haha");
     var response = await http.post(Uri.parse(url),
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
         body: jsonEncode({
@@ -27,9 +26,7 @@ class SignUpController {
           "umur": umurController.text,
           "role": roleController.text
         }));
-    print("huhe");
     if (response.statusCode == 200) {
-      print("masuk 200");
       var loginMaterial = json.decode(response.body);
       // var token = loginMaterial['token'];
       SharedPreferences prefrences = await SharedPreferences.getInstance();

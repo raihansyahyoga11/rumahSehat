@@ -23,7 +23,6 @@ class AuthenticationController {
           "password": passwordController.text,
         }));
     if (response.statusCode == 200) {
-      print("masuk 200");
       var loginMaterial = json.decode(response.body);
       token = loginMaterial['token'];
       SharedPreferences prefrences = await SharedPreferences.getInstance();
@@ -65,7 +64,7 @@ class AuthenticationController {
           "saldo": saldoController.text
         }));
     if (response.statusCode == 200) {
-      print("masuk 200 okok");
+
 
 
       return response.statusCode;
