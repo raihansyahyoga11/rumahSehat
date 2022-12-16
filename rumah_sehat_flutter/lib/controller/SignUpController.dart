@@ -17,7 +17,7 @@ class SignUpController {
 
   Future<int> attemptSignUp(String username, String password, String name,
       String email, String umur, String role) async {
-    const url = 'http://https://apap-065.cs.ui.ac.id/api/mobile/signupPasien';
+    const url = 'https://apap-065.cs.ui.ac.id/api/mobile/signupPasien';
 
     var response = await http.post(Uri.parse(url),
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
