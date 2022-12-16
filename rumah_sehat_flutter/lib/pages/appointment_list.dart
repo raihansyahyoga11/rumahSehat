@@ -82,7 +82,7 @@ class _JadwalAppointmentState extends State<JadwalAppointmentApp> {
                         child: ElevatedButton(
                           onPressed: () async {
                             Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                builder: (context) => const CreateAppointmentPage(),
+                                builder: (context) => CreateAppointmentPage(),
                             ));
                             // int code = await authenticationController.loginUser();
                             // if (code == 200) {
@@ -182,8 +182,6 @@ class _JadwalAppointmentState extends State<JadwalAppointmentApp> {
                     });
               }
             }),
-    children: Column(
-
-    ));
+    );
   }
 }
