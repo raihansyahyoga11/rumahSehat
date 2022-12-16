@@ -10,7 +10,7 @@ public interface ObatService {
 
     ObatModel getObatbyId(String id);
 
-    ObatModel updateObat(ObatModel obat);
 
+    ObatModel updateObat(ObatModel obat);
 
 }

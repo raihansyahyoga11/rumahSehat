@@ -1,4 +1,5 @@
 package TA_B_SYN_65.rumahSehat.service;
+
 import TA_B_SYN_65.rumahSehat.model.ObatModel;
 import TA_B_SYN_65.rumahSehat.repository.ObatDb;
 import TA_B_SYN_65.rumahSehat.security.xml.Attributes;
@@ -44,17 +45,16 @@ public class ObatServiceImpl implements ObatService {
 
     @Override
     public ObatModel getObatbyId(String id) {
-        Optional<ObatModel> obat= obatDb.findById(id);
-        if (obat.isPresent()){
+        Optional<ObatModel> obat = obatDb.findById(id);
+        if (obat.isPresent()) {
             return obat.get();
-        } else return null;
+        } else
+            return null;
     }
 
     @Override
-    public  ObatModel updateObat(ObatModel obat){
+    public ObatModel updateObat(ObatModel obat) {
         return obatDb.save(obat);
     }
 
-
-    
 }

@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @GetMapping("/manajemenUser")
-    public String viewUser(Model model) {
+    public String viewAllUser(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User authenticationUser = (User) authentication.getPrincipal();
 
@@ -66,16 +66,18 @@ public class UserController {
         User authenticationUser = (User) authentication.getPrincipal();
 
 
-        String authUsername = authenticationUser.getUsername();
-        UserModel userModel = userService.getUserByUsername(authUsername);
+        String authenticationUsername = authenticationUser.getUsername();
+        UserModel userModel = userService.getUserByUsername(authenticationUsername);
         UserModel user = new UserModel();
 
         if(userModel.getRole().equals("ADMIN")){
-            if(userRole.equals("DOKTER") || userRole.equals("APOTEKER")){
+
+            if(userRole.equals("DOKTER") || userRole.equals("APOTEKER") || userRole.equals("PASIEN")){
                 List<String> listRole = new ArrayList<>();
                 listRole.add("ADMIN");
                 listRole.add("APOTEKER");
                 listRole.add("DOKTER");
+                listRole.add("PASIEN");
                 model.addAttribute("userRole", userRole);
                 model.addAttribute("user", user);
                 model.addAttribute("listRole", listRole);
@@ -108,7 +110,14 @@ public class UserController {
                 userService.addUser(user, tarifDokter);
                 model.addAttribute("namaUser", user.getUsername());
                 return "auth/add-user";
-            } else{
+
+            } else if (role.equals("PASIEN")){
+                user.setRole("PASIEN");
+                userService.addUser(user, tarifDokter);
+                model.addAttribute("namaUser", user.getUsername());
+                return "auth/add-user";
+            }
+            else{
                 return "auth/access-denied";
             }
         }
@@ -120,25 +129,29 @@ public class UserController {
     @GetMapping(value = "/view/{userRole}")
     public String getUser(@PathVariable String userRole, Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User authUser = (User) authentication.getPrincipal();
-        String authUsername = authUser.getUsername();
-        UserModel userModel = userService.getUserByUsername(authUsername);
+        User authenticationUser = (User) authentication.getPrincipal();
+        String authenticationUsername = authenticationUser.getUsername();
+        UserModel userModel = userService.getUserByUsername(authenticationUsername);
+
         if(userModel.getRole().equals("ADMIN")) {
             if(userRole.equals("PASIEN")){
                 List<PasienModel> listPasien = userService.getListPasien();
                 model.addAttribute("userRole", userRole);
                 model.addAttribute("listUser", listPasien);
                 return "auth/viewall-user";
+
             } else if (userRole.equals("DOKTER")){
                 List<DokterModel> listDokter = userService.getListDokter();
                 model.addAttribute("userRole", userRole);
                 model.addAttribute("listUser", listDokter);
                 return "auth/viewall-user";
+
             } else if (userRole.equals("APOTEKER")){
                 List<ApotekerModel> listApoteker = userService.getListApoteker();
                 model.addAttribute("userRole", userRole);
                 model.addAttribute("listUser", listApoteker);
                 return "auth/viewall-user";
+
             } else{
                 return "auth/access-denied";
             }
@@ -151,11 +164,17 @@ public class UserController {
     public String deleteUser (@PathVariable String username, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User authUser = (User) authentication.getPrincipal();
+
+
         String authUsername = authUser.getUsername();
         UserModel userModel = userService.getUserByUsername(authUsername);
+
+
         if(userModel.getRole().equals("ADMIN")){
             if(userModel.getUsername().equals(username)){
                 return "auth/failed-delete-user";
+
+
             } else{
                 UserModel user = userService.getUserByUsername(username);
                 userService.deleteUser(user);

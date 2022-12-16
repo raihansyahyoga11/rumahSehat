@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <title>Form Show Chart</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+
+<div class="container">
+  <div class="card m-4 p-4">
+    <div class="card-body">
+      <form th:action="@{/obat/lineChartObat}" th:object="${lineChart}" method="post">
+
+        Periode: <br>
+        <select name="periode" th:field="${lineChart.isBulan}"
+                class="form-control">
+          <option value="1">Periode Bulan</option>
+          <option value="0">Periode Tahun</option>
+        </select>
+        <br><br>
+        Bulan: <br>
+        <select  name="bulan" th:field="${lineChart.bulan}" class="form-control">
+          <option th:each="bulan, iterationStatus2 : ${listBulan}"
+                  th:value="${bulan}" th:text="${bulan}">
+          </option>
+        </select>
+        <br><br>
+        <h3>Daftar Obat</h3>
+        <table class="table">
+          <thead>
+          <div th:text="${message}"> </div>
+          <th>Nama Obat</th>
+          <th>
+            <button class="btn btn-primary" type="submit" name="addRowChart">Tambah obat</button>
+          </th>
+          </thead>
+          <tbody>
+          <tr th:each="chart, iterationStatus : *{listLineChartObat}">
+            <td>
+              <select required name="id"
+                      th:field="*{listLineChartObat[__${iterationStatus.index}__].obatSelected.id}"
+                      class="form-control">
+
+                <option th:each="obat, iterationStatus2 : ${listObat}"
+                        th:value="${obat.id}" th:text="${obat.nama}">
+                </option>
+              </select>
+            </td>
+            <td>
+              <button th:value="${iterationStatus.index}" class="btn btn-danger" type="submit"
+                      name="deleteRowChart">Hapus</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+
+        <button class="btn btn-primary" type="submit" name="save">Submit</button>
+        <a class="btn btn-primary" href="/">Home</a>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+

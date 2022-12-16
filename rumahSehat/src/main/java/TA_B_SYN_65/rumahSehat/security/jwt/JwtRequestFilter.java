@@ -5,6 +5,9 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,12 +26,16 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
+    private static Logger logger = LoggerFactory.getLogger(JwtRequestFilter.class);
+
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
-        if (request.getServletPath().contains("/api/mobile/") && (!request.getServletPath().equals("/api/mobile/signin")) && (!request.getServletPath().equals("/api/mobile/signupAdmin") && (!request.getServletPath().equals("/api/mobile/signupPasien")))) {
-            System.out.println("jin");
+
+        if (request.getServletPath().contains("/api/mobile/") && (!request.getServletPath().equals("/api/mobile/signin")) && (!request.getServletPath().equals("/api/mobile/signupAdmin") && (!request.getServletPath().equals("/api/mobile/signupPasien")
+               ))) {
             final String requestTokenHeader = request.getHeader("Authorization");
             String username = null;
             String jwtToken = null;

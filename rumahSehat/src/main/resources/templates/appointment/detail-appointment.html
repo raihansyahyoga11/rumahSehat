@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <title>RumahSehat</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+  <nav th:replace="fragments/fragment :: navbar"></nav>
+  <div class="container">
+    </br>
+    <h2>Detail Appointment</h2>
+    </br>
+<!--    <p th:text="'Kode: ' + ${appt.kode}"></p>-->
+<!--    <p th:text="'Waktu Awal: ' + ${appt.waktuAwal}"></p>-->
+<!--    <p th:if="${appt.isDone}" th:text="'Status: Belum Selesai'"></p>-->
+<!--    <p th:unless="${appt.isDone}" th:text="'Status: Selesai'"></p>-->
+<!--    <p th:text="'Nama Dokter: ' + ${appt.dokter.nama}"></p>-->
+<!--    <p th:text="'Nama Pasien: ' + ${appt.pasien.nama}"></p>-->
+<!--    <a th:href="@{/resep/create/} + ${appt.kode}" class="mx-2 btn btn-outline-success">Buat Resep</a>-->
+    <table class="table" >
+      <tbody>
+        <tr>
+          <td th:text="'Kode Appointment'"></td>
+          <td th:text="${appt.kode}"></td>
+        </tr>
+        <tr>
+          <td th:text="'Waktu Awal'"></td>
+          <td th:text="${#temporals.format(appt.waktuAwal, 'dd-MM-yyyy HH:mm')}"></td>
+        </tr>
+        <tr>
+          <td th:text="'Status'"></td>
+          <td th:if="${appt.isDone}" th:text="'Selesai'"></td>
+          <td th:unless="${appt.isDone}" th:text="'Belum Selesai'"></td>
+        </tr>
+        <tr>
+          <td th:text="'Nama Dokter'"></td>
+          <td th:text="${appt.dokter.nama}"></td>
+        </tr>
+        <tr>
+          <td th:text="'Nama Pasien'"></td>
+          <td th:text="${appt.pasien.nama}"></td>
+        </tr>
+        <tr sec:authorize="hasAuthority('DOKTER')" th:unless="${appt.isDone}">
+          <td th:text="'Aksi'"></td>
+          <td>
+            <a class="btn btn-primary" th:href="@{/resep/create/} + ${appt.kode}">Buat Resep</a>
+            <a class="btn btn-danger" th:href="@{/tagihan/create/} + ${appt.kode}" type="submit">Selesai</a>
+          </td>
+        </tr>
+        <tr sec:authorize="hasAnyAuthority('DOKTER')" th:if="${appt.isDone}">
+          <td th:text="'Aksi'"></td>
+          <td th:if="${appt.isDone}">
+            <a class="btn btn-primary" th:href="@{/resep/detail/} + ${appt.kode}">Detail Resep</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <a class="btn btn-primary" th:href="@{/appointment}">Kembali</a>
+  </div>
+</body>
+</html>

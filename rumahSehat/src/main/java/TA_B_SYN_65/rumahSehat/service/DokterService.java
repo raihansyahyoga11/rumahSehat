@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface DokterService {
     void addDokter(DokterModel dokter);
+    DokterModel getDokterByUsername(String username);
 }
