@@ -25,7 +25,7 @@ class _CreateAppointmentPageState extends State<CreateAppointmentPage> {
     var USERNAME = prefrences.getString('username');
     var token = prefrences.getString('token');
     var url = Uri.encodeFull(
-        'http://10.0.2.2:8080/api/mobile/appointment/create');
+        'https://apap-065.cs.ui.ac.id/api/mobile/appointment/create');
 
     var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json',
