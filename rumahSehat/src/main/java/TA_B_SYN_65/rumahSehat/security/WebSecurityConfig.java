@@ -59,6 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/api/mobile/signup").permitAll()
                     .antMatchers("/api/mobile/signupAdmin").permitAll()
                     .antMatchers("/api/mobile/signupPasien").permitAll()
+                    .antMatchers("/api/mobile/appointment/create").permitAll()
                     .antMatchers("/api/v1/list-tagihan").permitAll()
                     .antMatchers("/api/v1/tagihan/pay").permitAll()
                     .antMatchers("/api/mobile/**").hasAuthority("PASIEN").and()
