@@ -23,7 +23,7 @@
         </thead>
         <tbody>
         <tr th:each="role, iterationStatus : ${listRole}">
-            <div th:if="${role == 'DOKTER' OR role == 'APOTEKER' OR role == 'PASIEN'}">
+            <div th:if="${role == 'DOKTER' OR role == 'APOTEKER'}">
                 <td th:text="${role}"></td>
                 <td><a class="btn btn-primary" th:href="@{/user/view/} + ${role}">Lihat Daftar User </a></td>
             </div>
