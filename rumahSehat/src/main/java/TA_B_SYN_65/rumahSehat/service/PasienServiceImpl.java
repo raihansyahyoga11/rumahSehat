@@ -22,11 +22,6 @@ public class PasienServiceImpl implements PasienService{
     @Autowired
     private PasienDb pasienDb;
 
-    // @Override
-    // public PasienModel create(PasienModel pengguna) {
-    //     return pasienDb.save(pengguna);
-    // }
-
     @Override
     public PasienModel create(PasienModel pengguna) {
         return userDb.save(pengguna);

@@ -7,20 +7,13 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Setter
 @Getter
@@ -58,13 +51,4 @@ public class TagihanModel implements Serializable {
 
     @OneToOne(mappedBy = "tagihan")
     private AppointmentModel appointment;
-
-    // @OneToOne(fetch = FetchType.EAGER)
-    // @JoinColumn(name = "kode_appointment", referencedColumnName = "kode", nullable = false)
-    // @OnDelete(action = OnDeleteAction.CASCADE)
-    // @JsonIgnore
-    // private String kodeAppointment;     // Masih bingung
-
-
-
 }

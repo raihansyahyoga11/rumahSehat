@@ -2,7 +2,6 @@ package TA_B_SYN_65.rumahSehat.service;
 
 import java.util.List;
 
-import TA_B_SYN_65.rumahSehat.dto.TagihanDto;
 import TA_B_SYN_65.rumahSehat.model.TagihanModel;
 
 public interface TagihanRestService {

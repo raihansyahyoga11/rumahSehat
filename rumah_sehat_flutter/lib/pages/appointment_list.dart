@@ -23,7 +23,6 @@ class _JadwalAppointmentState extends State<JadwalAppointmentApp> {
     var url = Uri.encodeFull(
         'https://apap-065.cs.ui.ac.id/api/mobile/appointment/list-appointment/');
 
-
     var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',

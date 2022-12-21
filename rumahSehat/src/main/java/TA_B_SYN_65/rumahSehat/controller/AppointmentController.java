@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin
@@ -29,22 +28,6 @@ public class AppointmentController {
     AppointmentService appointmentService;
     @Autowired
     TagihanService tagihanService;
-
-//    @GetMapping("/api/{username}")
-//    public List<AppointmentModel> listAppointment(@PathVariable String username, Model model) {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        User authUser = (User) authentication.getPrincipal();
-//        String authUsername = authUser.getUsername();
-//        UserModel userModel = userService.getUserByUsername(authUsername);
-//
-//        List<AppointmentModel> listAppointment = appointmentService.getListAppointment();
-//
-//        return listAppointment;
-//    }
-//    @PostMapping(value = "/create")
-//    public AppointmentModel createAppointment(@RequestBody JwtSignUpRequest request) {
-//
-//    }
 
     @GetMapping("")
     public String viewAllAppointment(Model model) {
@@ -100,11 +83,8 @@ public class AppointmentController {
         appointment.setWaktuAwal(LocalDateTime.now());
 
         appointmentService.createAppointment(appointment);
-        //List<AppointmentModel> newListAppoinment = pasien.getListAppointment();
-        //newListAppoinment.add(appointment);
-        //pasien.setListAppointment(newListAppoinment);
+        
         return appointment;
-
     }
 
 }

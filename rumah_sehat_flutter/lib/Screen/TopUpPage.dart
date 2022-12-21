@@ -25,16 +25,12 @@ class TopUpPage extends StatelessWidget{
                 child: Container(
                   width: 200,
                   height: 150,
-                  /*decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(50.0)),*/
                 ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(
                   left: 15.0, right: 15.0, top: 15, bottom: 15),
-              //padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextFormField(
                 controller: authenticationController.saldoController,
                 decoration: InputDecoration(
@@ -90,14 +86,11 @@ class TopUpPage extends StatelessWidget{
                         child: Text(
                           'Kembali',
                           style: TextStyle(color: Colors.white, fontSize: 15),
-
                         )
                     ),
                   ),
                 ])
             )
-
-
           ],
         ),
       ),

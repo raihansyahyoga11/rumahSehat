@@ -22,7 +22,6 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   late Future<PasienModel> futureAlbum;
 
-
   @override
   void initState() {
     super.initState();
@@ -30,7 +29,6 @@ class _ProfilePageState extends State<ProfilePage> {
     futureAlbum = AuthenticationController().getUserProfile();
 
   }
-
 
   @override
   Widget build(BuildContext context) {

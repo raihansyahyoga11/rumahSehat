@@ -24,7 +24,6 @@ class RumahSehatMain extends StatefulWidget {
 
 class _RumahSehatMainState extends State<RumahSehatMain> {
   int _selectedNavbar = 0;
-  //navigasi page
   final screens=[
     HomePage(),
     JadwalAppointmentApp(),

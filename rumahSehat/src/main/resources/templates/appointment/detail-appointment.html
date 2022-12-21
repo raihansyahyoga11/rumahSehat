@@ -15,13 +15,6 @@
     </br>
     <h2>Detail Appointment</h2>
     </br>
-<!--    <p th:text="'Kode: ' + ${appt.kode}"></p>-->
-<!--    <p th:text="'Waktu Awal: ' + ${appt.waktuAwal}"></p>-->
-<!--    <p th:if="${appt.isDone}" th:text="'Status: Belum Selesai'"></p>-->
-<!--    <p th:unless="${appt.isDone}" th:text="'Status: Selesai'"></p>-->
-<!--    <p th:text="'Nama Dokter: ' + ${appt.dokter.nama}"></p>-->
-<!--    <p th:text="'Nama Pasien: ' + ${appt.pasien.nama}"></p>-->
-<!--    <a th:href="@{/resep/create/} + ${appt.kode}" class="mx-2 btn btn-outline-success">Buat Resep</a>-->
     <table class="table" >
       <tbody>
         <tr>
@@ -52,7 +45,7 @@
             <a class="btn btn-danger" th:href="@{/tagihan/create/} + ${appt.kode}" type="submit">Selesai</a>
           </td>
         </tr>
-        <tr sec:authorize="hasAnyAuthority('DOKTER')" th:if="${appt.isDone}">
+        <tr sec:authorize="hasAuthority('DOKTER')" th:if="${appt.isDone}">
           <td th:text="'Aksi'"></td>
           <td th:if="${appt.isDone}">
             <a class="btn btn-primary" th:href="@{/resep/detail/} + ${appt.kode}">Detail Resep</a>

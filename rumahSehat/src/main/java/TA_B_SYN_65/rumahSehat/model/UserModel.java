@@ -48,11 +48,8 @@ public class UserModel implements Serializable {
     @Column(name = "password", nullable = false)
     private String password;
 
-
     @NotNull
     @Column(name = "email", nullable = false, unique = true)
     private String email;
-
-
 }
 

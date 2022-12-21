@@ -1,12 +1,10 @@
 package TA_B_SYN_65.rumahSehat.service;
 
-import TA_B_SYN_65.rumahSehat.model.AdminModel;
 import TA_B_SYN_65.rumahSehat.model.PasienModel;
 import TA_B_SYN_65.rumahSehat.repository.AdminDb;
 import TA_B_SYN_65.rumahSehat.repository.PasienDb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.transaction.Transactional;
 import java.util.NoSuchElementException;
