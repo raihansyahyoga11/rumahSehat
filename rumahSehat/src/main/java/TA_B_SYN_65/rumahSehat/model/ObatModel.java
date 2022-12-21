@@ -53,5 +53,10 @@ public class ObatModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private BarChartObatModel chartObat;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_line_chart_obat", referencedColumnName = "idLineChartObat", nullable = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private LineChartObatModel chartObatLine;
+
 }
 

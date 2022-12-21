@@ -28,8 +28,8 @@ import java.util.List;
 public class AppointmentModel implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue(generator = "apt-generator")
+    @GenericGenerator(name = "apt-generator",parameters = @Parameter(name = "prefix", value = "APT"), strategy = "TA_B_SYN_65.rumahSehat.ids.AppointmentIdGenerator")
     private String kode;      // udah bener
 
     @NotNull
@@ -57,5 +57,6 @@ public class AppointmentModel implements Serializable {
 
     // Relasi dengan Resep
     @OneToOne(mappedBy = "appointment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    // @JoinColumn(name = "kode_resep", referencedColumnName = "id_resep")
     private ResepModel resep;
 }

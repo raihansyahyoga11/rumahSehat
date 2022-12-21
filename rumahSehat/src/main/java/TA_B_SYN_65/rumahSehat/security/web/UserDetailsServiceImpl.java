@@ -2,6 +2,9 @@ package TA_B_SYN_65.rumahSehat.security.web;
 
 import TA_B_SYN_65.rumahSehat.model.UserModel;
 import TA_B_SYN_65.rumahSehat.repository.UserDb;
+import TA_B_SYN_65.rumahSehat.security.jwt.JwtUserDetailsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,6 +23,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserDb userDb;
 
+    private static Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserModel user = userDb.findByUsername(username);
@@ -29,7 +34,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return new User(user.getUsername(), user.getPassword(), grantedAuthorities);
         }
         else {
+            logger.warn("Cannot find user with that username");
             throw new UsernameNotFoundException("User not found with username: " + username);
+
         }
     }
 }

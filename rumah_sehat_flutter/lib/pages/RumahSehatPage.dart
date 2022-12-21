@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-
+import 'package:rumah_sehat_flutter/pages/appointment_list.dart';
+import 'package:rumah_sehat_flutter/pages/tagihan_viewall.dart';
+import 'package:rumah_sehat_flutter/pages/CreateAppointment.dart';
 import '../Screen/ProfilePage.dart';
 import 'HomePage.dart';
-
-
-
-
-
 
 class RumahSehat extends StatelessWidget {
   @override
@@ -30,8 +27,8 @@ class _RumahSehatMainState extends State<RumahSehatMain> {
   //navigasi page
   final screens=[
     HomePage(),
-    Center(child:Text('Appointment', style:TextStyle(fontSize: 60))),
-    Center(child:Text('Obat', style:TextStyle(fontSize: 60))),
+    JadwalAppointmentApp(),
+    TagihanModelPage(),
     ProfilePage(),
   ];
 
@@ -46,7 +43,7 @@ class _RumahSehatMainState extends State<RumahSehatMain> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Rumah Sehat"),
-   
+
       ),
       body: screens[_selectedNavbar],
       bottomNavigationBar: BottomNavigationBar(
@@ -60,8 +57,8 @@ class _RumahSehatMainState extends State<RumahSehatMain> {
             label: 'Appointment',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.medication_outlined ),
-            label: 'Obat',
+            icon: Icon(Icons.assignment ),
+            label: 'Tagihan',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle_outlined),

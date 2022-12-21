@@ -14,26 +14,25 @@ class SignUpController {
   final TextEditingController roleController = TextEditingController();
 
   // Versi Yoga
-  Future<int> attemptSignUp(String username, String password, String name, String email, String umur, String role) async {
-    const url = 'http://localhost:8080/api/mobile/signupPasien';
-    print("haha");
+
+  Future<int> attemptSignUp(String username, String password, String name,
+      String email, String umur, String role) async {
+    const url = 'https://apap-065.cs.ui.ac.id/api/mobile/signupPasien';
+
     var response = await http.post(Uri.parse(url),
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
         body: jsonEncode({
           "username": usernameController.text,
           "password": passwordController.text,
-          "nama" : nameController.text,
-          "email" : emailController.text,
+          "nama": nameController.text,
+          "email": emailController.text,
           "umur": umurController.text,
           "role": roleController.text
         }));
-    print("huhe");
     if (response.statusCode == 200) {
-      print("masuk 200");
       var loginMaterial = json.decode(response.body);
       // var token = loginMaterial['token'];
       SharedPreferences prefrences = await SharedPreferences.getInstance();
-
 
       // prefrences.setString('token', loginMaterial['token']);
       prefrences.setString('username', loginMaterial['username']);
@@ -52,5 +51,3 @@ class SignUpController {
   //   prefrences.remove("token");
   // }
 }
-
-

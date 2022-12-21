@@ -36,10 +36,10 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
 
     return MaterialApp(
-      title: 'Fetch Data Example',
+      title: 'User Profile',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-      ),
+      ), debugShowCheckedModeBanner: false,
       home: Scaffold(
       body:SizedBox(
           width: double.infinity,
@@ -56,65 +56,68 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Center(child: Icon(Icons.male)),
                 ),
                 Container(
-                  height: 50,
+                  height: 60,
                   child: ListTile(
                       title: Text(
                           'Nama',
                            style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 17
+                              fontSize: 12
                         )
                       ),
                       subtitle: Text(
                         snapshot.data!.nama,
                         style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize:12
+                        fontSize:18
                         )
                       )
                   ),
                 ),
                 Container(
-                  height: 50,
+                  height: 60,
                   child: ListTile(
                       title: Text(
                           'Username',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 17
+                              fontSize: 12
                           )
                       ),
                       subtitle: Text(
                           snapshot.data!.username,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize:12
+                              fontSize:18
                           )
                       )
                   ),
                 ),
                 Container(
-                  height: 50,
+                  height: 60,
                   child: ListTile(
                       title: Text(
                           'Email',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 17
+                              fontSize: 12
                           )
                       ),
                       subtitle: Text(
                           snapshot.data!.email,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 12
+                              fontSize: 18
                           )
                       )
                   ),
                 ),
                 Container(
-                  height: 100,
-                  child: ListTile(
+                  height: 10
+                ),
+                Column(
+                  children: [
+                    ListTile(
                       title: Text(
                           'Saldo',
                           textAlign: TextAlign.center,
@@ -131,25 +134,20 @@ class _ProfilePageState extends State<ProfilePage> {
                               fontSize: 30
                           )
                       )
-                  ),
+                    ),Container(height: 30,
+                        width: 120,
+                        decoration: BoxDecoration(
+                        color: Colors.blue, borderRadius: BorderRadius.circular(30)),
+                        child: ElevatedButton (onPressed: () {Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => TopUpPage())); },
+                          child: Text(
+                          'TOP UP',
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                          )
+                        ),
+                      ),
+                  ]
                 ),
-                Container(
-                  width: 60,
-                  height: 35,
-                  decoration: BoxDecoration(
-                      color: Colors.blue, borderRadius: BorderRadius.circular(20)),
-                  child: ElevatedButton(
-                    child: const Text('Top Up', selectionColor: Color(0xffffffff)),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xffF18265),
-                    ),
-                    onPressed: () { Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => TopUpPage()),);
-                    },
-
-                  ),
-                ),
-
               ],
              );
             } else if (snapshot.hasError) {

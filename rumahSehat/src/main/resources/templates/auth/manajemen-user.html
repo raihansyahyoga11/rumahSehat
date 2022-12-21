@@ -17,20 +17,20 @@
     <table class="table">
         <thead>
         <tr>
-            <th>Role Name</th>
+            <th>Role</th>
             <th>Aksi</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="role, iterationStatus : ${listRole}">
-            <div th:if="${role == 'DOKTER' OR role == 'APOTEKER' OR role == 'PASIEN'}">
+            <div th:if="${role == 'DOKTER' OR role == 'APOTEKER'}">
                 <td th:text="${role}"></td>
-                <td><a class="btn btn-primary" th:href="@{/user/view/} + ${role}">View Detail</a></td>
+                <td><a class="btn btn-primary" th:href="@{/user/view/} + ${role}">Lihat Daftar User </a></td>
             </div>
         </tr>
         </tbody>
     </table>
-    <a class="btn btn-primary" href="/">Home</a>
+    <a class="btn btn-primary" href="/">Kembali ke Home</a>
 </div>
 </body>
 

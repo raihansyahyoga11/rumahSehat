@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:rumah_sehat_flutter/controller/authentication_controller.dart';
 import 'package:rumah_sehat_flutter/pages/SignUp.dart';
 import '../main.dart';
-import 'HomePage.dart';
 import 'RumahSehatPage.dart';
 
 void main() {
@@ -90,9 +89,22 @@ class _LoginState extends State<Login> {
                       builder: (context) =>  RumahSehatMain(),
                     ));
                   } else {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const Login(),
-                    ));
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text("Error"),
+                            content: Text("Bad Credential, please try again"),
+                            actions: [
+                              ElevatedButton(
+                                child: Text("Ok"),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              )
+                            ],
+                          );
+                        });
                   }
                 },
                 child: Text(
@@ -108,8 +120,7 @@ class _LoginState extends State<Login> {
                     builder: (context) => const SignUpPage(),
                 ));
               },
-              child:
-              Text(
+              child:Text(
                 'New Patient? Create Account',
                 textAlign: TextAlign.center,
               ),

@@ -7,7 +7,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:http/http.dart' as http;
 import 'package:rumah_sehat_flutter/Model/PasienModel.dart';
 import 'package:rumah_sehat_flutter/Screen/ProfilePage.dart';
-
+import 'package:quickalert/quickalert.dart';
 import '../controller/authentication_controller.dart';
 
 
@@ -44,50 +44,63 @@ class TopUpPage extends StatelessWidget{
               ),
             ),
             Container(
-              height: 50,
-              width: 250,
-              margin: EdgeInsets.only(bottom: 10),
-              decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(20)),
-              child: ElevatedButton(
-                onPressed: () async {
-                  int code = await authenticationController.attemptTopUp();
-                  if (code == 200) {
-                    sweatAlert(context);
-                  } else {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) =>  TopUpPage(),
-                    ));
-                  }
-                },
-                child: Text(
-                  'Konfirmasi',
-                  style: TextStyle(color: Colors.white, fontSize: 25),
-                ),
+                height: 60,
+                width: 350,
+               child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                  Container(
+                    height: 50,
+                    width: 150,
+                    margin: EdgeInsets.only(bottom: 5),
+                    decoration: BoxDecoration(
+                        color: Colors.blue, borderRadius: BorderRadius.circular(18)),
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        int code = await authenticationController.attemptTopUp();
+                        if (code == 200) {
+                          QuickAlert.show(
+                            context: context,
+                            type: QuickAlertType.success,
+                            text: 'Top Up Berhasil!',
+                            width: 260,
+                          );
+                        } else {
+                          Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) =>  TopUpPage(),
+                          ));
+                        }
+                      },
+                      child: Text(
+                        'Konfirmasi',
+                        style: TextStyle(color: Colors.white, fontSize: 15),
+                      ),
 
-              ),
-            ),
-            ElevatedButton (onPressed: () {Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ProfilePage())); },
-                child: Text(
-                  'Kembali',
-                  style: TextStyle(color: Colors.white, fontSize: 25),
-                )
-            ),
+                    ),
+                  ),
+                  Container(
+                    height: 50,
+                    width: 150,
+                    margin: EdgeInsets.only(bottom: 5),
+                    decoration: BoxDecoration(
+                        color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+                    child: ElevatedButton (onPressed: () {Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ProfilePage())); },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll<Color>(Colors.grey),
+                        ),
+                        child: Text(
+                          'Kembali',
+                          style: TextStyle(color: Colors.white, fontSize: 15),
+
+                        )
+                    ),
+                  ),
+                ])
+            )
+
 
           ],
         ),
       ),
   );
-  void sweatAlert(BuildContext context) {
-    Alert(
-      context: context,
-      type: AlertType.success,
-      title: "TopUp berhasil",
-      desc: "TopUp telah berhasil silahkan tekan kembali",
-    ).show();
-    return;
-  }
-
 }
 

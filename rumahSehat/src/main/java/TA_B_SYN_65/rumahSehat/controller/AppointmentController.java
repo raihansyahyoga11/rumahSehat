@@ -1,25 +1,15 @@
 package TA_B_SYN_65.rumahSehat.controller;
 
 
-import TA_B_SYN_65.rumahSehat.model.AppointmentModel;
-import TA_B_SYN_65.rumahSehat.model.DokterModel;
-import TA_B_SYN_65.rumahSehat.model.PasienModel;
-import TA_B_SYN_65.rumahSehat.model.UserModel;
-import TA_B_SYN_65.rumahSehat.service.AppointmentService;
-import TA_B_SYN_65.rumahSehat.service.DokterService;
-import TA_B_SYN_65.rumahSehat.service.PasienService;
-import TA_B_SYN_65.rumahSehat.service.UserService;
+import TA_B_SYN_65.rumahSehat.model.*;
+import TA_B_SYN_65.rumahSehat.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -37,6 +27,24 @@ public class AppointmentController {
     PasienService pasienService;
     @Autowired
     AppointmentService appointmentService;
+    @Autowired
+    TagihanService tagihanService;
+
+//    @GetMapping("/api/{username}")
+//    public List<AppointmentModel> listAppointment(@PathVariable String username, Model model) {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        User authUser = (User) authentication.getPrincipal();
+//        String authUsername = authUser.getUsername();
+//        UserModel userModel = userService.getUserByUsername(authUsername);
+//
+//        List<AppointmentModel> listAppointment = appointmentService.getListAppointment();
+//
+//        return listAppointment;
+//    }
+//    @PostMapping(value = "/create")
+//    public AppointmentModel createAppointment(@RequestBody JwtSignUpRequest request) {
+//
+//    }
 
     @GetMapping("")
     public String viewAllAppointment(Model model) {
@@ -45,45 +53,18 @@ public class AppointmentController {
         String authUsername = authUser.getUsername();
         UserModel userModel = userService.getUserByUsername(authUsername);
 
-//        DokterModel d = new DokterModel();
-//        d.setUsername("ahmad");
-//        d.setPassword("emonyhwh");
-//        d.setEmail("ahmad@gmail.com");
-//        d.setNama("dr. Ahmad Aminullah");
-//        d.setTarif(75000);
-//        d.setRole("DOKTER");
-//        d.setListAppointment(new ArrayList<>());
-//        d.setIsSso(false);
-//        dokterService.addDokter(d);
-
-//        PasienModel p = new PasienModel();
-//        p.setUsername("rijal");
-//        p.setPassword("#dragneel2211");
-//        p.setEmail("rijal@gmail.com");
-//        p.setNama("Muhtarur Rijal");
-//        p.setRole("PASIEN");
-//        p.setListAppointment(new ArrayList<>());
-//        p.setUmur(23);
-//        p.setSaldo(150000);
-//        p.setIsSso(false);
-//        pasienService.create(p);
-//
-//        AppointmentModel appt = appointmentService.getAppointmentByKode("4028b88184bc1a2f0184bc1a9c390000");
-//        appt.setIsDone(true);
-//        appt.setDokter(dokterService.getDokterByUsername("archee"));
-//        appt.setPasien(pasienService.getPasienByUsername("rijal"));
-//        appt.setWaktuAwal(LocalDateTime.now());
-//        appt.setIsDone(false);
-//        appointmentService.createAppointment(appt);
-
-
-        if(userModel.getRole().equals("ADMIN") || userModel.getRole().equals("DOKTER") || userModel.getRole().equals("PASIEN")) {
+        if(userModel.getRole().equals("ADMIN")) {
             List<AppointmentModel> listAppointment = appointmentService.getListAppointment();
             model.addAttribute("listAppointment", listAppointment);
             return "appointment/viewall-appointment";
         } else if (userModel.getRole().equals("DOKTER")) {
             DokterModel dokterLogin = dokterService.getDokterByUsername(userModel.getUsername());
             List<AppointmentModel> listAppointment = appointmentService.getListAppointmentByDokter(dokterLogin);
+            model.addAttribute("listAppointment", listAppointment);
+            return "appointment/viewall-appointment";
+        } else if (userModel.getRole().equals("PASIEN")) {
+            PasienModel pasienLogin = pasienService.getPasienByUsername(userModel.getUsername());
+            List<AppointmentModel> listAppointment = appointmentService.getListAppointmentByPasien(pasienLogin);
             model.addAttribute("listAppointment", listAppointment);
             return "appointment/viewall-appointment";
         } else {
@@ -103,7 +84,27 @@ public class AppointmentController {
             model.addAttribute("appt", apt);
             return "appointment/detail-appointment";
         }
-
         return "auth/access-denied";
     }
+
+    //tes postman create appoinment
+    @CrossOrigin
+    @PostMapping("/create")
+    public AppointmentModel makeAppoinment(@RequestBody String kode,Model model,Authentication authentication){
+        AppointmentModel appointment = new AppointmentModel();
+        PasienModel pasien = pasienService.getPasienByUsername(authentication.getName());
+        appointment.setIsDone(true);
+        appointment.setDokter(dokterService.getDokterByUsername("dokter1"));
+        appointment.setPasien(pasien);
+
+        appointment.setWaktuAwal(LocalDateTime.now());
+
+        appointmentService.createAppointment(appointment);
+        //List<AppointmentModel> newListAppoinment = pasien.getListAppointment();
+        //newListAppoinment.add(appointment);
+        //pasien.setListAppointment(newListAppoinment);
+        return appointment;
+
+    }
+
 }
