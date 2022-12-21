@@ -18,7 +18,6 @@ class _TagihanModelPageState extends State<TagihanModelPage> {
     final storage = new FlutterSecureStorage();
     String? token1 = await storage.read(key: 'TOKEN');
     var url = Uri.parse('https://apap-065.cs.ui.ac.id/api/v1/list-tagihan');
-    print("await");
     var response = await http.get(
       url,
       headers: {
@@ -27,18 +26,14 @@ class _TagihanModelPageState extends State<TagihanModelPage> {
         'Authorization': 'Bearer $token1',
       },
     );
-    print(response.body);
     if (response.statusCode == 200) {
     }
     // melakukan decode response menjadi bentuk json
     var data = jsonDecode(utf8.decode(response.bodyBytes));
-    print(data);
     // melakukan konversi data json menjadi object TagihanModel
     List<TagihanModel> listTagihanModel = [];
     for (var d in data) {
-      print(d);
       if (d != null) {
-        print(TagihanModel.fromJson(d));
         listTagihanModel.add(TagihanModel.fromJson(d));
       }
     }

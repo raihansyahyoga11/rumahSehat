@@ -1,25 +1,19 @@
 package TA_B_SYN_65.rumahSehat.restcontroller;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import javax.servlet.http.HttpServletRequest;
-
-import TA_B_SYN_65.rumahSehat.model.PasienModel;
 import TA_B_SYN_65.rumahSehat.service.PasienRestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -80,8 +74,6 @@ public class TagihanRestController {
 
    @GetMapping(value = "/list-tagihan")
    private List<TagihanDto> retrieveListTagihan(Model model) {
-//      UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//      String username = userDetails.getUsername();
       String username = "pasien";
       List<TagihanModel> listTagihan = new ArrayList<>();
 
@@ -102,8 +94,6 @@ public class TagihanRestController {
 
    @PostMapping(value = "/tagihan/pay/{code}")
    public int pelunasanTagihan(@PathVariable("code") String code) {
-//      UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//      String username = userDetails.getUsername();
       String username = "pasien";
       boolean pembayaranLunas = tagihanRestService.pay(code, username);
       if (pembayaranLunas) {

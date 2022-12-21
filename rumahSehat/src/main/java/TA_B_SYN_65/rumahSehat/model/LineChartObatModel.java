@@ -23,19 +23,16 @@ public class LineChartObatModel {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String idLineChartObat;
 
-
     @Column(name = "list_bulan")
     private String listBulan;
 
     @Column(name = "list_tahun")
     private String listTahun;
 
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_line_chart", referencedColumnName = "idLineChart", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private LineChartModel lineChart;
-
 
     @Nullable
     @OneToOne(mappedBy = "chartObatLine", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

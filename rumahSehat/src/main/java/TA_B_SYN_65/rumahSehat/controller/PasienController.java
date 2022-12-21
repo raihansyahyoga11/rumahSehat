@@ -35,13 +35,6 @@ public class PasienController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-
-    @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Autowired
-    private UserService userService;
-
     @Autowired
     PasswordEncoder passwordEncoder;
 
