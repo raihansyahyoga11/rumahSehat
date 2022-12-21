@@ -13,8 +13,6 @@ class SignUpController {
   final TextEditingController umurController = TextEditingController();
   final TextEditingController roleController = TextEditingController();
 
-  // Versi Yoga
-
   Future<int> attemptSignUp(String username, String password, String name,
       String email, String umur, String role) async {
     const url = 'https://apap-065.cs.ui.ac.id/api/mobile/signupPasien';
@@ -31,10 +29,8 @@ class SignUpController {
         }));
     if (response.statusCode == 200) {
       var loginMaterial = json.decode(response.body);
-      // var token = loginMaterial['token'];
       SharedPreferences prefrences = await SharedPreferences.getInstance();
 
-      // prefrences.setString('token', loginMaterial['token']);
       prefrences.setString('username', loginMaterial['username']);
 
       return response.statusCode;
@@ -42,12 +38,4 @@ class SignUpController {
       return response.statusCode;
     }
   }
-
-  // logOut() async {
-  //   SharedPreferences prefrences = await SharedPreferences.getInstance();
-  //   prefrences.remove("token");
-  //   token = null;
-  //   print(token);
-  //   prefrences.remove("token");
-  // }
 }

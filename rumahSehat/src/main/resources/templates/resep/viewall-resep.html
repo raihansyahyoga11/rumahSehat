@@ -37,7 +37,7 @@
             <td th:if="${resep.isDone == false}" style="text-align: center">Not Done</td>
             <td th:unless="${resep.isDone == false}" style="text-align: center">Done</td>
             <td style="align-items: center; text-align: center;">
-              <div class="col" sec:authorize="hasAuthority('APOTEKER', 'ADMIN')">
+              <div class="col" sec:authorize="hasAnyAuthority('APOTEKER', 'ADMIN')">
                 <a th:href="@{/resep/detail/} + ${resep.id}" class="btn btn-secondary">Detail Resep</a>
               </div>
             </td>

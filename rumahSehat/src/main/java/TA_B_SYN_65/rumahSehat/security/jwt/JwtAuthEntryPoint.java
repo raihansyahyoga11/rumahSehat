@@ -14,7 +14,6 @@ public class JwtAuthEntryPoint implements AuthenticationEntryPoint{
 
     private static Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
 
-
     private static final long serialVersionUID = -7858869558953243875L;
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,

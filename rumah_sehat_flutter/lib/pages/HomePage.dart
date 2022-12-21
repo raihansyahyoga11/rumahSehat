@@ -11,15 +11,11 @@ class HomePage extends StatefulWidget {
 
   @override
   State<HomePage> createState() => _HomePage();
-
-
 }
 
 class _HomePage extends State<HomePage> {
 
-
   AuthenticationController authenticationController = AuthenticationController();
-
 
   @override
   Widget build(BuildContext context) => Scaffold(

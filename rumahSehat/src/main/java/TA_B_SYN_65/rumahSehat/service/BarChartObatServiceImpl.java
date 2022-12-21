@@ -5,7 +5,6 @@ import TA_B_SYN_65.rumahSehat.model.JumlahModel;
 import TA_B_SYN_65.rumahSehat.model.ObatModel;
 import TA_B_SYN_65.rumahSehat.repository.BarChartObatDb;
 import TA_B_SYN_65.rumahSehat.repository.JumlahDb;
-import TA_B_SYN_65.rumahSehat.repository.ObatDb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -42,7 +42,6 @@ public class ObatModel implements Serializable {
     @Column(name = "harga", nullable = false)
     private Integer harga;
 
-    //    relasi dengan JumlahModel masih gagal
     @JsonIgnore
     @OneToMany(mappedBy = "obat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)

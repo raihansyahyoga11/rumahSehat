@@ -1,6 +1,5 @@
 package TA_B_SYN_65.rumahSehat.repository;
 
-
 import TA_B_SYN_65.rumahSehat.model.AdminModel;
 
 import org.springframework.data.jpa.repository.JpaRepository;

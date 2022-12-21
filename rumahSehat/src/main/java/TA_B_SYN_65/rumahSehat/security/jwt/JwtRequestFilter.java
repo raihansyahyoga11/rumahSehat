@@ -28,8 +28,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     private static Logger logger = LoggerFactory.getLogger(JwtRequestFilter.class);
 
-
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {

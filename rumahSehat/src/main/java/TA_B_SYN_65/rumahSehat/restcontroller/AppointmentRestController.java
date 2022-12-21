@@ -4,7 +4,6 @@ package TA_B_SYN_65.rumahSehat.restcontroller;
 import TA_B_SYN_65.rumahSehat.model.AppointmentModel;
 import TA_B_SYN_65.rumahSehat.model.DokterModel;
 import TA_B_SYN_65.rumahSehat.model.JwtCreateAptRequest;
-import TA_B_SYN_65.rumahSehat.model.PasienModel;
 import TA_B_SYN_65.rumahSehat.service.AppointmentService;
 import TA_B_SYN_65.rumahSehat.service.DokterService;
 import TA_B_SYN_65.rumahSehat.service.PasienService;

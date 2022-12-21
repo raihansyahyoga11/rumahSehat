@@ -58,11 +58,8 @@ public class ResepController {
             ResepModel resep = new ResepModel();
             List<ObatModel> listObat = obatService.getListObat();
 
-            // List jumlah semuanya
             List<JumlahModel> listAllJumlah = jumlahService.getAllJumlah();
             
-            // New list jumlah => List jumlah setiap resep pasti baru 
-            // Create new list
             List<JumlahModel> listJumlahNew = new ArrayList<>();
 
             resep.setListJumlah(listJumlahNew);

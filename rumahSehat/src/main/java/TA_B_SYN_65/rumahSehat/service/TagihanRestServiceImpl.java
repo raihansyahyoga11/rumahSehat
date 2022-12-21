@@ -2,14 +2,11 @@ package TA_B_SYN_65.rumahSehat.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import TA_B_SYN_65.rumahSehat.dto.TagihanDto;
-import TA_B_SYN_65.rumahSehat.model.AppointmentModel;
 import TA_B_SYN_65.rumahSehat.model.PasienModel;
 import TA_B_SYN_65.rumahSehat.model.TagihanModel;
 import TA_B_SYN_65.rumahSehat.repository.TagihanDb;
