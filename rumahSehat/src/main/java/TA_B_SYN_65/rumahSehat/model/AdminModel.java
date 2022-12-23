@@ -1,6 +1,5 @@
 package TA_B_SYN_65.rumahSehat.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

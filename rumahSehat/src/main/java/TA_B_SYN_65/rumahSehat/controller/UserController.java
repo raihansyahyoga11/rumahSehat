@@ -28,12 +28,12 @@ public class UserController {
     public String listAllUser(Model model) {
         List<UserModel> listUser = userService.getListUser();
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) authentication.getPrincipal();
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        var user = (User) authentication.getPrincipal();
 
 
-        String username = user.getUsername();
-        UserModel userModel = userService.getUserByUsername(username);
+        var username = user.getUsername();
+        var userModel = userService.getUserByUsername(username);
 
         model.addAttribute("listUser", listUser);
         model.addAttribute("user", userModel);
@@ -42,11 +42,11 @@ public class UserController {
 
     @GetMapping("/manajemenUser")
     public String viewAllUser(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User authenticationUser = (User) authentication.getPrincipal();
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        var authenticationUser = (User) authentication.getPrincipal();
 
-        String authenticationUsername = authenticationUser.getUsername();
-        UserModel userModel = userService.getUserByUsername(authenticationUsername);
+        var authenticationUsername = authenticationUser.getUsername();
+        var userModel = userService.getUserByUsername(authenticationUsername);
         if(userModel.getRole().equals("ADMIN")){
             List<String> role = new ArrayList<>();
             role.add("ADMIN");
@@ -60,14 +60,14 @@ public class UserController {
     }
 
     @GetMapping(value = "/add/{userRole}")
-    private String addUserFormPage(@PathVariable String userRole, Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User authenticationUser = (User) authentication.getPrincipal();
+    public String addUserFormPage(@PathVariable String userRole, Model model){
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        var authenticationUser = (User) authentication.getPrincipal();
 
 
-        String authenticationUsername = authenticationUser.getUsername();
-        UserModel userModel = userService.getUserByUsername(authenticationUsername);
-        UserModel user = new UserModel();
+        var authenticationUsername = authenticationUser.getUsername();
+        var userModel = userService.getUserByUsername(authenticationUsername);
+        var user = new UserModel();
 
         if(userModel.getRole().equals("ADMIN")){
 
@@ -89,12 +89,12 @@ public class UserController {
     }
 
     @PostMapping(value="/add")
-    private String addUserSubmit(@RequestParam String role, @ModelAttribute UserModel user, Model model, Integer tarifDokter){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User authenticationUser = (User) auth.getPrincipal();
+    public String addUserSubmit(@RequestParam String role, @ModelAttribute UserModel user, Model model, Integer tarifDokter){
+        var auth = SecurityContextHolder.getContext().getAuthentication();
+        var authenticationUser = (User) auth.getPrincipal();
 
-        String authenticationUsername = authenticationUser.getUsername();
-        UserModel userModel = userService.getUserByUsername(authenticationUsername);
+        var authenticationUsername = authenticationUser.getUsername();
+        var userModel = userService.getUserByUsername(authenticationUsername);
 
         if(userModel.getRole().equals("ADMIN")){
             if(role.equals("DOKTER")){
@@ -121,10 +121,10 @@ public class UserController {
 
     @GetMapping(value = "/view/{userRole}")
     public String getUser(@PathVariable String userRole, Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User authenticationUser = (User) authentication.getPrincipal();
-        String authenticationUsername = authenticationUser.getUsername();
-        UserModel userModel = userService.getUserByUsername(authenticationUsername);
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        var authenticationUser = (User) authentication.getPrincipal();
+        var authenticationUsername = authenticationUser.getUsername();
+        var userModel = userService.getUserByUsername(authenticationUsername);
 
         if(userModel.getRole().equals("ADMIN")) {
             if(userRole.equals("PASIEN")){
@@ -155,12 +155,12 @@ public class UserController {
 
     @GetMapping("/delete/{username}")
     public String deleteUser (@PathVariable String username, Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User authUser = (User) authentication.getPrincipal();
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        var authUser = (User) authentication.getPrincipal();
 
 
-        String authUsername = authUser.getUsername();
-        UserModel userModel = userService.getUserByUsername(authUsername);
+        var authUsername = authUser.getUsername();
+        var userModel = userService.getUserByUsername(authUsername);
 
 
         if(userModel.getRole().equals("ADMIN")){
@@ -169,7 +169,7 @@ public class UserController {
 
 
             } else{
-                UserModel user = userService.getUserByUsername(username);
+                var user = userService.getUserByUsername(username);
                 userService.deleteUser(user);
                 model.addAttribute( "username",user.getUsername());
                 return "auth/delete-user";

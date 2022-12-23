@@ -31,10 +31,10 @@ public class AppointmentController {
 
     @GetMapping("")
     public String viewAllAppointment(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User authUser = (User) authentication.getPrincipal();
-        String authUsername = authUser.getUsername();
-        UserModel userModel = userService.getUserByUsername(authUsername);
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        var authUser = (User) authentication.getPrincipal();
+        var authUsername = authUser.getUsername();
+        var userModel = userService.getUserByUsername(authUsername);
 
         if(userModel.getRole().equals("ADMIN")) {
             List<AppointmentModel> listAppointment = appointmentService.getListAppointment();
@@ -57,10 +57,10 @@ public class AppointmentController {
 
     @GetMapping("/detail/{kode}")
     public String viewAppointmentDetail(@PathVariable String kode, Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User authUser = (User) authentication.getPrincipal();
-        String authUsername = authUser.getUsername();
-        UserModel userModel = userService.getUserByUsername(authUsername);
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        var authUser = (User) authentication.getPrincipal();
+        var authUsername = authUser.getUsername();
+        var userModel = userService.getUserByUsername(authUsername);
 
         if(userModel.getRole().equals("ADMIN") || userModel.getRole().equals("DOKTER")) {
             AppointmentModel apt = appointmentService.getAppointmentByKode(kode);
@@ -73,8 +73,8 @@ public class AppointmentController {
     //tes postman create appoinment
     @PostMapping("/create")
     public AppointmentModel makeAppoinment(@RequestBody String kode,Model model,Authentication authentication){
-        AppointmentModel appointment = new AppointmentModel();
-        PasienModel pasien = pasienService.getPasienByUsername(authentication.getName());
+        var appointment = new AppointmentModel();
+        var pasien = pasienService.getPasienByUsername(authentication.getName());
         appointment.setIsDone(true);
         appointment.setDokter(dokterService.getDokterByUsername("dokter1"));
         appointment.setPasien(pasien);

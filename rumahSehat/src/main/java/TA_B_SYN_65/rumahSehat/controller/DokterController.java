@@ -23,8 +23,8 @@ public class DokterController {
 
     @GetMapping("/createNew")
     public String createNewDokter(Model model) {
-        DokterModel dok = new DokterModel();
-        PasienModel pas = new PasienModel();
+        var dok = new DokterModel();
+        var pas = new PasienModel();
 
         dok.setUsername("ahmad");
         dok.setPassword("emonyhwh");

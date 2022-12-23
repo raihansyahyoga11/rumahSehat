@@ -49,13 +49,13 @@ public class ResepController {
     @GetMapping("/create/{kodeAppointment}")
     public String createResepFormPage(@PathVariable String kodeAppointment, Model model) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User authUser = (User) authentication.getPrincipal();
-        String authUsername = authUser.getUsername();
-        UserModel userModel = userService.getUserByUsername(authUsername);
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        var authUser = (User) authentication.getPrincipal();
+        var authUsername = authUser.getUsername();
+        var userModel = userService.getUserByUsername(authUsername);
         
         if (userModel.getRole().equals("DOKTER")) {
-            ResepModel resep = new ResepModel();
+            var resep = new ResepModel();
             List<ObatModel> listObat = obatService.getListObat();
 
             List<JumlahModel> listAllJumlah = jumlahService.getAllJumlah();
@@ -77,7 +77,7 @@ public class ResepController {
     }
 
     @PostMapping(value = "/create/{kodeAppointment}", params = {"addRowObat"})
-    private String addRowObatMultiple(@PathVariable String kodeAppointment,
+    public String addRowObatMultiple(@PathVariable String kodeAppointment,
                                     @ModelAttribute ResepModel resep,
                                     Model model
     ){
@@ -96,7 +96,7 @@ public class ResepController {
     }
 
     @PostMapping(value = "/create/{kodeAppointment}", params = {"deleteRowObat"})
-    private String deleteRowObatMultiple(@PathVariable String kodeAppointment,
+    public String deleteRowObatMultiple(@PathVariable String kodeAppointment,
                                         @ModelAttribute ResepModel resep,
                                         @RequestParam(value = "deleteRowObat") Integer row,
                                         Model model) {
@@ -127,7 +127,7 @@ public class ResepController {
         if(resep.getListJumlah() == null){
             resep.setListJumlah(new ArrayList<>());
         }else{
-            int count = 0;
+            var count = 0;
             for (JumlahModel jumlah : resep.getListJumlah()){
                 jumlah.setResep(resep);
                 jumlah.setObat(resep.getListJumlah().get(count).getObat());
@@ -150,10 +150,10 @@ public class ResepController {
     @GetMapping("/detail/{id}")
     public String viewDetailResep(@PathVariable Long id, Model model) {
         
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User authUser = (User) authentication.getPrincipal();
-        String authUsername = authUser.getUsername();
-        UserModel userModel = userService.getUserByUsername(authUsername);
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        var authUser = (User) authentication.getPrincipal();
+        var authUsername = authUser.getUsername();
+        var userModel = userService.getUserByUsername(authUsername);
         
         if (userModel.getRole().equals("DOKTER") || userModel.getRole().equals("ADMIN") 
             || userModel.getRole().equals("APOTEKER")) {
@@ -172,10 +172,10 @@ public class ResepController {
 
             List<JumlahModel> listJumlahObat = resep.getListJumlah();
 
-            if (!(apoteker == null)) {
+            if ((apoteker != null)) {
                 String namaApoteker = apoteker.getNama();
             }
-            String namaApoteker = "Tidak Ada";
+            var namaApoteker = "Tidak Ada";
 
             model.addAttribute("resep", resep);
             model.addAttribute("namaDokter", namaDokter);
