@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
-@CrossOrigin("https://apap-065.cs.ui.ac.id/")
+@CrossOrigin
 @Controller
 public class PageController {
 

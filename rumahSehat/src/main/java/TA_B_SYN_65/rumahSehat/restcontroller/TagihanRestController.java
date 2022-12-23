@@ -28,7 +28,7 @@ import TA_B_SYN_65.rumahSehat.repository.TagihanDb;
 import TA_B_SYN_65.rumahSehat.service.TagihanRestService;
 
 @RestController
-@CrossOrigin("https://apap-065.cs.ui.ac.id/")
+@CrossOrigin
 @RequestMapping("api/v1")
 public class TagihanRestController {
 

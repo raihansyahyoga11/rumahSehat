@@ -20,7 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.NoSuchElementException;
 
 @RestController
-@CrossOrigin("https://apap-065.cs.ui.ac.id/")
+@CrossOrigin
 @RequestMapping("/api/mobile")
 public class PasienController {
     @Autowired
