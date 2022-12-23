@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         @Override
         protected void configure(HttpSecurity httpSecurity) throws Exception {
 
-            httpSecurity
+            httpSecurity.csrf().disable()
                     .antMatcher("/api/**").cors().and()
                     .authorizeRequests().antMatchers("/api/mobile/signin").permitAll()
                     .antMatchers("/api/mobile/profile/pasien").permitAll()
@@ -70,7 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public class UILoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
         @Override
         protected void configure(HttpSecurity httpSecurity) throws Exception {
-            httpSecurity.authorizeRequests()
+            httpSecurity.csrf().disable().authorizeRequests()
                     .antMatchers("/css/**").permitAll()
                     .antMatchers("/js/**").permitAll()
                     .antMatchers("/login-sso", "/validate-ticket").permitAll()
