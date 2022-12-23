@@ -33,10 +33,7 @@ class AuthenticationController {
       prefrences.setString('token', loginMaterial['token']);
       prefrences.setString('username', loginMaterial['username']);
 
-
-
       return response.statusCode;
-
 
     } else {
       return response.statusCode;
@@ -48,7 +45,6 @@ class AuthenticationController {
     SharedPreferences prefrences = await SharedPreferences.getInstance();
     prefrences.remove("token");
     token = null;
-    print(token);
     prefrences.remove("token");
   }
   Future<int> attemptTopUp() async {
@@ -64,9 +60,6 @@ class AuthenticationController {
           "saldo": saldoController.text
         }));
     if (response.statusCode == 200) {
-
-
-
       return response.statusCode;
     } else {
       return response.statusCode;
@@ -74,8 +67,6 @@ class AuthenticationController {
   }
 
   Future<PasienModel> getUserProfile() async {
-
-    print("getuser dijalankan");
     const url = 'https://apap-065.cs.ui.ac.id/api/mobile/profile/pasien';
 
     String? token1 = await storage.read(key:'TOKEN');

@@ -27,7 +27,6 @@ import java.util.List;
 @Table(name = "resep")
 public class ResepModel implements Serializable {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_resep", nullable = false)

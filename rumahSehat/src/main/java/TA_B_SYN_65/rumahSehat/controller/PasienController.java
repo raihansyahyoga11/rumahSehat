@@ -35,13 +35,6 @@ public class PasienController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-
-    @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Autowired
-    private UserService userService;
-
     @Autowired
     PasswordEncoder passwordEncoder;
 
@@ -127,7 +120,7 @@ public class PasienController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Pasien dengan "+ authentication.getName() +" not found");
         }
     }
-    private String getPrincipal() {
+    private String getPrincipal1() {
         String userName = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 

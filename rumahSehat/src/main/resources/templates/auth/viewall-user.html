@@ -14,12 +14,11 @@
 <div class="container">
   <br>
   <div th:switch="${userRole}">
-    <h2 th:case="'PASIEN'">Daftar Seluruh PASIEN</h2>
     <h2 th:case="'DOKTER'">Daftar Seluruh DOKTER</h2>
     <h2 th:case="'APOTEKER'">Daftar Seluruh APOTEKER</h2>
   </div>
   <br>
-  <div th:if="${userRole == 'DOKTER' OR userRole == 'APOTEKER' OR userRole == 'PASIEN'}">
+  <div th:if="${userRole == 'DOKTER' OR userRole == 'APOTEKER'}">
     <a class="btn btn-primary" th:href="@{/user/add/} + ${userRole}"> Tambah User</a>
   </div>
 
@@ -35,8 +34,6 @@
       <th>Email User</th>
       <th>Role User</th>
       <th th:if="${userRole == 'DOKTER'}">Tarif</th>
-      <th th:if="${userRole == 'PASIEN'}">Saldo</th>
-      <th th:if="${userRole == 'PASIEN'}">Umur</th>
       <th>Aksi</th>
     </tr>
     </thead>
@@ -48,8 +45,6 @@
       <td th:text="${user.email}"></td>
       <td th:text="${user.role}"></td>
       <td th:if="${userRole == 'DOKTER'}" th:text="${user.tarif}"></td>
-      <td th:if="${userRole == 'PASIEN'}" th:text="${user.saldo}"></td>
-      <td th:if="${userRole == 'PASIEN'}" th:text="${user.umur}"></td>
       <td><a class="btn btn-danger" th:href="@{/user/delete/} + ${user.username}">hapus</a></td>
     </tr>
     </tbody>

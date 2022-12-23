@@ -88,61 +88,8 @@ class ResepDetail extends StatelessWidget {
                         ),
                         dense: true,
                       ),
-
-                      // ListTile(
-                      //     title: const Padding(
-                      //       padding: EdgeInsets.only(bottom: 10.0),
-                      //       child: Text(
-                      //         'Dokter: ',
-                      //         style: TextStyle(
-                      //             fontSize: 16, fontWeight: FontWeight.bold),
-                      //       ),
-                      //     ),
-                      //     dense: true,
-                      //     subtitle: Text(
-                      //       resep.dokter.nama,
-                      //       style: const TextStyle(
-                      //           fontSize: 14, color: Colors.black),
-                      //     )),
                   ],
                   ),
-                  // const SizedBox(
-                  //   height: 10,
-                  // ),
-                  // SizedBox(
-                  //   width: double.infinity,
-                  //   child: 
-                  //   TextButton(
-                  //     style: const ButtonStyle(
-                  //       alignment: Alignment.centerRight,
-                  //     ),
-                  //     child: const Text(
-                  //       "Lihat Resep",
-                  //       style: TextStyle(
-                  //           fontFamily: 'Roboto',
-                  //           fontSize: 12,
-                  //           color: Colors.indigo),
-                  //     ),
-                  //     onPressed: () {
-                  //       //Nanti Diisi Tombol Navigator Detail Resep
-                  //     },
-                  //   ),
-                  // ),
-                  // const Spacer(),
-                  // TextButton(
-                  //   style: TextButton.styleFrom(
-                  //       backgroundColor: Colors.grey,
-                  //       padding: const EdgeInsets.all(15.0),
-                  //       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  //       alignment: Alignment.center),
-                  //   onPressed: () {
-                  //     Navigator.pop(context);
-                  //   },
-                  //   child: const Text(
-                  //     "Back",
-                  //     style: TextStyle(color: Colors.white),
-                  //   ),
-                  // ),
                 ],
               ),
             ),

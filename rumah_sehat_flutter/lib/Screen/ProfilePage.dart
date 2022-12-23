@@ -22,7 +22,6 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   late Future<PasienModel> futureAlbum;
 
-
   @override
   void initState() {
     super.initState();
@@ -31,7 +30,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
   }
 
-
   @override
   Widget build(BuildContext context) {
 
@@ -39,7 +37,7 @@ class _ProfilePageState extends State<ProfilePage> {
       title: 'User Profile',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-      ),
+      ), debugShowCheckedModeBanner: false,
       home: Scaffold(
       body:SizedBox(
           width: double.infinity,

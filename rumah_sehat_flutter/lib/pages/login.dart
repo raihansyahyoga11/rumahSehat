@@ -45,14 +45,10 @@ class _LoginState extends State<Login> {
                 child: Container(
                     width: 200,
                     height: 150,
-                    /*decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(50.0)),*/
                     ),
               ),
             ),
             Padding(
-              //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextFormField(
                 controller: authenticationController.usernameController,
@@ -65,7 +61,6 @@ class _LoginState extends State<Login> {
             Padding(
               padding: const EdgeInsets.only(
                   left: 15.0, right: 15.0, top: 15, bottom: 15),
-              //padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextFormField(
                 controller: authenticationController.passwordController,
                 obscureText: true,
@@ -120,8 +115,7 @@ class _LoginState extends State<Login> {
                     builder: (context) => const SignUpPage(),
                 ));
               },
-              child:
-              Text(
+              child:Text(
                 'New Patient? Create Account',
                 textAlign: TextAlign.center,
               ),

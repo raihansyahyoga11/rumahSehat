@@ -11,62 +11,58 @@ class HomePage extends StatefulWidget {
 
   @override
   State<HomePage> createState() => _HomePage();
-
-
 }
 
 class _HomePage extends State<HomePage> {
 
-
   AuthenticationController authenticationController = AuthenticationController();
-
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      body: Center(
-        child: Container(
-          height: 500,
-          width: 300,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Image.asset('assets/hospital.png'),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () async {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => JadwalAppointmentApp()));
-                    },
-                    child: Text(
-                      'Daftar Appointment',
-                      style: TextStyle(color: Colors.white, fontSize: 25),
-                    ),
+    body: Center(
+      child: Container(
+        height: 500,
+        width: 300,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Image.asset('assets/hospital.png'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => JadwalAppointmentApp()));
+                  },
+                  child: Text(
+                    'Daftar Appointment',
+                    style: TextStyle(color: Colors.white, fontSize: 25),
                   ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () async {
-                      authenticationController.logOut();
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => Login(),
-                      ));
-                    },
-                    child: Text(
-                      'Log out',
-                      style: TextStyle(color: Colors.white, fontSize: 25),
-                    ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    authenticationController.logOut();
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => Login(),
+                    ));
+                  },
+                  child: Text(
+                    'Log out',
+                    style: TextStyle(color: Colors.white, fontSize: 25),
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+          ],
+
         ),
       ),
-    );
-  }
-
+    ),
+  );
+}

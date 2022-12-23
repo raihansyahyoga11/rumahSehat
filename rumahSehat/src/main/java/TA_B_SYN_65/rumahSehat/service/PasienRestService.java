@@ -6,6 +6,5 @@ import TA_B_SYN_65.rumahSehat.model.PasienModel;
 public interface PasienRestService {
     PasienModel getPasienByUsername(String username);
 
-
     PasienModel topUpSaldoPasien(String usename,PasienModel pasien);
 }

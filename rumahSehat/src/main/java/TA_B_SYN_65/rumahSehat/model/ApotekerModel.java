@@ -18,7 +18,6 @@ import javax.persistence.*;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class ApotekerModel extends UserModel implements Serializable {
-    // One to many relationship with Resep masih gagal
     @OneToMany(mappedBy = "confirmer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ResepModel> listResep;
 }

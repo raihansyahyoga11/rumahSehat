@@ -4,7 +4,6 @@ package TA_B_SYN_65.rumahSehat.restcontroller;
 import TA_B_SYN_65.rumahSehat.model.AppointmentModel;
 import TA_B_SYN_65.rumahSehat.model.DokterModel;
 import TA_B_SYN_65.rumahSehat.model.JwtCreateAptRequest;
-import TA_B_SYN_65.rumahSehat.model.PasienModel;
 import TA_B_SYN_65.rumahSehat.service.AppointmentService;
 import TA_B_SYN_65.rumahSehat.service.DokterService;
 import TA_B_SYN_65.rumahSehat.service.PasienService;
@@ -34,13 +33,13 @@ public class AppointmentRestController {
 
     @PostMapping(value = "/create")
     public AppointmentModel createAppointment(@RequestBody JwtCreateAptRequest request) {
-        System.out.println("haha");
         AppointmentModel apt = new AppointmentModel();
         apt.setPasien(pasienService.getPasienByUsername(request.getPasien()));
         apt.setDokter(dokterService.getDokterByUsername(request.getDokter()));
         apt.setWaktuAwal(LocalDateTime.now());
         apt.setIsDone(request.getIsDone());
         appointmentService.createAppointment(apt);
+        System.out.println("haha");
         return apt;
     }
 
@@ -48,9 +47,4 @@ public class AppointmentRestController {
     public List<AppointmentModel> getUserAppointment(@PathVariable String username) {
         return appointmentService.getListAppointmentByPasien(pasienService.getPasienByUsername(username));
     }
-
-//    @PostMapping(value = "/create")
-//    public AppointmentModel create() {
-//        return
-//    }
 }

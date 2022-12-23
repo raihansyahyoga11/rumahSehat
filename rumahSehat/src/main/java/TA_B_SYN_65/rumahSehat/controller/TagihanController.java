@@ -1,31 +1,18 @@
 package TA_B_SYN_65.rumahSehat.controller;
 
 import TA_B_SYN_65.rumahSehat.model.*;
-import TA_B_SYN_65.rumahSehat.security.xml.Attributes;
-import TA_B_SYN_65.rumahSehat.security.xml.ServiceResponse;
-//import TA_B_SYN_65.rumahSehat.service.TagihanService;
 import TA_B_SYN_65.rumahSehat.service.AppointmentService;
 import TA_B_SYN_65.rumahSehat.service.TagihanService;
 import TA_B_SYN_65.rumahSehat.service.UserService;
-import TA_B_SYN_65.rumahSehat.setting.Setting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.web.ServerProperties;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -69,7 +56,7 @@ public class TagihanController {
                 tagihan.setJumlahTagihan(apt.getDokter().getTarif() + totalObat);
             }
 
-            tagihanService.createTagihan(tagihan);
+//            tagihanService.createTagihan(tagihan);
 
             model.addAttribute("appt", apt);
             return "appointment/detail-appointment";

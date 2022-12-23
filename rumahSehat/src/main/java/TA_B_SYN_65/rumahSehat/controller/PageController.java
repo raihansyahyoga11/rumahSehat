@@ -30,7 +30,6 @@ public class PageController {
     @Autowired
     private UserService userService;
 
-
     private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
