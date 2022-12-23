@@ -1,7 +1,6 @@
 package TA_B_SYN_65.rumahSehat.controller;
 
 import TA_B_SYN_65.rumahSehat.model.UserModel;
-import TA_B_SYN_65.rumahSehat.security.xml.Attributes;
 import TA_B_SYN_65.rumahSehat.security.xml.ServiceResponse;
 import TA_B_SYN_65.rumahSehat.service.UserService;
 import TA_B_SYN_65.rumahSehat.setting.Setting;
@@ -9,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +17,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 @CrossOrigin
@@ -29,8 +25,6 @@ public class PageController {
 
     @Autowired
     private UserService userService;
-
-    private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
     ServerProperties serverProperties;
@@ -42,7 +36,7 @@ public class PageController {
 
 
     @GetMapping("/")
-    private String Home(String username, Model model){
+    public String home(String username, Model model){
         UserModel user = userService.getUserByUsername(username);
         model.addAttribute("user", user);
 
@@ -55,7 +49,7 @@ public class PageController {
         return "auth/login";
     }
     @PostMapping("/login")
-    private String loginSubmitPage(Model model)
+    public String loginSubmitPage(Model model)
     { model.addAttribute("port",serverProperties.getPort());
         return "home";
     }
@@ -68,17 +62,17 @@ public class PageController {
             HttpServletRequest request
     )
     {
-        ServiceResponse serviceResponse = this.webClient.get().uri(
+        var serviceResponse = this.webClient.get().uri(
                 String.format(
                         Setting.SERVER_VALIDATE_TICKET, ticket, Setting.CLIENT_LOGIN
                 )
         ).retrieve().bodyToMono(ServiceResponse.class).block();
         if (serviceResponse != null) {
-            Attributes attributes = serviceResponse.getAuthenticationSuccess().getAttributes();
-            String username = serviceResponse.getAuthenticationSuccess().getUser();
+            var attributes = serviceResponse.getAuthenticationSuccess().getAttributes();
+            var username = serviceResponse.getAuthenticationSuccess().getUser();
 
 
-            UserModel user = userService.getUserByUsername(username);
+            var user = userService.getUserByUsername(username);
 
             if (user == null) {
                 if (username.startsWith("a") || username.startsWith("r") || username.startsWith("d") || username.startsWith("h")) {
@@ -106,10 +100,10 @@ public class PageController {
 
             Authentication authentication = new UsernamePasswordAuthenticationToken(username, "rumahsehat");
 
-            SecurityContext securityContext = SecurityContextHolder.getContext();
+            var securityContext = SecurityContextHolder.getContext();
             securityContext.setAuthentication(authentication);
 
-            HttpSession httpSession = request.getSession(true);
+            var httpSession = request.getSession(true);
             httpSession.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext);
 
         }

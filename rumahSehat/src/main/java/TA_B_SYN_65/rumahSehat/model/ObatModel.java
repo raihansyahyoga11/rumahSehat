@@ -6,11 +6,10 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.bind.DefaultValue;
+
 
 import javax.persistence.*;
-import javax.validation.Valid;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 

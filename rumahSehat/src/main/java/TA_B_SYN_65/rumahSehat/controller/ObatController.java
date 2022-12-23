@@ -19,6 +19,7 @@ import java.util.Map;
 
 @Controller
 public class ObatController {
+
     @Qualifier("obatServiceImpl")
     @Autowired
     private ObatService obatService;
@@ -44,7 +45,7 @@ public class ObatController {
 
     @GetMapping("/obat/barChartObat")
     public String ChartObatForm(Model model) {
-        BarChartModel newBarChart = new BarChartModel();
+        var newBarChart = new BarChartModel();
 
         List<BarChartObatModel> newBarChartObat = new ArrayList<>();
         newBarChart.setListBarChartObat(newBarChartObat);
@@ -65,16 +66,16 @@ public class ObatController {
         if (barChart.getListBarChartObat() == null) {
             barChart.setListBarChartObat(new ArrayList<>());
         }
-        for (int i = 0; i < barChart.getListBarChartObat().size(); i++) {
+        for (var i = 0; i < barChart.getListBarChartObat().size(); i++) {
             barChart.getListBarChartObat().get(i).setBarChart(barChart);
         }
         barChartService.addBarChart(barChart);
-        Map<String, Integer> data = new LinkedHashMap<String, Integer>();
-        String jenisBarChart = "";
+        Map<String, Integer> data = new LinkedHashMap<>();
+        var jenisBarChart = "";
 
-        if (barChart.getIsBarChartKuantitas() == true) {
+        if (barChart.getIsBarChartKuantitas()) {
             jenisBarChart = "Kuantitas";
-            for (int i = 0; i < barChart.getListBarChartObat().size(); i++) {
+            for (var i = 0; i < barChart.getListBarChartObat().size(); i++) {
                 barChart.getListBarChartObat().get(i).setBarChart(barChart);
                 String namaObat = (obatService
                         .getObatbyId(barChart.getListBarChartObat().get(i).getObatSelected().getId())).getNama();
@@ -84,7 +85,7 @@ public class ObatController {
 
         } else {
             jenisBarChart = "Total Pendapatan";
-            for (int i = 0; i < barChart.getListBarChartObat().size(); i++) {
+            for (var i = 0; i < barChart.getListBarChartObat().size(); i++) {
                 barChart.getListBarChartObat().get(i).setBarChart(barChart);
                 String namaObat = (obatService
                         .getObatbyId(barChart.getListBarChartObat().get(i).getObatSelected().getId())).getNama();
@@ -99,11 +100,11 @@ public class ObatController {
     }
 
     @PostMapping(value = "/obat/barChartObat", params = { "addRowChart" })
-    private String addRowObatMultiple(
+    public String addRowObatMultiple(
             @ModelAttribute BarChartModel barChart,
             Model model) {
         List<ObatModel> listObat = obatService.getListObat();
-        if (barChart.getListBarChartObat() == null || barChart.getListBarChartObat().size() == 0) {
+        if (barChart.getListBarChartObat() == null || barChart.getListBarChartObat().isEmpty()) {
             barChart.setListBarChartObat(new ArrayList<>());
             barChart.getListBarChartObat().add(new BarChartObatModel());
             model.addAttribute("barChart", barChart);
@@ -113,12 +114,10 @@ public class ObatController {
             barChart.getListBarChartObat().add(new BarChartObatModel());
             model.addAttribute("barChart", barChart);
             model.addAttribute("listObat", listObat);
-            // model.addAttribute("listBarChart", newBarChartObat);
             return "obat/form-chart-obat";
         } else {
             model.addAttribute("barChart", barChart);
             model.addAttribute("listObat", listObat);
-            // model.addAttribute("listBarChart", newBarChartObat);
             model.addAttribute("message", "Maaf, anda sudah mencapai jumlah maksimal obat yang dapat ditampilkan");
             return "obat/form-chart-obat";
         }
@@ -126,7 +125,7 @@ public class ObatController {
     }
 
     @PostMapping(value = "/obat/barChartObat", params = { "deleteRowChart" })
-    private String deleteRowObatMultiple(
+    public String deleteRowObatMultiple(
             @ModelAttribute BarChartModel barChart,
             @RequestParam("deleteRowChart") Integer row,
             Model model) {
@@ -161,7 +160,7 @@ public class ObatController {
     }
     @GetMapping(value ="/obat/lineChartObat")
     public String lineChartObat(Model model){
-        LineChartModel lineChart = new LineChartModel();
+        var lineChart = new LineChartModel();
 
         List<LineChartObatModel> newLineChartObat = new ArrayList<>();
         lineChart.setListLineChartObat(newLineChartObat);
@@ -175,15 +174,13 @@ public class ObatController {
         model.addAttribute("lineChart", lineChart);
         model.addAttribute("listObat", listObat);
         return "obat/form-line-chart";
-        //ObatModel obat = obatService.getObatbyId("0101010C0AAAHAH");
-        //Integer m = jumlahService.getKuantitasPemasukkan(obat);
-        //return m ;
+
     }
     @PostMapping(value = "/obat/lineChartObat", params = {"addRowChart"})
-    private String addRowLineObatMultiple(@ModelAttribute LineChartModel lineChart, Model model) {
+    public String addRowLineObatMultiple(@ModelAttribute LineChartModel lineChart, Model model) {
         List<String> listBulan = lineChartService.pilihanBulan();
         List<ObatModel> listObat = obatService.getListObat();
-        if (lineChart.getListLineChartObat() == null || lineChart.getListLineChartObat().size() == 0) {
+        if (lineChart.getListLineChartObat() == null || lineChart.getListLineChartObat().isEmpty()) {
             lineChart.setListLineChartObat(new ArrayList<>());
             lineChart.getListLineChartObat().add(new LineChartObatModel());
 
@@ -210,7 +207,7 @@ public class ObatController {
     }
 
     @PostMapping(value = "/obat/lineChartObat", params = {"deleteRowChart"})
-    private String deleteRowLineMultiple(@ModelAttribute LineChartModel lineChart, @RequestParam("deleteRowChart") Integer row,
+    public String deleteRowLineMultiple(@ModelAttribute LineChartModel lineChart, @RequestParam("deleteRowChart") Integer row,
             Model model) {
         List<ObatModel> listObat = obatService.getListObat();
         lineChart.getListLineChartObat().remove(row.intValue());
@@ -220,9 +217,9 @@ public class ObatController {
     }
     @PostMapping("/obat/lineChartObat")
     public String chartObatLineSubmit(@ModelAttribute LineChartModel lineChart, Model model) {
-        String periode = "Data Tahunan";
-        Integer size = 0;
-        String listNama[] = new String[5];
+        var periode = "Data Tahunan";
+        var size = 0;
+        String[] listNama = new String[5];
         LinkedHashMap<String, Integer> data[] = new LinkedHashMap[5];
         if (lineChart.getListLineChartObat() == null) {
             lineChart.setListLineChartObat(new ArrayList<>());
@@ -231,11 +228,11 @@ public class ObatController {
             lineChart.getListLineChartObat().get(i).setLineChart(lineChart);
         }
         lineChartService.addLineChart(lineChart);
-        if(lineChart.getIsBulan() == true ) {
+        if(lineChart.getIsBulan()) {
             periode = "Data Bulan " + lineChart.getBulan();
             for (LineChartObatModel obat:lineChart.getListLineChartObat()) {
-                LinkedHashMap<String, Integer> datas = new LinkedHashMap<String, Integer>();
-                ObatModel obats = obat.getObatSelected();
+                LinkedHashMap<String, Integer> datas;
+                var obats = obat.getObatSelected();
                 Integer hargas = obatService.getObatbyId(obat.getObatSelected().getId()).getHarga();
                 String namaObat = obatService.getObatbyId(obat.getObatSelected().getId()).getNama();
                 datas = lineChartService.hitungDalamBulan(lineChart.getBulan(),obats,hargas) ;
@@ -246,7 +243,7 @@ public class ObatController {
         }
         else{
             for (LineChartObatModel obat:lineChart.getListLineChartObat()) {
-                LinkedHashMap<String, Integer> datas = new LinkedHashMap<String, Integer>();
+                LinkedHashMap<String, Integer> datas;
                 ObatModel obats = obat.getObatSelected();
                 Integer hargas = obatService.getObatbyId(obat.getObatSelected().getId()).getHarga();
                 String namaObat = obatService.getObatbyId(obat.getObatSelected().getId()).getNama();

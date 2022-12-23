@@ -5,7 +5,6 @@ import TA_B_SYN_65.rumahSehat.security.jwt.JwtTokenUtil;
 import TA_B_SYN_65.rumahSehat.service.AdminService;
 import TA_B_SYN_65.rumahSehat.service.PasienRestService;
 import TA_B_SYN_65.rumahSehat.service.PasienService;
-import TA_B_SYN_65.rumahSehat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,16 +13,10 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.security.Principal;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -49,7 +42,7 @@ public class PasienController {
     @PostMapping( value = "/signin")
     public ResponseEntity<JwtResponse> authenticateLogin(@RequestBody JwtLoginRequest authenticationRequest) throws Exception {
         try {
-            Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
+            var authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
             final String token = jwtTokenUtil.generateToken((UserDetails) authenticate.getPrincipal());
             return ResponseEntity.ok()
                     .body(new JwtResponse(token, authenticate.getName()));
@@ -64,19 +57,19 @@ public class PasienController {
 
     @PostMapping(value="/signupAdmin")
     public AdminModel signupAdmin(@RequestBody JwtSignUpRequest request) {
-        AdminModel user = new AdminModel();
+        var user = new AdminModel();
         user.setRole(request.getRole());
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setNama(request.getNama());
-        AdminModel created = adminService.create(user);
+        var created = adminService.create(user);
         return created;
     }
 
     @PostMapping(value="/signupPasien")
     public PasienModel signupPasien(@RequestBody JwtSignUpRequest request) {
-        PasienModel user = new PasienModel();
+        var user = new PasienModel();
         user.setUmur(request.getUmur());
         user.setRole(request.getRole());
         user.setSaldo(0);
@@ -84,7 +77,7 @@ public class PasienController {
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setNama(request.getNama());
-        PasienModel created = pasienService.create(user);
+        var created = pasienService.create(user);
         return created;
     }
     @PostMapping(value="/topUp")
@@ -97,41 +90,21 @@ public class PasienController {
 
     @GetMapping(value="/profile/pasien")
     @ResponseBody
-    private PasienModel retrievePasien(Model model ,Authentication authentication){
-        String userName = "";
-        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-        Object principal  = loggedInUser.getPrincipal();
-        if (principal instanceof UserDetails) {
-            userName = ((UserDetails) principal).getUsername();
-        } else {
-            userName = principal.toString();
-        }
-
+    public PasienModel retrievePasien(Authentication authentication){
         try{
             return pasienRestService.getPasienByUsername(authentication.getName());
         }catch(NoSuchElementException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Pasien dengan "+ authentication.getName() +" not found");
         }
     }
-    private String getPrincipal1() {
-        String userName = null;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (principal instanceof UserDetails) {
-            userName = ((UserDetails) principal).getUsername();
-        } else {
-            userName = principal.toString();
-        }
-        return userName;
-    };
 
     @PutMapping(value="/topUp")
-    private PasienModel topUpPasien(@RequestBody PasienModel pasien1,Authentication authentication){
-        try{
+    public PasienModel topupPasien(@RequestBody PasienModel pasien1,Authentication authentication){
+        try {
             PasienModel pasien = pasienRestService.getPasienByUsername(authentication.getName());
             pasien.setSaldo(pasien.getSaldo() + pasien1.getSaldo());
             return pasienService.create(pasien);
-        }catch(NoSuchElementException e){
+        } catch(NoSuchElementException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Pasien dengan "+ authentication.getName() +" not found");
         }
     }

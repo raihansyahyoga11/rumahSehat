@@ -1,6 +1,6 @@
 package TA_B_SYN_65.rumahSehat.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,10 +11,9 @@ import org.hibernate.annotations.OnDeleteAction;
 import reactor.util.annotation.Nullable;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
+
 import java.io.Serializable;
-import java.util.List;
-import java.util.Optional;
+
 
 @Setter
 @Getter

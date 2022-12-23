@@ -12,7 +12,7 @@ import org.hibernate.id.IdentifierGenerator;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.type.Type;
 
-public class TagihanIdGenerator implements IdentifierGenerator, Configurable {
+public class TagihanIdGenerator implements IdentifierGenerator {
     private String prefix;
 
     @Override
@@ -20,13 +20,13 @@ public class TagihanIdGenerator implements IdentifierGenerator, Configurable {
             SharedSessionContractImplementor session, Object obj)
             throws HibernateException {
 
-        String query = String.format("select %s from %s",
+        var query = String.format("select %s from %s",
                 session.getEntityPersister(obj.getClass().getName(), obj).getIdentifierPropertyName(),
                 obj.getClass().getSimpleName());
 
         Stream<String> ids = session.createQuery(query).stream();
 
-        Long max = ids.map(o -> o.replace(prefix + "-", ""))
+        var max = ids.map(o -> o.replace(prefix + "-", ""))
                 .mapToLong(Long::parseLong)
                 .max()
                 .orElse(0L);
