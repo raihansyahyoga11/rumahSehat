@@ -14,7 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.NoSuchElementException;
 
-@CrossOrigin("https://apap-065.cs.ui.ac.id/")
+@CrossOrigin
 @RestController
 @RequestMapping("/api/v1")
 public class PasienRestController {

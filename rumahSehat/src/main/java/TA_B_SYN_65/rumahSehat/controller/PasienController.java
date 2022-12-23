@@ -27,7 +27,7 @@ import java.security.Principal;
 import java.util.NoSuchElementException;
 
 @RestController
-@CrossOrigin("https://apap-065.cs.ui.ac.id/")
+@CrossOrigin
 @RequestMapping("/api/mobile")
 public class PasienController {
     @Autowired

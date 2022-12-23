@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
-@CrossOrigin("https://apap-065.cs.ui.ac.id/")
+@CrossOrigin
 @Controller
 public class PageController {
 
