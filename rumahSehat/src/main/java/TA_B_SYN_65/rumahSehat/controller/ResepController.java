@@ -102,8 +102,8 @@ public class ResepController {
                                         Model model) {
         
         List<ObatModel> listObat = obatService.getListObat();
-        final Integer rowInt = Integer.valueOf(row);
-        resep.getListJumlah().remove(rowInt.intValue());
+
+        resep.getListJumlah().remove(row.intValue());
 
         List<JumlahModel> listJumlah = resep.getListJumlah();
 
@@ -159,11 +159,12 @@ public class ResepController {
             || userModel.getRole().equals("APOTEKER")) {
             
             ResepModel resep = resepService.findResepById(id);
-            ApotekerModel apoteker = resep.getConfirmer();
-    
             if (resep == null){
                 return "/error/404.html";
             }
+            ApotekerModel apoteker = resep.getConfirmer();
+    
+
 
 
             String namaDokter = resep.getAppointment().getDokter().getNama();

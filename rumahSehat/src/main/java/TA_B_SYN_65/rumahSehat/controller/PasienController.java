@@ -27,7 +27,7 @@ import java.security.Principal;
 import java.util.NoSuchElementException;
 
 @RestController
-@CrossOrigin
+@CrossOrigin("https://apap-065.cs.ui.ac.id/")
 @RequestMapping("/api/mobile")
 public class PasienController {
     @Autowired
@@ -94,7 +94,7 @@ public class PasienController {
         PasienModel created = pasienService.create(user);
         return created;
     }
-    @CrossOrigin
+
     @GetMapping(value="/profile/pasien")
     @ResponseBody
     private PasienModel retrievePasien(Model model ,Authentication authentication){
@@ -124,7 +124,7 @@ public class PasienController {
         }
         return userName;
     };
-    @CrossOrigin
+
     @PutMapping(value="/topUp")
     private PasienModel topUpPasien(@RequestBody PasienModel pasien1,Authentication authentication){
         try{

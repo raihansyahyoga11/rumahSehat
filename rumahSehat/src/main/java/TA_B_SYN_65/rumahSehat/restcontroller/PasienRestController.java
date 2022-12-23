@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.NoSuchElementException;
 
+@CrossOrigin("https://apap-065.cs.ui.ac.id/")
 @RestController
 @RequestMapping("/api/v1")
 public class PasienRestController {
@@ -24,7 +25,7 @@ public class PasienRestController {
     @Autowired
     AdminService adminService;
 
-    @CrossOrigin
+
     @GetMapping(value="/profile/pasien")
     @ResponseBody
     private PasienModel retrievePasien(){

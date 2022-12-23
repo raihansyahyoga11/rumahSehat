@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin("https://apap-065.cs.ui.ac.id/")
 @Controller
 @RequestMapping("/appointment")
 public class AppointmentController {

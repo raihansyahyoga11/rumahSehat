@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin("https://apap-065.cs.ui.ac.id/")
 @Controller
 @RequestMapping("/user")
 public class UserController {

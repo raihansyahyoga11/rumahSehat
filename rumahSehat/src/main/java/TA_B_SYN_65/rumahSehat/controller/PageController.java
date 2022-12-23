@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
-@CrossOrigin
+@CrossOrigin("https://apap-065.cs.ui.ac.id/")
 @Controller
 public class PageController {
 
@@ -73,44 +73,46 @@ public class PageController {
                         Setting.SERVER_VALIDATE_TICKET, ticket, Setting.CLIENT_LOGIN
                 )
         ).retrieve().bodyToMono(ServiceResponse.class).block();
+        if (serviceResponse != null) {
+            Attributes attributes = serviceResponse.getAuthenticationSuccess().getAttributes();
+            String username = serviceResponse.getAuthenticationSuccess().getUser();
 
-        Attributes attributes = serviceResponse.getAuthenticationSuccess().getAttributes();
-        String username = serviceResponse.getAuthenticationSuccess().getUser();
 
-        UserModel user = userService.getUserByUsername(username);
+            UserModel user = userService.getUserByUsername(username);
 
-        if (user == null) {
-            if (username.startsWith("a") || username.startsWith("r") || username.startsWith("d") || username.startsWith("h")) {
-                user = new UserModel();
-                user.setEmail(username + "@ui.ac.id");
-                user.setNama(attributes.getNama());
-                user.setPassword("rumahsehat");
-                user.setUsername(username);
-                user.setIsSso(true);
-                user.setRole("ADMIN");
-                userService.addUser(user);
+            if (user == null) {
+                if (username.startsWith("a") || username.startsWith("r") || username.startsWith("d") || username.startsWith("h")) {
+                    user = new UserModel();
+                    user.setEmail(username + "@ui.ac.id");
+                    user.setNama(attributes.getNama());
+                    user.setPassword("rumahsehat");
+                    user.setUsername(username);
+                    user.setIsSso(true);
+                    user.setRole("ADMIN");
+                    userService.addUser(user);
+                } else {
+                    user = new UserModel();
+                    user.setEmail(username + "@ui.ac.id");
+                    user.setNama(attributes.getNama());
+                    user.setPassword("rumahsehat");
+                    user.setUsername(username);
+                    user.setIsSso(true);
+                    user.setRole("NO-ROLE");
+                    userService.addUser(user);
+                }
+
             }
-            else {
-                user = new UserModel();
-                user.setEmail(username + "@ui.ac.id");
-                user.setNama(attributes.getNama());
-                user.setPassword("rumahsehat");
-                user.setUsername(username);
-                user.setIsSso(true);
-                user.setRole("NO-ROLE");
-                userService.addUser(user);
-            }
+
+
+            Authentication authentication = new UsernamePasswordAuthenticationToken(username, "rumahsehat");
+
+            SecurityContext securityContext = SecurityContextHolder.getContext();
+            securityContext.setAuthentication(authentication);
+
+            HttpSession httpSession = request.getSession(true);
+            httpSession.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext);
 
         }
-
-        Authentication authentication = new UsernamePasswordAuthenticationToken(username, "rumahsehat");
-
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        securityContext.setAuthentication(authentication);
-
-        HttpSession httpSession = request.getSession(true);
-        httpSession.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext);
-
         return new ModelAndView("redirect:/");
     }
 
