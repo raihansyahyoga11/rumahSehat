@@ -42,7 +42,7 @@ public class TagihanRestController {
    PasienRestService pasienRestService ;
 
    Logger logger = LoggerFactory.getLogger(TagihanRestController.class);
-   @CrossOrigin
+
    @GetMapping(value = "/tagihan/{code}")
    private TagihanDto retrieveTagihan(@PathVariable("code") String code) {
       try {
@@ -68,7 +68,6 @@ public class TagihanRestController {
       } else {
          userName = principal.toString();
       }
-      System.out.println(userName);
       return userName;
    }
 

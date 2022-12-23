@@ -47,7 +47,6 @@ public class LineChartServiceImpl implements LineChartService {
     @Override
     public LinkedHashMap<String,Integer> hitungDalamBulan(String bulan, ObatModel idObat,Integer harga){
         LinkedHashMap<String,Integer> data = new LinkedHashMap<>();
-        System.out.print(harga+"ahdjkhasjkdhaskdhk");
         Integer noBulan = listBULAN.indexOf(bulan)+1;
         String m = noBulan.toString();
         if (noBulan<10){

@@ -49,13 +49,8 @@ public class PasienController {
     @PostMapping( value = "/signin")
     public ResponseEntity<JwtResponse> authenticateLogin(@RequestBody JwtLoginRequest authenticationRequest) throws Exception {
         try {
-            System.out.println("Masuk");
-
             Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
-            System.out.println("sini");
             final String token = jwtTokenUtil.generateToken((UserDetails) authenticate.getPrincipal());
-            System.out.println(token);
-            System.out.println(authenticate.getName());
             return ResponseEntity.ok()
                     .body(new JwtResponse(token, authenticate.getName()));
         }
@@ -69,7 +64,6 @@ public class PasienController {
 
     @PostMapping(value="/signupAdmin")
     public AdminModel signupAdmin(@RequestBody JwtSignUpRequest request) {
-        System.out.println("hihi");
         AdminModel user = new AdminModel();
         user.setRole(request.getRole());
         user.setUsername(request.getUsername());
@@ -82,7 +76,6 @@ public class PasienController {
 
     @PostMapping(value="/signupPasien")
     public PasienModel signupPasien(@RequestBody JwtSignUpRequest request) {
-        System.out.println("haha");
         PasienModel user = new PasienModel();
         user.setUmur(request.getUmur());
         user.setRole(request.getRole());

@@ -71,7 +71,6 @@ public class AppointmentController {
     }
 
     //tes postman create appoinment
-    @CrossOrigin
     @PostMapping("/create")
     public AppointmentModel makeAppoinment(@RequestBody String kode,Model model,Authentication authentication){
         AppointmentModel appointment = new AppointmentModel();

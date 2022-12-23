@@ -39,7 +39,6 @@ public class AppointmentRestController {
         apt.setWaktuAwal(LocalDateTime.now());
         apt.setIsDone(request.getIsDone());
         appointmentService.createAppointment(apt);
-        System.out.println("haha");
         return apt;
     }
 

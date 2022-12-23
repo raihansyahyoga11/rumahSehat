@@ -65,7 +65,6 @@ public class ObatController {
         if (barChart.getListBarChartObat() == null) {
             barChart.setListBarChartObat(new ArrayList<>());
         }
-        System.out.println(barChart.getListBarChartObat().size());
         for (int i = 0; i < barChart.getListBarChartObat().size(); i++) {
             barChart.getListBarChartObat().get(i).setBarChart(barChart);
         }
@@ -94,7 +93,6 @@ public class ObatController {
 
             }
         }
-        System.out.println(data.size());
         model.addAttribute("data", data);
         model.addAttribute("jenisBarChart", jenisBarChart);
         return "obat/chart-obat";
@@ -104,25 +102,20 @@ public class ObatController {
     private String addRowObatMultiple(
             @ModelAttribute BarChartModel barChart,
             Model model) {
-        System.out.println("seengganya masuk sini");
         List<ObatModel> listObat = obatService.getListObat();
         if (barChart.getListBarChartObat() == null || barChart.getListBarChartObat().size() == 0) {
-            System.out.println("cihuy");
             barChart.setListBarChartObat(new ArrayList<>());
             barChart.getListBarChartObat().add(new BarChartObatModel());
-            System.out.println(barChart.getListBarChartObat().size());
             model.addAttribute("barChart", barChart);
             model.addAttribute("listObat", listObat);
             return "obat/form-chart-obat";
         } else if (barChart.getListBarChartObat().size() < 8) {
-            System.out.println("jim");
             barChart.getListBarChartObat().add(new BarChartObatModel());
             model.addAttribute("barChart", barChart);
             model.addAttribute("listObat", listObat);
             // model.addAttribute("listBarChart", newBarChartObat);
             return "obat/form-chart-obat";
         } else {
-            System.out.println("cihuy1");
             model.addAttribute("barChart", barChart);
             model.addAttribute("listObat", listObat);
             // model.addAttribute("listBarChart", newBarChartObat);
@@ -138,8 +131,7 @@ public class ObatController {
             @RequestParam("deleteRowChart") Integer row,
             Model model) {
         List<ObatModel> listObat = obatService.getListObat();
-        final Integer rowId = Integer.valueOf(row);
-        barChart.getListBarChartObat().remove(rowId.intValue());
+        barChart.getListBarChartObat().remove(row.intValue());
         model.addAttribute("barChart", barChart);
         model.addAttribute("listObat", listObat);
         return "obat/form-chart-obat";
@@ -221,8 +213,7 @@ public class ObatController {
     private String deleteRowLineMultiple(@ModelAttribute LineChartModel lineChart, @RequestParam("deleteRowChart") Integer row,
             Model model) {
         List<ObatModel> listObat = obatService.getListObat();
-        final Integer rowId = Integer.valueOf(row);
-        lineChart.getListLineChartObat().remove(rowId.intValue());
+        lineChart.getListLineChartObat().remove(row.intValue());
         model.addAttribute("lineChart", lineChart);
         model.addAttribute("listObat", listObat);
         return "obat/form-line-chart";
@@ -236,7 +227,6 @@ public class ObatController {
         if (lineChart.getListLineChartObat() == null) {
             lineChart.setListLineChartObat(new ArrayList<>());
         }
-        System.out.println(lineChart.getListLineChartObat().size());
         for (int i=0; i< lineChart.getListLineChartObat().size();i++) {
             lineChart.getListLineChartObat().get(i).setLineChart(lineChart);
         }
